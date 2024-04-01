@@ -1,23 +1,26 @@
 import React, { useRef, useState } from 'react';
-import { Button, View, Text, StyleSheet, ImageBackground, Image, Alert, TouchableOpacity, TextInput } from 'react-native';
+import { Button, View, Text, StyleSheet, ImageBackground, Image, Alert, TouchableOpacity } from 'react-native';
 import bg from './../../imgs/background.png';
 import profile from './../../imgs/profile.png';
 import * as ImagePicker from 'expo-image-picker';
 import { Formik } from "formik";
 import * as Yup from 'yup';
-import { getFirestore, setDoc, doc, collection } from '@firebase/firestore';
-import { getStorage, ref, uploadString } from "firebase/storage";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Modalize } from 'react-native-modalize';
 import { Input } from '@rneui/base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export interface IniciocreenProps {
+export interface InicioscreenProps {
     navigation: any;
 }
 
-export function InicioScreen(props: IniciocreenProps) {
+export function InicioScreen(props: InicioscreenProps) {
 
     const modal = useRef<Modalize>();
+
+    const [status, requestPermission] = ImagePicker.useCameraPermissions();
+
+    const [imagem, setImagem] = useState<null | string>(null)
 
     const abrir = () => {
         try {
@@ -27,26 +30,14 @@ export function InicioScreen(props: IniciocreenProps) {
         }
     }
 
-    const db = getFirestore();
-
-    const storage = getStorage();
-
-    //const storageRef = ref(storage, 'imagens');
-
-    /*const message2 = '5b6p5Y+344GX44G+44GX44Gf77yB44GK44KB44Gn44Go44GG77yB';
-     uploadString(storageRef, message2, 'base64').then((snapshot) => {
-         console.log('Uploaded a base64 string!');
-     });*/
-
-    const handleCadastro = async ({ nome }: any) => {
-        await setDoc(doc(collection(db, "usuarios")), {
-            name: nome
-        });
-    }
-
-    const [status, requestPermission] = ImagePicker.useCameraPermissions();
-
-    const [imagem, setImagem] = useState<null | string>(null)
+    const handleCadastro = async ({ nome, foto }: any) => {
+        try {
+            AsyncStorage.setItem('nome', nome);
+            AsyncStorage.setItem('nome', foto);
+        } catch (erro) {
+            console.log(erro)
+        }
+    };
 
     const abrirCamera = async () => {
         //Avalia se tem permissão
@@ -85,7 +76,7 @@ export function InicioScreen(props: IniciocreenProps) {
             quality: 1,
             aspect: [1, 1],
             allowsMultipleSelection: false,
-            mediaTypes: ImagePicker.MediaTypeOptions.Images
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
         });
         if (!foto.canceled)
             setImagem('data:image/jpg;base64,' + foto.assets[0].base64)
@@ -98,7 +89,6 @@ export function InicioScreen(props: IniciocreenProps) {
                 <View style={styles.image}>
                     <Text style={styles.textFoto}>INSIRA SUA FOTO</Text>
                     <View style={styles.buttonFoto}>
-
                         <TouchableOpacity onPress={abrir}>
                             {imagem ? (
                                 <Image source={{ uri: imagem }} style={styles.foto} />
@@ -108,6 +98,25 @@ export function InicioScreen(props: IniciocreenProps) {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <Formik
+                    initialValues={{ nome: '', }}
+                    onSubmit={handleCadastro}
+                    validationSchema={Yup.object({
+                        nome: Yup.string().required('O campo nome precisa ser informado'),
+                    })}
+                >{({ handleChange, errors, touched, handleBlur, isSubmitting, handleSubmit }) => (
+                    <View style={styles.TextInput}>
+                        <Input leftIcon={{ name: 'person', color: 'rgba(247, 99, 110, 1)' }} placeholder='DIGITE SEU NOME'
+                            onChangeText={handleChange('nome')} onBlur={handleBlur('nome')} style={styles.input} />
+                        {touched.nome && errors.nome && <Text style={styles.erro}>{errors.nome}</Text>}
+                        <TouchableOpacity onPress={() => handleSubmit()} disabled={isSubmitting}>
+                            <View style={styles.buttonInput}>
+                                <Text style={styles.textButton}>Pular</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                )}
+                </Formik>
                 <Modalize
                     ref={modal}
                     adjustToContentHeight
@@ -126,25 +135,6 @@ export function InicioScreen(props: IniciocreenProps) {
                         }} />
                     </View>
                 </Modalize>
-                <Formik
-                    initialValues={{ nome: '', }}
-                    onSubmit={handleCadastro}
-                    validationSchema={Yup.object({
-                        nome: Yup.string().required('O campo nome precisa ser informado'),
-                    })}
-                >{({ handleChange, errors, touched, handleBlur, isSubmitting, handleSubmit }) => (
-                    <View style={styles.TextInput}>
-                        <Input leftIcon={{ name: 'person', color: 'rgba(247, 99, 110, 1)' }} labelStyle={{ color: 'rgba(247, 99, 110, 1)' }} placeholder='DIGITE SEU NOME' onChangeText={handleChange('nome')}
-                            onBlur={handleBlur('nome')} style={styles.input} />
-                        {touched.nome && errors.nome && <Text style={styles.erro}>{errors.nome}</Text>}
-                        <TouchableOpacity onPress={() => handleSubmit()} disabled={isSubmitting}>
-                            <View style={styles.buttonInput}>
-                                <Text style={styles.textButton}>Pular</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                )}
-                </Formik>
             </GestureHandlerRootView>
         </ImageBackground>
     );
