@@ -20,7 +20,7 @@ export function InicioScreen(props: InicioscreenProps) {
 
     const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
-    const [imagem, setImagem] = useState<null | string>(null)
+    const [imagem, setImagem] = useState< null | string >(null)
 
     const abrir = () => {
         try {
@@ -29,23 +29,13 @@ export function InicioScreen(props: InicioscreenProps) {
             console.log(erro)
         }
     }
-
-    const handleCadastro = async ({ nome, foto }: any) => {
-        try {
-            AsyncStorage.setItem('nome', nome);
-            AsyncStorage.setItem('nome', foto);
-        } catch (erro) {
-            console.log(erro)
-        }
-    };
-
     const abrirCamera = async () => {
-        //Avalia se tem permissão
+        // Avalia se tem permissão
         if (!status?.granted) {
-            //Solicita permissão
+            // Solicita permissão
             const resposta = await requestPermission();
             if (!resposta.granted) {
-                return; //Permissão não foi dada.
+                return; // Permissão não foi dada
             }
         }
         const foto = await ImagePicker.launchCameraAsync({
@@ -62,12 +52,12 @@ export function InicioScreen(props: InicioscreenProps) {
     modal.current?.close();
 
     const abrirGaleria = async () => {
-        //Avalia se tem permissão
+        // Avalia se tem permissão
         if (!status?.granted) {
-            //Solicita permissão
+            // Solicita permissão
             const resposta = await requestPermission();
             if (!resposta.granted) {
-                return; //Permissão não foi dada.
+                return; // Permissão não foi dada
             }
         }
         const foto = await ImagePicker.launchImageLibraryAsync({
@@ -83,11 +73,27 @@ export function InicioScreen(props: InicioscreenProps) {
     }
     modal.current?.close();
 
+    const saveData = async (values: { nome: string; imagem: string; }) => {
+        try {
+            // Salvando os dados no AsyncStorage
+            const imageData = {
+                nome: values.nome, // Adicionando o nome ao objeto
+                imagem: imagem, // Adicionando a imagem ao objeto
+            };
+            await AsyncStorage.setItem('dados', JSON.stringify(imageData));
+            console.log('Dados salvos com sucesso!');
+            console.log(imageData)
+        } catch (error) {
+            console.log('Erro ao salvar dados:', error);
+        }
+    };
+
     return (
         <ImageBackground source={bg} style={styles.background}>
             <GestureHandlerRootView style={styles.container}>
                 <View style={styles.image}>
                     <Text style={styles.textFoto}>INSIRA SUA FOTO</Text>
+
                     <View style={styles.buttonFoto}>
                         <TouchableOpacity onPress={abrir}>
                             {imagem ? (
@@ -99,23 +105,26 @@ export function InicioScreen(props: InicioscreenProps) {
                     </View>
                 </View>
                 <Formik
-                    initialValues={{ nome: '', }}
-                    onSubmit={handleCadastro}
+                    initialValues={{ nome: '', imagem: '' }}
+                    onSubmit={(values) => saveData(values)}
                     validationSchema={Yup.object({
                         nome: Yup.string().required('O campo nome precisa ser informado'),
+                        imagem: Yup.string()
                     })}
-                >{({ handleChange, errors, touched, handleBlur, isSubmitting, handleSubmit }) => (
-                    <View style={styles.TextInput}>
-                        <Input leftIcon={{ name: 'person', color: 'rgba(247, 99, 110, 1)' }} placeholder='DIGITE SEU NOME'
-                            onChangeText={handleChange('nome')} onBlur={handleBlur('nome')} style={styles.input} />
-                        {touched.nome && errors.nome && <Text style={styles.erro}>{errors.nome}</Text>}
-                        <TouchableOpacity onPress={() => handleSubmit()} disabled={isSubmitting}>
-                            <View style={styles.buttonInput}>
-                                <Text style={styles.textButton}>Pular</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                )}
+                >
+                    {({ handleChange, errors, touched, handleBlur, isSubmitting, handleSubmit, values }) => (
+                        <View style={styles.TextInput}>
+                            <Input leftIcon={{ name: 'person', color: 'rgba(247, 99, 110, 1)' }} placeholder='DIGITE SEU NOME'
+                                onChangeText={handleChange('nome')} onBlur={handleBlur('nome')}
+                                value={values.nome} style={styles.input} />
+                            {touched.nome && errors.nome && <Text style={styles.erro}>{errors.nome}</Text>}
+                            <TouchableOpacity onPress={() => handleSubmit()} disabled={isSubmitting}>
+                                <View style={styles.buttonInput}>
+                                    <Text style={styles.textButton}>Pular</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    )}
                 </Formik>
                 <Modalize
                     ref={modal}
@@ -193,7 +202,6 @@ const styles = StyleSheet.create({
     textFoto: {
         color: 'gray',
         textAlign: 'center',
-
     },
     TextInput: {
         padding: 10,
@@ -207,4 +215,4 @@ const styles = StyleSheet.create({
         padding: 40,
         borderRadius: 9,
     },
-});
+})
