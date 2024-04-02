@@ -83,11 +83,39 @@ export function InicioScreen(props: InicioscreenProps) {
             await AsyncStorage.setItem('dados', JSON.stringify(imageData));
             console.log('Dados salvos com sucesso!');
             console.log(imageData);
-            props.navigation.navigate('sobre')
+            props.navigation.navigate('sobre');
         } catch (error) {
             console.log('Erro ao salvar dados:', error);
         }
     };
+
+    /* const saveData = async (values: { nome: string; imagem: string; }) => {
+         try {
+             let imageToSave = imagem; // Inicialmente, assume a imagem selecionada pelo usuário
+             // Se nenhuma imagem foi selecionada, usa a imagem estática
+             if (!imagem) {
+                 // Carrega a imagem estática e a converte em base64
+                 const response = await fetch(profile); // Caminho da imagem estática
+                 if (response.ok) {
+                     const base64data = await response.text();
+                     imageToSave = 'data:image/png;base64,' + base64data; // Atualiza a imagem para a estática em base64
+                 } else {
+                     throw new Error('Erro ao carregar a imagem estática');
+                 }
+             }
+             // Salvando os dados no AsyncStorage
+             const imageData = {
+                 nome: values.nome,
+                 imagem: imageToSave, // Adicionando a imagem ao objeto
+             };
+             await AsyncStorage.setItem('dados', JSON.stringify(imageData));
+             console.log('Dados salvos com sucesso!');
+             console.log(imageData);
+             props.navigation.navigate('sobre');
+         } catch (error) {
+             console.log('Erro ao salvar dados:', error);
+         }
+     }; */
 
     return (
         <ImageBackground source={bg} style={styles.background}>
@@ -110,7 +138,6 @@ export function InicioScreen(props: InicioscreenProps) {
                     onSubmit={(values) => saveData(values)}
                     validationSchema={Yup.object({
                         nome: Yup.string().required('O campo nome precisa ser informado'),
-                        imagem: Yup.string()
                     })}
                 >
                     {({ handleChange, errors, touched, handleBlur, isSubmitting, handleSubmit, values }) => (
