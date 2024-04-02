@@ -82,11 +82,11 @@ export function InicioScreen(props: InicioscreenProps) {
             };
             await AsyncStorage.setItem('dados', JSON.stringify(imageData));
             console.log('Dados salvos com sucesso!');
-            console.log(imageData)
+            console.log(imageData);
+            props.navigation.navigate('sobre')
         } catch (error) {
             console.log('Erro ao salvar dados:', error);
         }
-        props.navigation.navigate('sobre')
     };
 
     return (
