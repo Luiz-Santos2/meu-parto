@@ -20,7 +20,7 @@ export function InicioScreen(props: InicioscreenProps) {
 
     const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
-    const [imagem, setImagem] = useState< null | string >(null)
+    const [imagem, setImagem] = useState<null | string>(null)
 
     const abrir = () => {
         try {
@@ -86,6 +86,7 @@ export function InicioScreen(props: InicioscreenProps) {
         } catch (error) {
             console.log('Erro ao salvar dados:', error);
         }
+        props.navigation.navigate('sobre')
     };
 
     return (
