@@ -9,6 +9,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Modalize } from 'react-native-modalize';
 import { Input } from '@rneui/base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { avatarBase64 } from '../../imgs/profile';
+import { useUsuarioContext } from '../../providers/usuario-provider';
 
 export interface InicioscreenProps {
     navigation: any;
@@ -17,11 +19,11 @@ export interface InicioscreenProps {
 export function InicioScreen(props: InicioscreenProps) {
 
     const modal = useRef<Modalize>();
-
     const [status, requestPermission] = ImagePicker.useCameraPermissions();
-
     const [imagem, setImagem] = useState<null | string>(null)
+    const { setUsuario } = useUsuarioContext();
 
+    // =============================================================
     const abrir = () => {
         try {
             modal.current?.open();
@@ -29,6 +31,7 @@ export function InicioScreen(props: InicioscreenProps) {
             console.log(erro)
         }
     }
+    // -----------------------
     const abrirCamera = async () => {
         // Avalia se tem permissão
         if (!status?.granted) {
@@ -48,9 +51,9 @@ export function InicioScreen(props: InicioscreenProps) {
         });
         if (!foto.canceled)
             setImagem('data:image/jpg;base64,' + foto.assets[0].base64)
+        modal.current?.close();
     }
-    modal.current?.close();
-
+    // -------------------------
     const abrirGaleria = async () => {
         // Avalia se tem permissão
         if (!status?.granted) {
@@ -70,53 +73,28 @@ export function InicioScreen(props: InicioscreenProps) {
         });
         if (!foto.canceled)
             setImagem('data:image/jpg;base64,' + foto.assets[0].base64)
-    }
-    modal.current?.close();
 
-    const saveData = async (values: { nome: string; imagem: string; }) => {
+        modal.current?.close();
+    }
+    // ---------------------------
+    const saveData = async ({ nome }: { nome: string; }) => {
         try {
             // Salvando os dados no AsyncStorage
             const imageData = {
-                nome: values.nome, // Adicionando o nome ao objeto
-                imagem: imagem, // Adicionando a imagem ao objeto
+                nome, // Adicionando o nome ao objeto
+                imagem: (imagem ? imagem : avatarBase64), // Adicionando a imagem ao objeto
             };
             await AsyncStorage.setItem('dados', JSON.stringify(imageData));
             console.log('Dados salvos com sucesso!');
             console.log(imageData);
+            setUsuario(imageData);
             props.navigation.navigate('sobre');
         } catch (error) {
             console.log('Erro ao salvar dados:', error);
         }
-    };
+    };''
 
-    /* const saveData = async (values: { nome: string; imagem: string; }) => {
-         try {
-             let imageToSave = imagem; // Inicialmente, assume a imagem selecionada pelo usuário
-             // Se nenhuma imagem foi selecionada, usa a imagem estática
-             if (!imagem) {
-                 // Carrega a imagem estática e a converte em base64
-                 const response = await fetch(profile); // Caminho da imagem estática
-                 if (response.ok) {
-                     const base64data = await response.text();
-                     imageToSave = 'data:image/png;base64,' + base64data; // Atualiza a imagem para a estática em base64
-                 } else {
-                     throw new Error('Erro ao carregar a imagem estática');
-                 }
-             }
-             // Salvando os dados no AsyncStorage
-             const imageData = {
-                 nome: values.nome,
-                 imagem: imageToSave, // Adicionando a imagem ao objeto
-             };
-             await AsyncStorage.setItem('dados', JSON.stringify(imageData));
-             console.log('Dados salvos com sucesso!');
-             console.log(imageData);
-             props.navigation.navigate('sobre');
-         } catch (error) {
-             console.log('Erro ao salvar dados:', error);
-         }
-     }; */
-
+    // =============================================================
     return (
         <ImageBackground source={bg} style={styles.background}>
             <GestureHandlerRootView style={styles.container}>
@@ -134,7 +112,7 @@ export function InicioScreen(props: InicioscreenProps) {
                     </View>
                 </View>
                 <Formik
-                    initialValues={{ nome: '', imagem: '' }}
+                    initialValues={{ nome: '' }}
                     onSubmit={(values) => saveData(values)}
                     validationSchema={Yup.object({
                         nome: Yup.string().required('O campo nome precisa ser informado'),
@@ -144,6 +122,7 @@ export function InicioScreen(props: InicioscreenProps) {
                         <View style={styles.TextInput}>
                             <Input leftIcon={{ name: 'person', color: 'rgba(247, 99, 110, 1)' }} placeholder='DIGITE SEU NOME'
                                 onChangeText={handleChange('nome')} onBlur={handleBlur('nome')}
+                                inputContainerStyle={{ borderBottomColor: 'rgba(247, 99, 110, 1)'}}
                                 value={values.nome} style={styles.input} />
                             {touched.nome && errors.nome && <Text style={styles.erro}>{errors.nome}</Text>}
                             <TouchableOpacity onPress={() => handleSubmit()} disabled={isSubmitting}>
@@ -205,6 +184,7 @@ const styles = StyleSheet.create({
     input: {
         color: 'gray',
         textAlign: 'center',
+        borderBottomColor: 'rgba(247, 99, 110, 1)'
     },
     buttonModal: {
         flexDirection: 'row',
@@ -214,9 +194,7 @@ const styles = StyleSheet.create({
     },
     textButton: {
         padding: 10,
-        backgroundColor: 'rgba(247, 99, 110, 1)',
         textAlign: 'center',
-        borderRadius: 9,
         color: 'white'
     },
     erro: {
@@ -237,7 +215,10 @@ const styles = StyleSheet.create({
     buttonInput: {
         marginHorizontal: 37,
         margin: 10,
-        paddingTop: 150
+        marginTop: 150,
+        backgroundColor: 'rgba(247, 99, 110, 1)',
+        borderRadius: 9,
+
     },
     image: {
         padding: 40,
