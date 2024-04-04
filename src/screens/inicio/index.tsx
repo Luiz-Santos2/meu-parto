@@ -22,8 +22,7 @@ export function InicioScreen(props: InicioscreenProps) {
     const [status, requestPermission] = ImagePicker.useCameraPermissions();
     const [imagem, setImagem] = useState<null | string>(null)
     const { setUsuario } = useUsuarioContext();
-
-    // =============================================================
+    // ====================================================================================
     const abrir = () => {
         try {
             modal.current?.open();
@@ -31,7 +30,7 @@ export function InicioScreen(props: InicioscreenProps) {
             console.log(erro)
         }
     }
-    // -----------------------
+    // ------------------------------------------------------------------------------------
     const abrirCamera = async () => {
         // Avalia se tem permissão
         if (!status?.granted) {
@@ -53,7 +52,7 @@ export function InicioScreen(props: InicioscreenProps) {
             setImagem('data:image/jpg;base64,' + foto.assets[0].base64)
         modal.current?.close();
     }
-    // -------------------------
+    // ------------------------------------------------------------------------------------
     const abrirGaleria = async () => {
         // Avalia se tem permissão
         if (!status?.granted) {
@@ -76,7 +75,7 @@ export function InicioScreen(props: InicioscreenProps) {
 
         modal.current?.close();
     }
-    // ---------------------------
+    // ------------------------------------------------------------------------------------
     const saveData = async ({ nome }: { nome: string; }) => {
         try {
             // Salvando os dados no AsyncStorage
@@ -86,15 +85,13 @@ export function InicioScreen(props: InicioscreenProps) {
             };
             await AsyncStorage.setItem('dados', JSON.stringify(imageData));
             console.log('Dados salvos com sucesso!');
-            console.log(imageData);
             setUsuario(imageData);
             props.navigation.navigate('sobre');
         } catch (error) {
             console.log('Erro ao salvar dados:', error);
         }
-    };''
-
-    // =============================================================
+    };
+    // ====================================================================================
     return (
         <ImageBackground source={bg} style={styles.background}>
             <GestureHandlerRootView style={styles.container}>
@@ -122,7 +119,7 @@ export function InicioScreen(props: InicioscreenProps) {
                         <View style={styles.TextInput}>
                             <Input leftIcon={{ name: 'person', color: 'rgba(247, 99, 110, 1)' }} placeholder='DIGITE SEU NOME'
                                 onChangeText={handleChange('nome')} onBlur={handleBlur('nome')}
-                                inputContainerStyle={{ borderBottomColor: 'rgba(247, 99, 110, 1)'}}
+                                inputContainerStyle={{ borderBottomColor: 'rgba(247, 99, 110, 1)' }}
                                 value={values.nome} style={styles.input} />
                             {touched.nome && errors.nome && <Text style={styles.erro}>{errors.nome}</Text>}
                             <TouchableOpacity onPress={() => handleSubmit()} disabled={isSubmitting}>
@@ -136,13 +133,21 @@ export function InicioScreen(props: InicioscreenProps) {
                 <Modalize
                     ref={modal}
                     adjustToContentHeight
-                    childrenStyle={{ height: 180 }}
+                    childrenStyle={{ height: 200 }}
                 >
-                    <View style={styles.modal}>
                         <View style={styles.buttonModal}>
-                            <Button title='Câmera' onPress={abrirCamera} />
-                            <Button title='Galeria' onPress={abrirGaleria} />
+                            <TouchableOpacity onPress={abrirCamera}>
+                                <View style={styles.button}>
+                                    <Text style={styles.textButtonModal}>  Tirar foto  </Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={abrirGaleria}>
+                                <View style={styles.button}>
+                                    <Text style={styles.textButtonModal}>Escolher foto</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
+                    <View style={styles.cancel}>
                         <Button title="Cancelar" color="tomato" onPress={() => {
                             Alert.alert('Cancelar', 'Deseja realmente cancelar?', [
                                 { text: 'Sim', onPress: () => modal.current?.close() },
@@ -159,7 +164,6 @@ export function InicioScreen(props: InicioscreenProps) {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        justifyContent: 'center'
     },
     container: {
         flex: 1,
@@ -172,7 +176,7 @@ const styles = StyleSheet.create({
     },
     buttonFoto: {
         alignItems: 'center',
-        padding: 10,
+        padding: 20,
     },
     btnFoto: {
         padding: 7,
@@ -184,7 +188,6 @@ const styles = StyleSheet.create({
     input: {
         color: 'gray',
         textAlign: 'center',
-        borderBottomColor: 'rgba(247, 99, 110, 1)'
     },
     buttonModal: {
         flexDirection: 'row',
@@ -200,10 +203,6 @@ const styles = StyleSheet.create({
     erro: {
         color: 'red',
         textAlign: 'center',
-    },
-    modal: {
-        justifyContent: 'center',
-        margin: 60,
     },
     textFoto: {
         color: 'gray',
@@ -224,4 +223,23 @@ const styles = StyleSheet.create({
         padding: 40,
         borderRadius: 9,
     },
-})
+    button: {
+        backgroundColor: 'rgba(247, 99, 110, 1)',
+        padding: 20,
+        marginTop: 30,
+        marginLeft: 10,
+        paddingHorizontal: 30,
+        borderRadius: 10,
+    },
+    textButtonModal: {
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: 'bold',
+    },
+    cancel:{
+        alignItems: 'center',
+        paddingTop: 20,
+        fontWeight: 'bold',
+        marginLeft: 10
+    },
+});

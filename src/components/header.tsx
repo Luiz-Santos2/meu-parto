@@ -6,18 +6,18 @@ export interface AppHeaderProps {
     showName?: boolean;
 }
 
-export function AppHeader (props: AppHeaderProps) {
+export function AppHeader(props: AppHeaderProps) {
 
     const { usuario } = useUsuarioContext();
-    // ====================================
+    // =========================================================================
     return (
-      <View style={styles.container}>
-            <Image source={{uri: usuario.imagem }} style={styles.imagem} />
-            <Text style={styles.nome}>{ usuario.nome }</Text>
-      </View>
+        <View style={styles.container}>
+            <Image source={{ uri: usuario.imagem }} style={styles.imagem} />
+            <Text style={styles.nome}>{usuario.nome}</Text>
+        </View>
     );
 }
-
+// =========================================================================
 const styles = StyleSheet.create({
     container: {
         padding: 50,
@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     imagem: {
-        width: 50,
-        height: 50,
+        width: 70,
+        height: 70,
         borderRadius: 50
-    }, 
+    },
     nome: {
         color: '#f7636e',
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: 'bold',
         marginLeft: 20
     }
@@ -40,5 +40,5 @@ const styles = StyleSheet.create({
 
 
 AppHeader.defaultProps = {
-    showName: true 
+    showName: true
 }
