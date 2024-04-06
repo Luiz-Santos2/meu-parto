@@ -135,18 +135,18 @@ export function InicioScreen(props: InicioscreenProps) {
                     adjustToContentHeight
                     childrenStyle={{ height: 200 }}
                 >
-                        <View style={styles.buttonModal}>
-                            <TouchableOpacity onPress={abrirCamera}>
-                                <View style={styles.button}>
-                                    <Text style={styles.textButtonModal}>  Tirar foto  </Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={abrirGaleria}>
-                                <View style={styles.button}>
-                                    <Text style={styles.textButtonModal}>Escolher foto</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
+                    <View style={styles.buttonModal}>
+                        <TouchableOpacity onPress={abrirCamera}>
+                            <View style={styles.button}>
+                                <Text style={styles.textButtonModal}>  Tirar foto  </Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={abrirGaleria}>
+                            <View style={styles.button}>
+                                <Text style={styles.textButtonModal}>Escolher foto</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.cancel}>
                         <Button title="Cancelar" color="tomato" onPress={() => {
                             Alert.alert('Cancelar', 'Deseja realmente cancelar?', [
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
-    cancel:{
+    cancel: {
         alignItems: 'center',
         paddingTop: 20,
         fontWeight: 'bold',

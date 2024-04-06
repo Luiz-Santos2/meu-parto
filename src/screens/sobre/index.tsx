@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import bg from './../../imgs/background.png';
 import lg from './../../imgs/logo.png';
 import { AppHeader } from '../../components/header';
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
-        
+
     },
     containerIcon: {
         flexDirection: 'row',
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     },
     text: {
         width: 340,
-        height: 290,
+        height: 280,
         top: 10,
         marginLeft: 'auto',
         marginRight: 'auto',

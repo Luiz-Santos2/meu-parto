@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Alert, SafeAreaView, SectionList } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert } from 'react-native';
 import bg from './../../imgs/background.png';
-import { AppHeader } from '../../components/header';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
 
@@ -25,7 +24,7 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                             <Text style={styles.textButton}>Áudio</Text>
                         </View>
                     </TouchableOpacity>
-                    <Text style={styles.tagtext}>1º Período do Trabalho de Parto</Text>
+                    <Text style={styles.tagText}>1º Período do Trabalho de Parto</Text>
                 </>
                 <View style={styles.ajust}>
                     <View style={styles.ajuste}>
@@ -35,9 +34,9 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                                 <Text style={styles.textButton}>Áudio</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('')}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('DetalhesPeriodoFases', { item_id: 1 })}>
                             <View style={styles.buttonlatente}>
-                                <Text style={styles.textperiodoFase}>Fase Latente</Text>
+                                <Text style={styles.textperiodoFase}>FASE LATENTE</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -48,9 +47,9 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                                 <Text style={styles.textButton}>Áudio</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('')}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('DetalhesPeriodoFases', { item_id: 2 })}>
                             <View style={styles.buttonlatente}>
-                                <Text style={styles.textperiodoFase}>Fase Ativa</Text>
+                                <Text style={styles.textperiodoFase}>FASE ATIVA</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -62,7 +61,7 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                             <Text style={styles.textButton}>Áudio</Text>
                         </View>
                     </TouchableOpacity>
-                    <Text style={styles.tagtext}>2º Período do Trabalho de Parto</Text>
+                    <Text style={styles.tagText}>2º Período do Trabalho de Parto</Text>
                 </>
                 <View style={styles.ajust}>
                     <View style={styles.ajuste}>
@@ -72,9 +71,9 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                                 <Text style={styles.textButton}>Áudio</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('')}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('DetalhesPeriodoFases', { item_id: 3 })}>
                             <View style={styles.buttonlatente}>
-                                <Text style={styles.textperiodoFase}>Fase Passiva</Text>
+                                <Text style={styles.textperiodoFase}>FASE PASSIVA</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -85,9 +84,9 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                                 <Text style={styles.textButton}>Áudio</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('')}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('DetalhesPeriodoFases', { item_id: 4 })}>
                             <View style={styles.buttonlatente}>
-                                <Text style={styles.textperiodoFase}>Fase Ativa</Text>
+                                <Text style={styles.textperiodoFase}>FASE ATIVA</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -99,7 +98,7 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                             <Text style={styles.textButton}>Áudio</Text>
                         </View>
                     </TouchableOpacity>
-                    <Text style={styles.tagtext}>3º Período do Trabalho de Parto</Text>
+                    <Text style={styles.tagText}>3º Período do Trabalho de Parto</Text>
                 </>
                 <View style={styles.ajust}>
                     <View style={styles.ajuste}>
@@ -109,9 +108,9 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                                 <Text style={styles.textButton}>Áudio</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('')}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('DetalhesPeriodoFases', { item_id: 5 })}>
                             <View style={styles.buttonlatente}>
-                                <Text style={styles.textperiodoFase}>DESPRENDIMENTO E saída da placenta</Text>
+                                <Text style={styles.textperiodoFase}>DESPRENDIMENTO E SAÍDA DA PLACENTA</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -152,7 +151,7 @@ const styles = StyleSheet.create({
     textButton: {
         fontWeight: 'bold',
     },
-    tagtext: {
+    tagText: {
         paddingTop: -10,
         color: '#000000',
         textAlign: 'center',
@@ -165,21 +164,24 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         borderRadius: 9,
+        justifyContent: 'center'
     },
     textperiodoFase: {
         textAlign: 'center',
         color: 'white',
-        paddingHorizontal: 40
+        paddingHorizontal: 25
 
     },
     ajust: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto',
 
     },
     ajuste: {
         marginLeft: 10,
-        marginVertical: 40
+        marginVertical: 40,
+        marginHorizontal: 'auto'
 
     },
     containerIcon1: {
