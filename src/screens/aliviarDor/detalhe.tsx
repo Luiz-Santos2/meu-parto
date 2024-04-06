@@ -123,6 +123,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
 
     const Item = ({ dados }: ItemProps) => (
         <View>
+            <Text style={styles.text}>COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS</Text>
             {dados.audio}
             <View style={styles.tagButton}>
                 <Text style={styles.tagText}>{dados.title}</Text>
@@ -136,7 +137,6 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
             <View style={styles.container}>
-                <Text style={styles.text}>COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS</Text>
                 <SafeAreaView style={styles.container}>
                     <FlatList
                         initialNumToRender={4}
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     },
     text: {
         width: 300,
-        marginTop: -20,
+        marginTop: -5,
         marginVertical: 30,
         left: 34,
         fontSize: 20,

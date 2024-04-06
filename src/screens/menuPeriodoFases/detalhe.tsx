@@ -108,6 +108,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
 
     const Item = ({ dados }: ItemProps) => (
         <View>
+            <Text style={styles.text}>PERÍODOS E FASES DO PARTO</Text>
             <Text style={styles.tagText}>{dados.title}</Text>
             {dados.audio}
             <View style={styles.tagButtonSecundario}>
@@ -122,7 +123,6 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
             <View style={styles.container}>
-                <Text style={styles.text}>PERÍODOS E FASES DO PARTO</Text>
                 <SafeAreaView style={styles.container}>
                     <FlatList
                         initialNumToRender={4}
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     },
     text: {
         width: 330,
-        marginTop: -20,
+        marginTop: -5,
         marginVertical: 30,
         left: 34,
         fontSize: 20,

@@ -8,6 +8,6 @@ export default function App() {
   initializeApp(firebaseConfig)
 
   return (
-      <NavegacaoPrincipal />
+    <NavegacaoPrincipal />
   );
 }

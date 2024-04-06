@@ -2,12 +2,12 @@
 import React, { createContext, useContext, useState } from 'react';
 
 // Crie o contexto
-export type Usuario = { nome: string, imagem: string}
-const UsuarioContext = createContext<{usuario: Usuario, setUsuario?: any}>({usuario: {nome: '', imagem: ''}});
+export type Usuario = { nome: string, imagem: string }
+const UsuarioContext = createContext<{ usuario: Usuario, setUsuario?: any }>({ usuario: { nome: '', imagem: '' } });
 
 // Crie o provedor (UsuarioProvider)
-export const UsuarioProvider = ({children}: any) => {
-  const [ usuario , setUsuario] = useState<Usuario>({nome: '', imagem: ''});
+export const UsuarioProvider = ({ children }: any) => {
+  const [usuario, setUsuario] = useState<Usuario>({ nome: '', imagem: '' });
 
   return (
     <UsuarioContext.Provider value={{ usuario, setUsuario }}>

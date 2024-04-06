@@ -23,10 +23,10 @@ export function HomeScreen(props: HomescreenProps) {
             data: [{ type: 'POSIÇÕES PARA PARIR', type_id: 'posicaoParir' }],
         },
         {
-            data: [{ type: 'CUIDADOS NO INICIO DO PÓS-PARTO', type_id: 'inicio' }],
+            data: [{ type: 'CUIDADOS NO INICIO DO PÓS-PARTO', type_id: '' }],
         },
         {
-            data: [{ type: 'MAMADAS INICIAIS', type_id: 'inicio' }],
+            data: [{ type: 'MAMADAS INICIAIS', type_id: '' }],
         },
     ];
     return (
@@ -67,8 +67,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     text: {
-        width: 323,
-        left: 34,
+        alignSelf: 'center',
         fontSize: 24,
         textAlign: 'center',
         color: '#5F5F5F',
@@ -107,6 +106,6 @@ const styles = StyleSheet.create({
     },
     TextObsposition: {
         marginVertical: 50,
-        marginHorizontal: 15,
+        alignSelf: 'center',
     },
 });

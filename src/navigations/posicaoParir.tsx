@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { PosicaoParirScreen } from "../screens/PosicaoParir";
 
 export type PosicaoParirParams = {
-    PosicaoParir: any,
+   PosicaoParir: any,
 }
 
 const Stack = createStackNavigator<PosicaoParirParams>();
