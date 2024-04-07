@@ -36,13 +36,13 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
             <View style={styles.container}>
-                <Text style={styles.text}>COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS</Text>
-                <TouchableOpacity onPress={reproduzir}>
+            <TouchableOpacity onPress={reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
                         <Text style={styles.textButton}>Áudio - Descrição</Text>
                     </View>
                 </TouchableOpacity>
+                <Text style={styles.text}>COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS</Text>
                 <SectionList
                     sections={jsonData}
                     keyExtractor={(item) => item.type}
@@ -55,6 +55,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
                     )}
                 />
             </View>
+            <Image style={styles.img} source={require('./../../imgs/menuGestante.png')}/>
         </ImageBackground>
     );
 }
@@ -66,18 +67,18 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     text: {
-        marginTop: -20,
         width: 300,
-        left: 34,
         fontSize: 20,
         textAlign: 'center',
         color: '#5F5F5F',
         fontWeight: 'bold',
+        alignSelf: 'center'
     },
     containerIcon: {
+        marginTop: -20,
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 30,
+        left: 45,
     },
     icon: {
         fontSize: 35,
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     },
     buttonHome: {
         marginHorizontal: 37,
-        margin: 10,
+        marginTop: 20,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         borderRadius: 9,
         padding: 15,
@@ -100,9 +101,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
     },
-    TextObs: {
-        color: '#5F5F5F',
-        fontSize: 20,
-        textAlign: 'justify',
+    img:{
+        width: 180,
+        height: 180,
     },
 });

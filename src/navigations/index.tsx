@@ -7,6 +7,8 @@ import { HomeScreen } from '../screens/home';
 import { NavegacaoPeriodoFaseScreen } from './periodoFases';
 import { NavegacaoAliviarDorScreen } from './aliviarDor';
 import { NavegacaoPosicaoParirScreen } from './posicaoParir';
+import { NavegacaoCuidadosPosPartoScreen } from './cuidadosPosParto';
+import { NavegacaoMamadasIniciaisScreen } from './mamadasIniciais';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +31,8 @@ export function NavegacaoPrincipal() {
                <Stack.Screen name="periodoFases" component={NavegacaoPeriodoFaseScreen} />
                <Stack.Screen name="aliviarDor" component={NavegacaoAliviarDorScreen} />
                <Stack.Screen name="posicaoParir" component={NavegacaoPosicaoParirScreen} />
+               <Stack.Screen name="cuidadosPosParto" component={NavegacaoCuidadosPosPartoScreen} />
+               <Stack.Screen name="mamadasIniciais" component={NavegacaoMamadasIniciaisScreen} />
             </Stack.Navigator>
          </NavigationContainer>
       </UsuarioProvider>

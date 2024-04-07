@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     },
     textInfo: {
         marginVertical: 30,
-        width: 360,
+        width: 340,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
