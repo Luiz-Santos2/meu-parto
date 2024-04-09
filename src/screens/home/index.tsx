@@ -104,10 +104,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'justify',
         width: 300,
-    
+
     },
     TextObsposition: {
         marginVertical: 40,
-        alignSelf: 'center',    
+        alignSelf: 'center',
     },
 });

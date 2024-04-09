@@ -15,6 +15,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
     const reproduzir = async () => {
         Alert.alert('Reproduz o áudio')
     }
+
     //@ts-ignore
     const { item_id } = props.route.params
     console.log('item_id:', item_id)

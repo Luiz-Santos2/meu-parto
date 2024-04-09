@@ -2,9 +2,13 @@ import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Alert
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
+import { RouteProp } from '@react-navigation/native';
+import { MamadasIniciaisParams } from '../../navigations/mamadasIniciais';
+
 
 export interface MamadasIniciaisScreenscreenProps {
     navigation: any;
+    route: RouteProp<MamadasIniciaisParams, "MamadasIniciais">;
 }
 
 export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
@@ -14,13 +18,13 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
     }
     const jsonData = [
         {
-            data: [{ type: 'SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?', type_id: 1 }],
+            data: [{ type: 'POSIÇÕES PARA AMAMENTAR', tela: 'DetalheUmMamadasIniciais',  type_id: 0 }],
         },
         {
-            data: [{ type: 'CUIDADOS COM OS PONTOS (SUTURA) DO PARTO NORMAL', type_id: 2 }],
+            data: [{ type: 'MEU BEBÊ ESTÁ FAZENDO A PEGA NA MAMA DA FORMA CORRETA?', tela: 'DetalheDoisMamadasIniciais', type_id: 1 }],
         },
         {
-            data: [{ type: 'CUIDADOS COM OS PONTOS (SUTURA) DA CESARIANA', type_id: 3 }],
+            data: [{ type: 'CUIDANDO DAS RACHADURAS NA MAMA', tela: 'DetalheDoisMamadasIniciais',  type_id: 2 }],
         },
     ];
     return (
@@ -40,7 +44,7 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
                     sections={jsonData}
                     keyExtractor={(item) => item.type}
                     renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => props.navigation.navigate('DetalhesAliviarDor', { item_id: item.type_id })}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate(item.tela, { item_id: item.type_id })}>
                             <View style={styles.buttonHome}>
                                 <Text style={styles.buttontext}>{item.type}</Text>
                             </View>
@@ -103,8 +107,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     img: {
-        width: 250,
-        height: 250,
+        width: 220,
+        height: 220,
         alignSelf: 'center'
     },
 });

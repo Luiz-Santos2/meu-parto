@@ -12,13 +12,6 @@ import { NavegacaoMamadasIniciaisScreen } from './mamadasIniciais';
 
 const Stack = createStackNavigator();
 
-export type NavegacaoParamsPrincipal = {
-   inicio: any;
-   sobre: any;
-   home: { type_id: any, type: any }
-}
-
-const Tab = createStackNavigator<NavegacaoParamsPrincipal>();
 export function NavegacaoPrincipal() {
 
    return (

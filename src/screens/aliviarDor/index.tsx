@@ -36,7 +36,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
             <View style={styles.container}>
-            <TouchableOpacity onPress={reproduzir}>
+                <TouchableOpacity onPress={reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
                         <Text style={styles.textButton}>Áudio - Descrição</Text>
@@ -55,7 +55,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
                     )}
                 />
             </View>
-            <Image style={styles.img} source={require('./../../imgs/menuGestante.png')}/>
+            <Image style={styles.img} source={require('./../../imgs/menuGestante.png')} />
         </ImageBackground>
     );
 }
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     text: {
-        width: 300,
+        width: 330,
         fontSize: 20,
         textAlign: 'center',
         color: '#5F5F5F',
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
     },
-    img:{
+    img: {
         width: 180,
         height: 180,
     },

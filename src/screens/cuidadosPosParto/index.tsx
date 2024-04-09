@@ -14,13 +14,13 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
     }
     const jsonData = [
         {
-            data: [{ type: 'SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?', type_id: 1 }],
+            data: [{ type: 'SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?', tela: 'DetalheUmCuidadosPosParto', type_id: 0 }],
         },
         {
-            data: [{ type: 'CUIDADOS COM OS PONTOS (SUTURA) DO PARTO NORMAL', type_id: 2 }],
+            data: [{ type: 'CUIDADOS COM OS PONTOS (SUTURA) DO PARTO NORMAL', tela: 'DetalheDoisCuidadosPosParto', type_id: 1 }],
         },
         {
-            data: [{ type: 'CUIDADOS COM OS PONTOS (SUTURA) DA CESARIANA', type_id: 3 }],
+            data: [{ type: 'CUIDADOS COM OS PONTOS (SUTURA) DA CESARIANA', tela: 'DetalheDoisCuidadosPosParto', type_id: 2 }],
         },
     ];
     return (
@@ -38,7 +38,7 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
                     sections={jsonData}
                     keyExtractor={(item) => item.type}
                     renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => props.navigation.navigate('DetalhesAliviarDor', { item_id: item.type_id })}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate(item.tela, { item_id: item.type_id })}>
                             <View style={styles.buttonHome}>
                                 <Text style={styles.buttontext}>{item.type}</Text>
                             </View>
