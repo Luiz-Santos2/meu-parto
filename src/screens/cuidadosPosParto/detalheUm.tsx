@@ -25,16 +25,21 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
         title: any;
         button_title: any;
         title_Secundario: any;
+        button1: any;
+        text: any;
+        button: any;
         title_Terciario: any;
+        title_Quartenario: any;
         img: any;
+        img2: any;
         first: any;
-        last: any;
+        textObs: any;
     };
 
     const jsonData = [
         {
             id: Math.random().toString(12).substring(0),
-            title: 'COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS',
+            title: 'CUIDADOS NO PÓS-PARTO',
             button_title: <TouchableOpacity onPress={reproduzir}>
                 <View style={styles.containerIcon}>
                     <MaterialIcons name="play-circle" style={styles.icon} />
@@ -42,12 +47,59 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
                 </View>
             </TouchableOpacity>,
             title_Secundario: <View style={styles.tagButton}>
-                <Text style={styles.tagText}>POSIÇÕES PARA PARIR</Text>
+                <Text style={styles.tagText}>SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?</Text>
             </View>,
-            first: 'A melhor posição para parir é a de escolha da mulher, se tudo estiver ocorrendo bem! Algumas das posições que podem ser adotadas para parir são:',
-            title_Terciario: 'DE CÓCORAS',
-            img: <Image style={styles.img} source={require('./../../imgs/DE CÓCORAS.png')} />,
-            last: null,
+            button1: <TouchableOpacity onPress={reproduzir}>
+                <View style={styles.containerIcon1}>
+                    <MaterialIcons name="play-circle" style={styles.icon1} />
+                    <Text style={styles.textButton}>Áudio</Text>
+                </View>
+            </TouchableOpacity>,
+            text: 'Você sabia que o sangramento da mulher imediatamente após o parto e nos dias seguintes são chamados de lóquios ou loquiações? De agora em diante, você não vai chamá-lo de menstruação, como muita gente acha que é.',
+            button: <TouchableOpacity onPress={reproduzir}>
+                <View style={styles.containerIcon1}>
+                    <MaterialIcons name="play-circle" style={styles.icon1} />
+                    <Text style={styles.textButton}>Áudio</Text>
+                </View>
+            </TouchableOpacity>,
+            title_Terciario: 'Os lóquios ou loquiações podem ser:',
+            title_Quartenario: 'Vermelhos ou sanguinolentos',
+            img: <Image style={styles.img} source={require('./../../imgs/33.png')} />,
+            img2: null,
+            first: 'O bebê é colocado no colo da mãe e apoiado com uma das mãos da mãe.',
+            textObs: null,
+            item_id: 0
+        },
+        {
+            id: Math.random().toString(12).substring(0),
+            title: null,
+            button_title: null,
+            title_Secundario: null,
+            button1: null,
+            text: null,
+            button: null,
+            title_Terciario: null,
+            title_Quartenario: 'Serosanguinolentos',
+            img: null,
+            img2: <Image style={styles.img} source={require('./../../imgs/22.png')} />,
+            first: 'O bebê fica com a barriguinha encostada na mãe, enquanto é segurado por baixo do seu corpo com os dois braços materno.',
+            textObs: null,
+            item_id: 0
+        },
+        {
+            id: Math.random().toString(12).substring(0),
+            title: null,
+            button_title: null,
+            title_Secundario: null,
+            button1: null,
+            text: null,
+            button: null,
+            title_Terciario: null,
+            title_Quartenario: 'Serosos',
+            img: <Image style={styles.img} source={require('./../../imgs/11.png')} />,
+            img2: null,
+            first: 'O bebê fica sentado numa das coxas de frente pra mama e a mãe o segura apoiando suas costas. Esta posição é ideal para bebês com mais de 3 meses que já seguram bem a cabeça e para aqueles que apresentam refluxo.',
+            textObs: 'Atenção: nem sempre a mudança da cor dos lóquios seguem esses períodos descritos. Isso pode variar em cada mulher.',
             item_id: 0
         },
     ];
@@ -61,10 +113,17 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
             <Text style={styles.text}>{dados.title}</Text>
             {dados.button_title}
             {dados.title_Secundario}
-            <Text style={styles.textInfo}>{dados.first}</Text>
+            {dados.button1}
+            <Text style={styles.text2}>{dados.text}</Text>
+            {dados.button}
             <Text style={styles.title}>{dados.title_Terciario}</Text>
-            {dados.img}
-            <Text style={styles.textInfo}>{dados.last}</Text>
+            <Text style={styles.title_Quartenario}>{dados.title_Quartenario}</Text>
+            <View style={styles.ajuste1}>
+                {dados.img2}
+                <Text style={styles.textInfo}>{dados.first}</Text>
+                {dados.img}
+            </View>
+            <Text style={styles.textObsInfo}>{dados.textObs}</Text>
         </View>
     )
 
@@ -104,6 +163,15 @@ const styles = StyleSheet.create({
         color: '#5F5F5F',
         fontWeight: 'bold',
     },
+    text2: {
+        marginTop: 30,
+        width: 350,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: 18,
+        textAlign: 'justify',
+        color: '#5F5F5F'
+    },
     containerIcon: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -126,7 +194,7 @@ const styles = StyleSheet.create({
     },
     textInfo: {
         marginTop: 30,
-        width: 360,
+        width: 260,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
@@ -135,18 +203,45 @@ const styles = StyleSheet.create({
     },
     img: {
         marginTop: 20,
-        width: 400,
-        height: 400,
+        width: 100,
+        height: 180,
         alignSelf: 'center',
         backgroundColor: 'black',
 
     },
     title: {
-        marginTop: 20,
+        width: 350,
         color: '#F7636E',
         fontWeight: 'bold',
         fontSize: 18,
-        alignSelf: 'center'
+        left: 20,
 
+    },
+    containerIcon1: {
+        marginTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        left: 20
+    },
+    icon1: {
+        fontSize: 18,
+        color: '#5F5F5F'
+    },
+    textObsInfo: {
+        marginTop: 10,
+        fontSize: 18,
+        textAlign: 'justify',
+        fontWeight: 'bold',
+    },
+    title_Quartenario: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'justify',
+        alignSelf: 'center',
+        marginVertical: 10,
+
+    },
+    ajuste1: {
+        flexDirection: 'row'
     },
 });
