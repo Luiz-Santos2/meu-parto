@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         color: '#5F5F5F',
         fontSize: 20,
         textAlign: 'justify',
-        width: 300,
+        width: 330,
 
     },
     TextObsposition: {

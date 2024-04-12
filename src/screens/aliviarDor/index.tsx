@@ -104,5 +104,6 @@ const styles = StyleSheet.create({
     img: {
         width: 180,
         height: 180,
+        objectFit: 'contain'
     },
 });

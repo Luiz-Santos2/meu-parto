@@ -93,8 +93,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     img: {
-        width: 250,
-        height: 250,
-        alignSelf: 'flex-end'
+        width: 300,
+        height: 300,
+        alignSelf: 'flex-end',
+        objectFit: 'contain'
     },
 });

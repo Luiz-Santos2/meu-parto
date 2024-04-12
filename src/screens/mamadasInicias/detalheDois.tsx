@@ -72,7 +72,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             title_Secundario: <View style={styles.tagButton}>
                 <Text style={styles.tagText}>CUIDANDO DAS RACHADURAS NA MAMA</Text>
             </View>,
-            text_first: '1 - Após o banho seque seus seios suavemente, pois assim a lubrificação natural de proteção do mamilo será preservada. 2 - Utilizar sutiãs de tecido de algodão e adequados ao tamanho dos seios. 3 - Não, aplicar hidratantes ou substancias não orientadas no mamilo. 4 - Se as rachaduras (fissuras) já estiverem presente, após amamentar, pressione com delicadeza o bico do peito e passe o leite sobre o bico.5 - Pega do bebê: ATENÇÃO! Quando não está correta é um dos maiores causadores de rachaduras mamilares. Você lembra que já viu aqui como é a pega correta? Se esqueceu, veja como é novamente:',
+            text_first: '1 - Após o banho seque seus seios suavemente, pois assim a lubrificação natural de proteção do mamilo será preservada.\n\n2 - Utilizar sutiãs de tecido de algodão e adequados ao tamanho dos seios.\n\n3 - Não, aplicar hidratantes ou substancias não orientadas no mamilo.\n\n4 - Se as rachaduras (fissuras) já estiverem presente, após amamentar, pressione com delicadeza o bico do peito e passe o leite sobre o bico.\n\n5 - Pega do bebê: ATENÇÃO! Quando não está correta é um dos maiores causadores de rachaduras mamilares. Você lembra que já viu aqui como é a pega correta? Se esqueceu, veja como é novamente:',
             video1: null,
             button_textLast: null,
             text_last: null,
@@ -96,7 +96,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             video1: null,
             button_textLast: null,
             text_last: null,
-            textInfo: 'Como fazer os rolinhos de fralda que são semelhantes às rosquinhas de amamentação? VEJA O VÍDEO!',
+            textInfo: 'Como fazer os rolinhos de fralda que são semelhantes às rosquinhas de amamentação?\n\nVEJA O VÍDEO!',
             video2: null,
             item_id: 2
         },
@@ -110,17 +110,21 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
 
     const Item = ({ dados }: ItemProps) => (
         <View>
-            <Text style={styles.text}>{dados.title}</Text>
+            {dados.title && <Text style={styles.text}>{dados.title}</Text>}
             {dados.button_title}
-            {dados.title_Secundario}
-            <Text style={styles.textInfo}>{dados.text_first}</Text>
-            {dados.video1}
+            {dados.title_Secundario && (
+                <View style={styles.tagButton}>
+                    <Text style={styles.tagText}>{dados.title_Secundario}</Text>
+                </View>
+            )}
+            {dados.text_first && <Text style={styles.textInfo}>{dados.text_first}</Text>}
+            {dados.video1 && dados.video1}
             {dados.button_textLast}
-            <Text style={styles.textInfoLast}>{dados.text_last}</Text>
-            <Text style={styles.textInfoVideo}>{dados.textInfo}</Text>
-            {dados.video2}
+            {dados.text_last && <Text style={styles.textInfoLast}>{dados.text_last}</Text>}
+            {dados.textInfo && <Text style={styles.textInfoVideo}>{dados.textInfo}</Text>}
+            {dados.video2 && dados.video2}
         </View>
-    )
+    );
 
     return (
         <ImageBackground source={bg} style={styles.background}>
@@ -171,12 +175,13 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
+        width: 190,
     },
     tagButton: {
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
-        padding: 10,
-        width: 200,
+        paddingHorizontal: 60,
+        padding: 3,        
         alignSelf: 'center'
     },
     textInfo: {
@@ -193,7 +198,7 @@ const styles = StyleSheet.create({
         width: 400,
         height: 400,
         alignSelf: 'center',
-        backgroundColor: 'black',
+        objectFit: 'contain'
 
     },
     title: {
@@ -222,7 +227,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     textInfoVideo: {
-        marginTop: 20,
+        width: 360,
+        marginVertical: 30,
         color: '#F7636E',
         fontWeight: 'bold',
         fontSize: 18,

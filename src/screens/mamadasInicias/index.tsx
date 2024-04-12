@@ -107,8 +107,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     img: {
-        width: 220,
-        height: 220,
-        alignSelf: 'center'
+        width: 300,
+        height: 300,
+        alignSelf: 'center',
+        objectFit: 'contain'
     },
 });

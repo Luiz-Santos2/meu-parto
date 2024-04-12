@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
     img: {
         width: 200,
         height: 200,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        objectFit: 'contain'
     },
 });

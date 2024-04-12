@@ -90,15 +90,19 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
 
     const Item = ({ dados }: ItemProps) => (
         <View>
-            <Text style={styles.text}>{dados.title}</Text>
+            {dados.title && <Text style={styles.text}>{dados.title}</Text>}
             {dados.button_title}
-            {dados.title_Secundario}
-            <Text style={styles.textInfo}>{dados.first}</Text>
-            <Text style={styles.title}>{dados.title_Terciario}</Text>
-            {dados.img}
-            <Text style={styles.textInfo}>{dados.last}</Text>
+            {dados.title_Secundario && (
+                <View style={styles.tagButton}>
+                    <Text style={styles.tagText}>{dados.title_Secundario}</Text>
+                </View>
+            )}
+            {dados.first && <Text style={styles.textInfo}>{dados.first}</Text>}
+            {dados.title_Terciario && <Text style={styles.title}>{dados.title_Terciario}</Text>}
+            {dados.img && dados.img}
+            {dados.last && <Text style={styles.textInfo}>{dados.last}</Text>}
         </View>
-    )
+    );
 
     return (
         <ImageBackground source={bg} style={styles.background}>
@@ -157,20 +161,20 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     textInfo: {
-        marginTop: 30,
+        marginVertical: 40,
         width: 360,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
         textAlign: 'justify',
-        color: '#5F5F5F'
+        color: '#5F5F5F',
     },
     img: {
         marginTop: 20,
         width: 400,
         height: 400,
         alignSelf: 'center',
-        backgroundColor: 'black',
+        objectFit: 'contain'
 
     },
     title: {

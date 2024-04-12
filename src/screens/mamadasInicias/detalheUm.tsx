@@ -88,7 +88,7 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
         </TouchableOpacity>,
             title_Terciario: 'DEITADA:',
             img: <Image style={styles.img} source={require('./../../imgs/DEITADA.png')} />,
-            first: 'A mulher fica de lado, podendo apoiar sua cabeça no braço ou numa almofada. Deve-se oferecer a mama que está mais próxima do colchão. Esta posição é confortável para mãe e bebê, sendo útil quando você está cansada e no pós parto. Mas muito cuidado para não dormir por cima do bebê evitando acidentes!',
+            first: 'A mulher fica de lado, podendo apoiar sua cabeça no braço ou numa almofada. Deve-se oferecer a mama que está mais próxima do colchão.\n\nEsta posição é confortável para mãe e bebê, sendo útil quando você está cansada e no pós parto. Mas muito cuidado para não dormir por cima do bebê evitando acidentes!',
             textObs: null,
             item_id: 0
         },
@@ -123,7 +123,7 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
             title_Terciario: 'POSIÇÃO SENTTADA EM POSIÇÃO DE CAVALINHO:',
             img: <Image style={styles.img} source={require('./../../imgs/cavalinho.png')} />,
             first: 'O bebê fica sentado numa das coxas de frente pra mama e a mãe o segura apoiando suas costas. Esta posição é ideal para bebês com mais de 3 meses que já seguram bem a cabeça e para aqueles que apresentam refluxo.',
-            textObs: 'Não existe uma regra para qual posição você e seu bebê devem ficar! A melhor escolha é aquela mais confortável para os dois, onde ocorre a pega correta! Mas o que é a pega correta? Veja no próximo tópico!',
+            textObs: 'Não existe uma regra para qual posição você e seu bebê devem ficar! A melhor escolha é aquela mais confortável para os dois, onde ocorre a pega correta! Mas o que é a pega correta?\n\nVeja no próximo tópico!',
             item_id: 0
         },
     ];
@@ -134,17 +134,20 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
 
     const Item = ({ dados }: ItemProps) => (
         <View>
-            <Text style={styles.text}>{dados.title}</Text>
+            {dados.title && <Text style={styles.text}>{dados.title}</Text>}
             {dados.button_title}
-            {dados.title_Secundario}
+            {dados.title_Secundario && (
+                <View style={styles.tagButton}>
+                    <Text style={styles.tagText}>{dados.title_Secundario}</Text>
+                </View>
+            )}
             {dados.button}
-            <Text style={styles.title}>{dados.title_Terciario}</Text>
-            {dados.img}
-            <Text style={styles.textInfo}>{dados.first}</Text>
-            <Text style={styles.textObsInfo}>{dados.textObs}</Text>
-            
+            {dados.title_Terciario && <Text style={styles.title}>{dados.title_Terciario}</Text>}
+            {dados.img && dados.img}
+            {dados.first && <Text style={styles.textInfo}>{dados.first}</Text>}
+            {dados.textObs && <Text style={styles.textObsInfo}>{dados.textObs}</Text>}
         </View>
-    )
+    );
 
     return (
         <ImageBackground source={bg} style={styles.background}>
@@ -198,7 +201,7 @@ const styles = StyleSheet.create({
     tagButton: {
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
-        padding: 10,
+        padding: 5,
         width: 300,
         alignSelf: 'center'
     },
@@ -216,7 +219,7 @@ const styles = StyleSheet.create({
         width: 250,
         height: 250,
         alignSelf: 'center',
-        backgroundColor: 'black',
+        objectFit: 'contain'
 
     },
     title: {
@@ -238,8 +241,11 @@ const styles = StyleSheet.create({
         color: '#5F5F5F'
     },
     textObsInfo:{
-        marginTop: 10,
+        alignSelf: 'center',
+        color: '#5F5F5F',
+        marginVertical: 20,
         fontSize: 18,
+        width: 360,
         textAlign: 'justify',
         fontWeight: 'bold', 
     },

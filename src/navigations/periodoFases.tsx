@@ -3,7 +3,7 @@ import { PeriodoFasesScreen } from "../screens/menuPeriodoFases/index";
 import { PeriodoFasesSecundariaScreen } from "../screens/menuPeriodoFases/detalhe";
 
 export type PeriodoFaseParams = {
-   PeriodoFases: any,
+   PeriodoFases: {item: any},
    DetalhesPeriodoFases: { item_id: any },
 }
 

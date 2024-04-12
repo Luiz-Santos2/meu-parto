@@ -55,7 +55,7 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
             text_first: 'A passagem do bebê pelo canal do parto e pela vulva pode provocar lacerações, que são semelhantes a cortes. Quando as lacerações são mais profundas ou permanecem sangrando é necessário dar pontos, ou seja, suturá-las.',
             title_Terciario: 'Alguns cuidados que devem ser tomados são:',
             button_textLast: null,
-            text_last: 'Lave a região da vulva com água e sabonete líquido ou em barra, sem esfregar ou usar buchas. Prefira lavar a usar papel higiênico. Compressas geladas no local podem ajudar a diminuir a dor e o inchaço local. Seque bem com uma toalha limpa e macia, sem esfregar. Evite usar roupas apertadas ou que causem atrito com os pontos. Prefira roupas íntimas de algodão e calças largas e confortáveis. Observe os sinais de alerta como vermelhidão, inchaço, secreção amarela, secreção esverdeada ou febre. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento. Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
+            text_last: '- Lave a região da vulva com água e sabonete líquido ou em barra, sem esfregar ou usar buchas. Prefira lavar a usar papel higiênico.\n\n- Compressas geladas no local podem ajudar a diminuir a dor e o inchaço local.\n\n- Seque bem com uma toalha limpa e macia, sem esfregar.\n\n- Evite usar roupas apertadas ou que causem atrito com os pontos.\n\n- Prefira roupas íntimas de algodão e calças largas e confortáveis.\n\n- Observe os sinais de alerta como vermelhidão, inchaço, secreção amarela, secreção esverdeada ou febre. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento.\n\n- Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
             item_id: 1
         },
         {
@@ -79,7 +79,7 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
                     <Text style={styles.textButton}>Áudio</Text>
                 </View>
             </TouchableOpacity>,
-            text_last: 'Lave a região da vulva com água e sabonete líquido ou em barra, sem esfregar ou usar buchas. Prefira lavar a usar papel higiênico. Compressas geladas no local podem ajudar a diminuir a dor e o inchaço local. Seque bem com uma toalha limpa e macia, sem esfregar. Evite usar roupas apertadas ou que causem atrito com os pontos. Prefira roupas íntimas de algodão e calças largas e confortáveis. Observe os sinais de alerta como vermelhidão, inchaço, secreção amarela, secreção esverdeada ou febre. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento. Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
+            text_last: '- Lave a região da cicatriz com água e sabonete neutro, sem esfregar ou usar buchas.\n\n- Seque bem com uma toalha limpa e macia, sem esfregar.\n\n- Evite usar roupas apertadas ou que causem atrito com os pontos.\n\n- Procure levantar da cama com ajuda ou virando para o lado primeiro para depois levantar-se, caso não a tenha ajuda.\n\n- Prefira roupas íntimas de algodão e calças largas e confortáveis.\n\n- Observe os sinais de alerta, como vermelhidão, inchaço, secreção amarela, secreção esverdeada ou febre. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento.\n\n- Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
             item_id: 2
         },
 
@@ -91,16 +91,20 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
 
     const Item = ({ dados }: ItemProps) => (
         <View>
-            <Text style={styles.text}>{dados.title}</Text>
+            {dados.title && <Text style={styles.text}>{dados.title}</Text>}
             {dados.button_title}
-            {dados.title_Secundario}
+            {dados.title_Secundario && (
+                <View style={styles.tagButton}>
+                    <Text style={styles.tagText}>{dados.title_Secundario}</Text>
+                </View>
+            )}
             {dados.button_text}
-            <Text style={styles.textInfo}>{dados.text_first}</Text>
-            <Text style={styles.title}>{dados.title_Terciario}</Text>
+            {dados.text_first && <Text style={styles.textInfo}>{dados.text_first}</Text>}
+            {dados.title_Terciario && <Text style={styles.title}>{dados.title_Terciario}</Text>}
             {dados.button_textLast}
-            <Text style={styles.textInfoLast}>{dados.text_last}</Text>
+            {dados.text_last && <Text style={styles.textInfoLast}>{dados.text_last}</Text>}
         </View>
-    )
+    );
 
     return (
         <ImageBackground source={bg} style={styles.background}>
@@ -174,7 +178,7 @@ const styles = StyleSheet.create({
         width: 400,
         height: 400,
         alignSelf: 'center',
-        backgroundColor: 'black',
+        objectFit: 'contain'
 
     },
     title: {
@@ -199,6 +203,7 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         fontSize: 18,
         textAlign: 'justify',
-        color: '#5F5F5F'
+        color: '#5F5F5F',
+        marginVertical: 10
     },
 });

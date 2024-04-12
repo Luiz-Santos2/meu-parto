@@ -66,7 +66,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
             title_Quartenario: 'Vermelhos ou sanguinolentos',
             img: <Image style={styles.img} source={require('./../../imgs/33.png')} />,
             img2: null,
-            first: 'O bebê é colocado no colo da mãe e apoiado com uma das mãos da mãe.',
+            first: 'Presentes até o 3º ou 4º dia pós-parto, constituindo-se de sangue vermelho intenso e geralmente a quantidade é semelhante a do fluxo menstrual;',
             textObs: null,
             item_id: 0
         },
@@ -82,7 +82,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
             title_Quartenario: 'Serosanguinolentos',
             img: null,
             img2: <Image style={styles.img} source={require('./../../imgs/22.png')} />,
-            first: 'O bebê fica com a barriguinha encostada na mãe, enquanto é segurado por baixo do seu corpo com os dois braços materno.',
+            first: 'Presentes a partir do 4º dia até o 10º dia. Sua coloração torna-se vermelha mais escura ou acastanhada;',
             textObs: null,
             item_id: 0
         },
@@ -98,7 +98,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
             title_Quartenario: 'Serosos',
             img: <Image style={styles.img} source={require('./../../imgs/11.png')} />,
             img2: null,
-            first: 'O bebê fica sentado numa das coxas de frente pra mama e a mãe o segura apoiando suas costas. Esta posição é ideal para bebês com mais de 3 meses que já seguram bem a cabeça e para aqueles que apresentam refluxo.',
+            first: 'São observados após o 10º dia, podendo se estender até a 5ª ou 6ª semana e assumem coloração amarelada ou branca.',
             textObs: 'Atenção: nem sempre a mudança da cor dos lóquios seguem esses períodos descritos. Isso pode variar em cada mulher.',
             item_id: 0
         },
@@ -110,22 +110,26 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
 
     const Item = ({ dados }: ItemProps) => (
         <View>
-            <Text style={styles.text}>{dados.title}</Text>
+            {dados.title && <Text style={styles.text}>{dados.title}</Text>}
             {dados.button_title}
-            {dados.title_Secundario}
+            {dados.title_Secundario && (
+                <View style={styles.tagButton}>
+                    <Text style={styles.tagText}>{dados.title_Secundario}</Text>
+                </View>
+            )}
             {dados.button1}
-            <Text style={styles.text2}>{dados.text}</Text>
+            {dados.text && <Text style={styles.text2}>{dados.text}</Text>}
             {dados.button}
-            <Text style={styles.title}>{dados.title_Terciario}</Text>
-            <Text style={styles.title_Quartenario}>{dados.title_Quartenario}</Text>
+            {dados.title_Terciario && <Text style={styles.title}>{dados.title_Terciario}</Text>}
+            {dados.title_Quartenario && <Text style={styles.title_Quartenario}>{dados.title_Quartenario}</Text>}
             <View style={styles.ajuste1}>
-                {dados.img2}
-                <Text style={styles.textInfo}>{dados.first}</Text>
-                {dados.img}
+                {dados.img2 && dados.img2}
+                {dados.first && <Text style={styles.textInfo}>{dados.first}</Text>}
+                {dados.img && dados.img}
             </View>
-            <Text style={styles.textObsInfo}>{dados.textObs}</Text>
+            {dados.textObs && <Text style={styles.textObsInfo}>{dados.textObs}</Text>}
         </View>
-    )
+    );
 
     return (
         <ImageBackground source={bg} style={styles.background}>
@@ -188,8 +192,8 @@ const styles = StyleSheet.create({
     tagButton: {
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
-        padding: 10,
-        width: 300,
+        padding: 5,
+        width: 280,
         alignSelf: 'center'
     },
     textInfo: {
@@ -206,7 +210,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 180,
         alignSelf: 'center',
-        backgroundColor: 'black',
+        objectFit: 'contain'
 
     },
     title: {
@@ -228,7 +232,10 @@ const styles = StyleSheet.create({
         color: '#5F5F5F'
     },
     textObsInfo: {
-        marginTop: 10,
+        width: 320,
+        
+        alignSelf: 'center',
+        marginVertical: 20,
         fontSize: 18,
         textAlign: 'justify',
         fontWeight: 'bold',
@@ -238,10 +245,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'justify',
         alignSelf: 'center',
-        marginVertical: 10,
+        marginTop: 20
 
     },
     ajuste1: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
+
     },
 });
