@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         marginVertical: 30,
         left: 34,
         fontSize: 20,
-        textAlign: 'center',
+        textAlign: 'justify',
         color: '#5F5F5F',
         fontWeight: 'bold',
     },

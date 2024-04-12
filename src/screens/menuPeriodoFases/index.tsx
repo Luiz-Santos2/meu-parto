@@ -73,7 +73,7 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                 </View>
             </TouchableOpacity>,
             fases: [
-                { title: "DESPRENDIMENTO E SAÍDA DA PLACENTA", screen: 'DetalhesPeriodoFases' },
+                {id: '5',  title: "DESPRENDIMENTO E SAÍDA DA PLACENTA", screen: 'DetalhesPeriodoFases' },
             ]
         },
     ];
