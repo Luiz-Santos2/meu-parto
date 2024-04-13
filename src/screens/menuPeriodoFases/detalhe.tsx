@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, SafeAreaView, FlatList, Button } from 'react-native';
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
 import { RouteProp } from '@react-navigation/native';
 import { PeriodoFaseParams } from '../../navigations/periodoFases';
+import { Video, ResizeMode } from 'expo-av';
 
 export interface PeriodoFasesSecundariaScreenProps {
     navigation: any;
@@ -41,7 +43,16 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             title: '1º Período do Trabalho de Parto',
             titulo_secundario: 'FASE LATENTE',
             text: 'Nesse momento, você pode achar que já deve ir à maternidade, mas calma!\n\nEssa fase pode demorar um tempo muito variável, as contrações uterinas são dolorosas, mas podem estar com duração e intervalos entre elas ainda irregulares e a dilatação do colo do útero chega até 4 cm.',
-            video: '',
+            video: 
+            <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/faseLatente.mp4')}
+                style={{ width: 257, height: 437}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
             item_id: 1,
         },
         {
@@ -55,7 +66,15 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             title: '1º Período do Trabalho de Parto',
             titulo_secundario: 'FASE ATIVA',
             text: ' Agora sim, podemos dizer que começou o trabalho de parto!\n\nAs contrações uterinas são regulares, aparecem num intervalo semelhante entre elas, e há dilatação do colo do útero progressiva a partir dos 4 cm até os 10 cm.\n\nNas mães de primeira viagem dura em média 8 horas e é pouco provável que dure mais que 18 horas; nas mulheres que já pariram dura em média 5 horas e é pouco provável que dure mais que 12 horas.',
-            video: '',
+            video: <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/Fase ativa - 1º periodo.mp4')}
+                style={{ width: 257, height: 437}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
             item_id: 2,
         },
         {
@@ -69,7 +88,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             title: '2º Período do Trabalho de Parto',
             titulo_secundario: 'FASE PASSIVA',
             text: 'Ufa! Já estamos com os tão sonhados 10 cm, que é a dilatação total do colo, mas sem sensação de vontade de fazer força para expulsar o bebê.\n\nSeu corpo está se preparando para que o bebê comece a descer pelo canal do parto.\n\nAté o momento não falamos em que período a bolsa das águas (membrana amniótica) rompe no trabalho de parto. Vamos lá! A bolsa pode romper antes das contrações iniciarem, porém, o mais comum é que isso aconteça após o início delas e até no momento do nascimento. Alguns bebês podem nascer sem que a bolsa rompa e chamamos esse parto de empelicado.',
-            video: '',
+            video: null,
             item_id: 3,
         },
         {
@@ -83,7 +102,15 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             title: '2º Período do Trabalho de Parto',
             titulo_secundario: 'FASE ATIVA',
             text: 'O colo do útero tem dilatação total (10 cm), as contrações do útero e a vontade de empurrar da mamãe fazem com que o bebê desça pelo canal do parto e tornam a cabeça do bebê visível na vulva, se ele estiver com a cabeça pra baixo. Isso é o que chamamos de coroar! Em seguida, sai todo o corpo do bebê!',
-            video: '',
+            video: <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/fase ativa - 2º periodo.mp4')}
+                style={{ width: 332, height: 191}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
             item_id: 4,
         },
         {
@@ -97,7 +124,15 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             title: '3º Período do Parto',
             titulo_secundario: 'DESPRENDIMENTO E SAÍDA DA PLACENTA',
             text: 'Nesse momento, ocorre o desprendimento da placenta do útero e sua saída pelo canal do parto. Esse processo pode durar até uma hora.',
-            video: '',
+            video: <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/DESPRENDIMENTO E saída da placenta.mp4')}
+                style={{ width: 332, height: 191}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
             item_id: 5,
 
         },
@@ -149,26 +184,23 @@ const styles = StyleSheet.create({
         color: '#5F5F5F'
     },
     text: {
-        width: 330,
         marginTop: -5,
         marginVertical: 30,
-        left: 34,
         fontSize: 20,
-        textAlign: 'justify',
+        textAlign: 'center',
         color: '#5F5F5F',
         fontWeight: 'bold',
     },
     containerIcon: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 40
+        marginLeft: 50
     },
     textButton: {
         fontWeight: 'bold',
     },
     tagText: {
         marginVertical: 30,
-        marginHorizontal: 20,
         color: '#000000',
         textAlign: 'center',
         fontWeight: 'bold',
@@ -195,5 +227,17 @@ const styles = StyleSheet.create({
         textAlign: 'justify',
         color: '#5F5F5F'
     },
+    posicaoVideo: {
+        alignItems: 'center',
+        marginVertical: 20
+    },
+    autor: {
+        fontSize: 12,
+        alignSelf: 'center',
+        marginTop: 10
+    },
 
 });
+
+
+

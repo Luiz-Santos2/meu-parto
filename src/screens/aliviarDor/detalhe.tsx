@@ -4,6 +4,8 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
 import { RouteProp } from '@react-navigation/native';
 import { AliviarDorParams } from '../../navigations/aliviarDor';
+import { Video, ResizeMode } from 'expo-av';
+
 
 export interface AliviarDorSecundariaScreenProps {
     navigation: any;
@@ -39,7 +41,21 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
             </TouchableOpacity>,
             title: 'EXERCÍCIOS PARA A PELVE E PERÍNEO',
             text: '',
-            video: '',
+            video: <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/exercícios para a pelve e perÍneo.mp4')}
+                style={{ width: 332, height: 187}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
+            button_textLast: <TouchableOpacity onPress={reproduzir}>
+                <View style={styles.containerIcon}>
+                    <MaterialIcons name="play-circle" style={styles.icon} />
+                    <Text style={styles.textButton}>Áudio</Text>
+                </View>
+            </TouchableOpacity>,
             foto: <Image style={styles.img} source={require('./../../imgs/pelvePerineo.png')} />,
             item_id: 1,
         },
@@ -53,7 +69,15 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
             </TouchableOpacity>,
             title: 'TÉCNICAS DE MASSAGEM',
             text: 'As massagens podem ser realizadas em posições que deixem as costas livres, como sentada, em pé ou de quatro apoios.',
-            video: '',
+            video:  <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/tecnicas de massagem.mp4')}
+                style={{ width: 332, height: 187}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
             foto: <Image style={styles.img} source={require('./../../imgs/tecnicaMassagem.png')} />,
             item_id: 2,
         },
@@ -67,7 +91,15 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
             </TouchableOpacity>,
             title: 'TÉCNICA DE RESPIRAÇÃO',
             text: '',
-            video: '',
+            video:  <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/tecnica de respiração.mp4')}
+                style={{ width: 332, height: 187}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
             foto: <Image style={styles.img} source={require('./../../imgs/tecnicaRespiracao.png')} />,
             item_id: 3,
         },
@@ -81,7 +113,15 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
             </TouchableOpacity>,
             title: 'POSIÇÕES QUE PODEM AJUDAR',
             text: '',
-            video: '',
+            video:  <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/Posições que podem ajudar.mp4')}
+                style={{ width: 332, height: 187}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
             foto: null,
             item_id: 4,
         },
@@ -124,15 +164,15 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
     const Item = ({ dados }: ItemProps) => (
         <View>
             <Text style={styles.text}>COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS</Text>
-            {dados.audio}
+            {dados.audio && dados.audio}
             <View style={styles.tagButton}>
                 <Text style={styles.tagText}>{dados.title}</Text>
             </View>
-            <Text style={styles.textInfo}>{dados.text}</Text>
-            {dados.video}
-            {dados.foto}
+            {dados.text && <Text style={styles.textInfo}>{dados.text}</Text>}
+            {dados.video && dados.video}
+            {dados.foto && dados.foto}
         </View>
-    )
+    );
 
     return (
         <ImageBackground source={bg} style={styles.background}>
@@ -202,9 +242,18 @@ const styles = StyleSheet.create({
         color: '#5F5F5F'
     },
     img: {
-        width: 200,
-        height: 200,
+        width: 300,
+        height: 300,
         alignSelf: 'center',
         objectFit: 'contain'
+    },
+    autor: {
+        fontSize: 12,
+        alignSelf: 'center',
+        marginTop: 10
+    },
+    posicaoVideo: {
+        alignItems: 'center',
+        marginVertical: 40
     },
 });

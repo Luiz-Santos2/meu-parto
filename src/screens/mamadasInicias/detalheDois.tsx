@@ -5,6 +5,7 @@ import { AppSecundario } from '../../components/secundario';
 import React from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { MamadasIniciaisParams } from '../../navigations/mamadasIniciais';
+import { Video, ResizeMode } from 'expo-av';
 
 export interface DetalheDoisMamadasIniciaisScreenScreenProps {
     navigation: any;
@@ -48,7 +49,15 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
                 <Text style={styles.tagText}>PEGA CORRETA</Text>
             </View>,
             text_first: 'A pega correta é a forma mais adequada da boca do seu bebê abocanhar sua mama. O posicionamento do seu corpinho e sua cabeça em relação a mama e a forma dele sugar o leite.',
-            video1: null,
+            video1: <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/pega correta.mp4')}
+                style={{ width: 351, height: 189}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
             button_textLast: <TouchableOpacity onPress={reproduzir}>
                 <View style={styles.containerIconText}>
                     <MaterialIcons name="play-circle" style={styles.icon} />
@@ -97,7 +106,15 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             button_textLast: null,
             text_last: null,
             textInfo: 'Como fazer os rolinhos de fralda que são semelhantes às rosquinhas de amamentação?\n\nVEJA O VÍDEO!',
-            video2: null,
+            video2: <View style={styles.posicaoVideo}>
+            <Video
+                source={require('../../videos/Rosquinha de amamentação.mp4')}
+                style={{ width: 351, height: 166}}
+                useNativeControls={true}
+                resizeMode={ResizeMode.COVER}
+            />
+            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            </View>,
             item_id: 2
         },
 
@@ -228,10 +245,20 @@ const styles = StyleSheet.create({
     },
     textInfoVideo: {
         width: 360,
-        marginVertical: 30,
+        marginVertical: 10,
         color: '#F7636E',
         fontWeight: 'bold',
         fontSize: 18,
         alignSelf: 'center'
     },
+    autor: {
+        fontSize: 12,
+        alignSelf: 'center',
+        marginTop: 10
+    },
+    posicaoVideo: {
+        alignItems: 'center',
+        marginVertical: 20
+    },
+
 });
