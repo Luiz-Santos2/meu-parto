@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         padding: 10,
-        width: 300,
+        paddingHorizontal: 30,
         alignSelf: 'center'
     },
     textInfo: {

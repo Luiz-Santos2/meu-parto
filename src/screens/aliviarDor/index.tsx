@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     img: {
-        width: 180,
-        height: 180,
+        width: 170,
+        height: 170,
         objectFit: 'contain'
     },
 });
