@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     img: {
-        width: 300,
-        height: 300,
+        width: 250,
+        height: 250,
         alignSelf: 'center',
         objectFit: 'contain'
     },
