@@ -58,18 +58,18 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     text: {
-        width: 330,
+        left: 30,
+        width: 290,
         fontSize: 20,
-        textAlign: 'center',
+        textAlign: 'left',
         color: '#5F5F5F',
         fontWeight: 'bold',
-        alignSelf: 'center',
     },
     containerIcon: {
         marginTop: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        left: 45,
+        left: 30,
     },
     icon: {
         fontSize: 35,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     },
     buttonHome: {
         marginHorizontal: 37,
-        margin: 20,
+        margin: 15,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         borderRadius: 9,
         padding: 15,
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     img: {
-        width: 300,
-        height: 300,
+        width: 250,
+        height: 250,
         alignSelf: 'flex-end',
         objectFit: 'contain'
     },

@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
         color: '#5F5F5F'
     },
     text: {
-        width: 300,
+        width: 320,
         marginTop: -5,
         marginVertical: 30,
         left: 34,
@@ -228,13 +228,13 @@ const styles = StyleSheet.create({
     tagButton: {
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
+        marginHorizontal: 30,
         padding: 10,
-        width: 300,
-        alignSelf: 'center'
+        alignItems: 'center'
     },
     textInfo: {
         marginVertical: 30,
-        width: 360,
+        width: 310,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,

@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
         color: '#5F5F5F',
         fontSize: 20,
         textAlign: 'justify',
-        width: 330,
+        width: 320,
 
     },
     TextObsposition: {
-        marginVertical: 40,
-        alignSelf: 'center',
+        marginVertical: 50,
+        alignItems: 'center',
     },
 });

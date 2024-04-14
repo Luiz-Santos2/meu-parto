@@ -168,8 +168,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     text2: {
-        marginTop: 30,
-        width: 350,
+        marginTop: 10,
+        width: 310,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
@@ -193,12 +193,12 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         padding: 5,
-        width: 280,
+        marginHorizontal: 35,
         alignSelf: 'center'
     },
     textInfo: {
         marginTop: 30,
-        width: 260,
+        width: 225,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
@@ -206,20 +206,19 @@ const styles = StyleSheet.create({
         color: '#5F5F5F'
     },
     img: {
+        marginHorizontal: 10,
         marginTop: 20,
         width: 100,
         height: 180,
         alignSelf: 'center',
         objectFit: 'contain'
-
     },
     title: {
-        width: 350,
+        marginTop: 10,
         color: '#F7636E',
         fontWeight: 'bold',
         fontSize: 18,
         left: 20,
-
     },
     containerIcon1: {
         marginTop: 20,
@@ -233,7 +232,7 @@ const styles = StyleSheet.create({
     },
     textObsInfo: {
         width: 320,
-        
+        color: '#5F5F5F',        
         alignSelf: 'center',
         marginVertical: 20,
         fontSize: 18,
@@ -246,11 +245,9 @@ const styles = StyleSheet.create({
         textAlign: 'justify',
         alignSelf: 'center',
         marginTop: 20
-
     },
     ajuste1: {
         flexDirection: 'row',
         alignItems: 'center'
-
     },
 });

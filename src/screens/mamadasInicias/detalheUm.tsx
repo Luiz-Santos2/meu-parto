@@ -202,12 +202,12 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         padding: 5,
-        width: 300,
-        alignSelf: 'center'
+        marginHorizontal: 30,
+        alignItems: 'center'
     },
     textInfo: {
         marginTop: 30,
-        width: 360,
+        width: 330,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
@@ -223,15 +223,16 @@ const styles = StyleSheet.create({
 
     },
     title: {
-        width: 350,
+        width: 330,
         color: '#F7636E',
         fontWeight: 'bold',
         fontSize: 18,
         left: 20,
+        textAlign: 'auto'
 
     },
     containerIcon1: {
-        marginTop: 20,
+        marginTop: 30,
         flexDirection: 'row',
         alignItems: 'center',
         left: 20
@@ -245,7 +246,7 @@ const styles = StyleSheet.create({
         color: '#5F5F5F',
         marginVertical: 20,
         fontSize: 18,
-        width: 360,
+        width: 330,
         textAlign: 'justify',
         fontWeight: 'bold', 
     },

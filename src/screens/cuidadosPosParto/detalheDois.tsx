@@ -159,13 +159,13 @@ const styles = StyleSheet.create({
     tagButton: {
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
-        padding: 10,
-        width: 250,
+        padding: 5,
+        marginHorizontal: 30,
         alignSelf: 'center'
     },
     textInfo: {
         marginTop: 10,
-        width: 360,
+        width: 330,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
@@ -183,11 +183,11 @@ const styles = StyleSheet.create({
     },
     title: {
         width: 330,
-        marginTop: 10,
+        marginTop: 20,
         color: '#F7636E',
-        fontWeight: 'bold',
         fontSize: 18,
-        alignSelf: 'center'
+        textAlign: 'justify',
+        left: 15,
 
     },
     containerIconText: {
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     },
     textInfoLast: {
         marginTop: 10,
-        width: 360,
+        width: 330,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,

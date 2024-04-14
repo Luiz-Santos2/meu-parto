@@ -215,12 +215,12 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         padding: 10,
-        width: 300,
-        alignSelf: 'center'
+        marginHorizontal: 40,
+        alignItems: 'center'
     },
     textInfo: {
         marginVertical: 30,
-        width: 340,
+        width: 320,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,

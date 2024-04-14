@@ -64,19 +64,17 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     text: {
-        width: 330,
         fontSize: 20,
-        textAlign: 'center',
+        textAlign: 'left',
+        left: 30,
         color: '#5F5F5F',
         fontWeight: 'bold',
-        alignSelf: 'center',
     },
     containerIcon: {
-        marginTop: -25,
-        margin: 10,
+        marginTop: -20,
         flexDirection: 'row',
         alignItems: 'center',
-        left: 45,
+        left: 20,
     },
     icon: {
         fontSize: 35,
@@ -88,8 +86,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     buttonHome: {
-        marginHorizontal: 37,
-        margin: 20,
+        marginTop: 15,
+        marginHorizontal: 30,
+        margin: 10,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         borderRadius: 9,
         padding: 15,
@@ -100,10 +99,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     TextObs: {
+        marginTop: 20,
         color: '#5F5F5F',
         fontSize: 18,
         textAlign: 'justify',
-        width: 350,
+        width: 330,
         alignSelf: 'center'
     },
     img: {

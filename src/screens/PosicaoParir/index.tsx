@@ -27,7 +27,7 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
     const jsonData = [
         {
             id: Math.random().toString(12).substring(0),
-            title: 'COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS',
+            title: 'POSIÇÕES PARA PARIR',
             button_title: <TouchableOpacity onPress={reproduzir}>
                 <View style={styles.containerIcon}>
                     <MaterialIcons name="play-circle" style={styles.icon} />
@@ -131,10 +131,9 @@ const styles = StyleSheet.create({
         color: '#5F5F5F'
     },
     text: {
-        width: 300,
-        marginTop: -5,
+        alignItems: 'center',
+        marginTop: 5,
         marginVertical: 30,
-        left: 34,
         fontSize: 20,
         textAlign: 'center',
         color: '#5F5F5F',
@@ -156,13 +155,13 @@ const styles = StyleSheet.create({
     tagButton: {
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
-        padding: 10,
+        padding: 6,
         paddingHorizontal: 30,
         alignSelf: 'center'
     },
     textInfo: {
         marginVertical: 40,
-        width: 360,
+        width: 310,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
@@ -171,8 +170,8 @@ const styles = StyleSheet.create({
     },
     img: {
         marginTop: 20,
-        width: 400,
-        height: 400,
+        width: 300,
+        height: 300,
         alignSelf: 'center',
         objectFit: 'contain'
 

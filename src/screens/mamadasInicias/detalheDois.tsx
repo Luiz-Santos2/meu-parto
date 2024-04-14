@@ -109,7 +109,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             video2: <View style={styles.posicaoVideo}>
             <Video
                 source={require('../../videos/Rosquinha de amamentação.mp4')}
-                style={{ width: 351, height: 166}}
+                style={{ width: 351, height: 200}}
                 useNativeControls={true}
                 resizeMode={ResizeMode.COVER}
             />
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     containerIcon: {
-        marginVertical: 10,
+        marginTop: 20,
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: 40
@@ -192,31 +192,22 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
-        width: 190,
     },
     tagButton: {
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
-        paddingHorizontal: 60,
-        padding: 3,        
-        alignSelf: 'center'
+        marginHorizontal: 30,
+        padding: 5,      
+        alignItems: 'center'
     },
     textInfo: {
         marginTop: 10,
-        width: 360,
+        width: 330,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
         textAlign: 'justify',
         color: '#5F5F5F'
-    },
-    img: {
-        marginTop: 20,
-        width: 400,
-        height: 400,
-        alignSelf: 'center',
-        objectFit: 'contain'
-
     },
     title: {
         width: 330,
@@ -235,7 +226,7 @@ const styles = StyleSheet.create({
     },
     textInfoLast: {
         marginTop: 10,
-        width: 360,
+        width: 330,
         marginLeft: 'auto',
         marginRight: 'auto',
         fontSize: 18,
@@ -244,12 +235,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     textInfoVideo: {
-        width: 360,
-        marginVertical: 10,
+        width: 330,
+        marginVertical: 20,
         color: '#F7636E',
         fontWeight: 'bold',
         fontSize: 18,
-        alignSelf: 'center'
+        textAlign: 'justify',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     autor: {
         fontSize: 12,
