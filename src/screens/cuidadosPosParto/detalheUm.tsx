@@ -112,11 +112,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
         <View>
             {dados.title && <Text style={styles.text}>{dados.title}</Text>}
             {dados.button_title}
-            {dados.title_Secundario && (
-                <View style={styles.tagButton}>
-                    <Text style={styles.tagText}>{dados.title_Secundario}</Text>
-                </View>
-            )}
+            {dados.title_Secundario}
             {dados.button1}
             {dados.text && <Text style={styles.text2}>{dados.text}</Text>}
             {dados.button}
@@ -193,8 +189,8 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         padding: 5,
-        marginHorizontal: 35,
-        alignSelf: 'center'
+        marginHorizontal: 40,
+        alignItems: 'center'
     },
     textInfo: {
         marginTop: 30,

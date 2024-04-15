@@ -93,11 +93,7 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
         <View>
             {dados.title && <Text style={styles.text}>{dados.title}</Text>}
             {dados.button_title}
-            {dados.title_Secundario && (
-                <View style={styles.tagButton}>
-                    <Text style={styles.tagText}>{dados.title_Secundario}</Text>
-                </View>
-            )}
+            {dados.title_Secundario}
             {dados.button_text}
             {dados.text_first && <Text style={styles.textInfo}>{dados.text_first}</Text>}
             {dados.title_Terciario && <Text style={styles.title}>{dados.title_Terciario}</Text>}
@@ -159,7 +155,7 @@ const styles = StyleSheet.create({
     tagButton: {
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
-        padding: 5,
+        padding: 10,
         marginHorizontal: 30,
         alignSelf: 'center'
     },
