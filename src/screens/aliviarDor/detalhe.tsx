@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, SafeAreaView, FlatList, Image } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, SafeAreaView, FlatList, Image } from 'react-native';
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
 import { RouteProp } from '@react-navigation/native';
 import { AliviarDorParams } from '../../navigations/aliviarDor';
-import { Video, ResizeMode } from 'expo-av';
+import { Video, ResizeMode, Audio } from 'expo-av';
 
 
 export interface AliviarDorSecundariaScreenProps {
@@ -14,9 +15,21 @@ export interface AliviarDorSecundariaScreenProps {
 
 export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProps) {
 
-    const reproduzir = async () => {
-        Alert.alert('Reproduz o áudio')
-    }
+    const [sound, setSound] = useState<Audio.Sound | null>(null);
+
+    const reproduzir = async (audio: any) => {
+        try {
+            if (sound) {
+                await sound.unloadAsync();
+            }
+            const { sound: newSound } = await Audio.Sound.createAsync(audio);
+            setSound(newSound);
+            await newSound.playAsync();
+        } catch (error) {
+            console.error("Erro ao reproduzir o áudio:", error);
+        }
+    };
+
     //@ts-ignore
     const { item_id } = props.route.params
     console.log('item_id:', item_id)
@@ -33,106 +46,75 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
     const getItems = [
         {
             id: Math.random().toString(12).substring(0),
-            audio: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            audio: require('../../audios/a melhor posição para parir.mp3'),
             title: 'EXERCÍCIOS PARA A PELVE E PERÍNEO',
             text: '',
             video: <View style={styles.posicaoVideo}>
-            <Video
-                source={require('../../videos/exercícios para a pelve e perÍneo.mp4')}
-                style={{ width: 332, height: 187}}
-                useNativeControls={true}
-                resizeMode={ResizeMode.COVER}
-            />
-            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+                <Video
+                    source={require('../../videos/exercícios para a pelve e perÍneo.mp4')}
+                    style={{ width: 332, height: 187 }}
+                    useNativeControls={true}
+                    resizeMode={ResizeMode.COVER}
+                />
+                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
             </View>,
-            button_textLast: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
             foto: <Image style={styles.img} source={require('./../../imgs/pelvePerineo.png')} />,
             item_id: 1,
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            audio: require('../../audios/a melhor posição para parir.mp3'),
             title: 'TÉCNICAS DE MASSAGEM',
             text: 'As massagens podem ser realizadas em posições que deixem as costas livres, como sentada, em pé ou de quatro apoios.',
-            video:  <View style={styles.posicaoVideo}>
-            <Video
-                source={require('../../videos/tecnicas de massagem.mp4')}
-                style={{ width: 332, height: 187}}
-                useNativeControls={true}
-                resizeMode={ResizeMode.COVER}
-            />
-            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            video: <View style={styles.posicaoVideo}>
+                <Video
+                    source={require('../../videos/tecnicas de massagem.mp4')}
+                    style={{ width: 332, height: 187 }}
+                    useNativeControls={true}
+                    resizeMode={ResizeMode.COVER}
+                />
+                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
             </View>,
             foto: <Image style={styles.img} source={require('./../../imgs/tecnicaMassagem.png')} />,
             item_id: 2,
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            audio: require('../../audios/a melhor posição para parir.mp3'),
             title: 'TÉCNICA DE RESPIRAÇÃO',
             text: '',
-            video:  <View style={styles.posicaoVideo}>
-            <Video
-                source={require('../../videos/tecnica de respiração.mp4')}
-                style={{ width: 332, height: 187}}
-                useNativeControls={true}
-                resizeMode={ResizeMode.COVER}
-            />
-            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            video: <View style={styles.posicaoVideo}>
+                <Video
+                    source={require('../../videos/tecnica de respiração.mp4')}
+                    style={{ width: 332, height: 187 }}
+                    useNativeControls={true}
+                    resizeMode={ResizeMode.COVER}
+                />
+                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
             </View>,
             foto: <Image style={styles.img} source={require('./../../imgs/tecnicaRespiracao.png')} />,
             item_id: 3,
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            audio: require('../../audios/a melhor posição para parir.mp3'),
             title: 'POSIÇÕES QUE PODEM AJUDAR',
             text: '',
-            video:  <View style={styles.posicaoVideo}>
-            <Video
-                source={require('../../videos/Posições que podem ajudar.mp4')}
-                style={{ width: 332, height: 187}}
-                useNativeControls={true}
-                resizeMode={ResizeMode.COVER}
-            />
-            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+            video: <View style={styles.posicaoVideo}>
+                <Video
+                    source={require('../../videos/Posições que podem ajudar.mp4')}
+                    style={{ width: 332, height: 187 }}
+                    useNativeControls={true}
+                    resizeMode={ResizeMode.COVER}
+                />
+                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
             </View>,
             foto: null,
             item_id: 4,
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            audio: require('../../audios/a melhor posição para parir.mp3'),
             title: 'BANHO MORNO',
             text: 'O banho morno pode ser realizado no chuveiro, na posição que a mulher escolher (em pé, de cócoras, sentada na cadeira ou na bola suíça) ou, se disponível, pode-se usar banheira ou piscina.',
             video: '',
@@ -142,12 +124,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            audio: require('../../audios/a melhor posição para parir.mp3'),
             title: 'MÚSICAS DE ESCOLHA DA MULHER',
             text: 'Ouvir músicas da sua preferência durante qualquer fase do trabalho de parto pode diminuir os sintomas de dor e ansiedade e proporcionar uma experiência de parto mais leve e feliz.',
             video: '',
@@ -164,7 +141,12 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
     const Item = ({ dados }: ItemProps) => (
         <View>
             <Text style={styles.text}>COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS</Text>
-            {dados.audio && dados.audio}
+            <TouchableOpacity onPress={() => reproduzir(dados.audio)}>
+                <View style={styles.containerIcon}>
+                    <MaterialIcons name="play-circle" style={styles.icon} />
+                    <Text style={styles.textButton}>Áudio</Text>
+                </View>
+            </TouchableOpacity>
             <View style={styles.tagButton}>
                 <Text style={styles.tagText}>{dados.title}</Text>
             </View>

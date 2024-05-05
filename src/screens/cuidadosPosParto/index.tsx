@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Alert
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
+import { useEffect, useState } from 'react';
+import { Audio } from 'expo-av';
 
 export interface CuidadosPosPartoscreenProps {
     navigation: any;
@@ -9,9 +11,24 @@ export interface CuidadosPosPartoscreenProps {
 
 export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
 
-    const reproduzir = async () => {
-        Alert.alert('Reproduz o áudio')
+    const [sound, setSound] = useState<Audio.Sound>();
+
+    async function reproduzir() {
+        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
+        );
+        setSound(sound);
+
+        await sound.playAsync();
     }
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound]);
+
     const jsonData = [
         {
             data: [{ type: 'SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?', tela: 'DetalheUmCuidadosPosParto', type_id: 0 }],

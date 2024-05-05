@@ -4,6 +4,8 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
 import { RouteProp } from '@react-navigation/native';
 import { MamadasIniciaisParams } from '../../navigations/mamadasIniciais';
+import { useEffect, useState } from 'react';
+import { Audio } from 'expo-av';
 
 
 export interface MamadasIniciaisScreenscreenProps {
@@ -13,18 +15,33 @@ export interface MamadasIniciaisScreenscreenProps {
 
 export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
 
-    const reproduzir = async () => {
-        Alert.alert('Reproduz o áudio')
+    const [sound, setSound] = useState<Audio.Sound>();
+
+    async function reproduzir() {
+        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
+        );
+        setSound(sound);
+
+        await sound.playAsync();
     }
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound]);
+
     const jsonData = [
         {
-            data: [{ type: 'POSIÇÕES PARA AMAMENTAR', tela: 'DetalheUmMamadasIniciais',  type_id: 0 }],
+            data: [{ type: 'POSIÇÕES PARA AMAMENTAR', tela: 'DetalheUmMamadasIniciais', type_id: 0 }],
         },
         {
             data: [{ type: 'MEU BEBÊ ESTÁ FAZENDO A PEGA NA MAMA DA FORMA CORRETA?', tela: 'DetalheDoisMamadasIniciais', type_id: 1 }],
         },
         {
-            data: [{ type: 'CUIDANDO DAS RACHADURAS NA MAMA', tela: 'DetalheDoisMamadasIniciais',  type_id: 2 }],
+            data: [{ type: 'CUIDANDO DAS RACHADURAS NA MAMA', tela: 'DetalheDoisMamadasIniciais', type_id: 2 }],
         },
     ];
     return (

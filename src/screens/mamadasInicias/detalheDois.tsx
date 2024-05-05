@@ -2,10 +2,10 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, SafeA
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { MamadasIniciaisParams } from '../../navigations/mamadasIniciais';
-import { Video, ResizeMode } from 'expo-av';
+import { Video, ResizeMode, Audio } from 'expo-av';
 
 export interface DetalheDoisMamadasIniciaisScreenScreenProps {
     navigation: any;
@@ -14,9 +14,20 @@ export interface DetalheDoisMamadasIniciaisScreenScreenProps {
 
 export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasIniciaisScreenScreenProps) {
 
-    const reproduzir = async () => {
-        Alert.alert('Reproduz o áudio')
-    }
+    const [sound, setSound] = useState<Audio.Sound | null>(null);
+
+    const reproduzir = async (audio: any) => {
+        try {
+            if (sound) {
+                await sound.unloadAsync();
+            }
+            const { sound: newSound } = await Audio.Sound.createAsync(audio);
+            setSound(newSound);
+            await newSound.playAsync();
+        } catch (error) {
+            console.error("Erro ao reproduzir o áudio:", error);
+        }
+    };
 
     //@ts-ignore
     const { item_id } = props.route.params
@@ -39,31 +50,21 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
         {
             id: Math.random().toString(12).substring(0),
             title: 'MAMADAS INICIAIS',
-            button_title: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            button_title: require('../../audios/a melhor posição para parir.mp3'),
             title_Secundario: <View style={styles.tagButton}>
                 <Text style={styles.tagText}>PEGA CORRETA</Text>
             </View>,
             text_first: 'A pega correta é a forma mais adequada da boca do seu bebê abocanhar sua mama. O posicionamento do seu corpinho e sua cabeça em relação a mama e a forma dele sugar o leite.',
             video1: <View style={styles.posicaoVideo}>
-            <Video
-                source={require('../../videos/pega correta.mp4')}
-                style={{ width: 351, height: 189}}
-                useNativeControls={true}
-                resizeMode={ResizeMode.COVER}
-            />
-            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+                <Video
+                    source={require('../../videos/pega correta.mp4')}
+                    style={{ width: 351, height: 189 }}
+                    useNativeControls={true}
+                    resizeMode={ResizeMode.COVER}
+                />
+                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
             </View>,
-            button_textLast: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIconText}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            button_textLast: require('../../audios/a melhor posição para parir.mp3'),
             text_last: 'Nesse momento, após assistir o vídeo, você pode tentar aplicar o que aprendeu com o seu bebê. Se não conseguiu na primeira tentativa, não se desespere, nem sempre é simples, persistam, tentem de novo. Você não está só!',
             video2: null,
             textInfo: null,
@@ -72,12 +73,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
         {
             id: Math.random().toString(12).substring(0),
             title: 'MAMADAS INICIAIS',
-            button_title: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            button_title: require('../../audios/a melhor posição para parir.mp3'),
             title_Secundario: <View style={styles.tagButton}>
                 <Text style={styles.tagText}>CUIDANDO DAS RACHADURAS NA MAMA</Text>
             </View>,
@@ -92,12 +88,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
         {
             id: Math.random().toString(12).substring(0),
             title: null,
-            button_title: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            button_title: require('../../audios/a melhor posição para parir.mp3'),
             title_Secundario: <View style={styles.tagButton}>
                 <Text style={styles.tagText}>PEGA CORRETA</Text>
             </View>,
@@ -107,13 +98,13 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             text_last: null,
             textInfo: 'Como fazer os rolinhos de fralda que são semelhantes às rosquinhas de amamentação?\n\nVEJA O VÍDEO!',
             video2: <View style={styles.posicaoVideo}>
-            <Video
-                source={require('../../videos/Rosquinha de amamentação.mp4')}
-                style={{ width: 351, height: 200}}
-                useNativeControls={true}
-                resizeMode={ResizeMode.COVER}
-            />
-            <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
+                <Video
+                    source={require('../../videos/Rosquinha de amamentação.mp4')}
+                    style={{ width: 351, height: 200 }}
+                    useNativeControls={true}
+                    resizeMode={ResizeMode.COVER}
+                />
+                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
             </View>,
             item_id: 2
         },
@@ -128,7 +119,14 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
     const Item = ({ dados }: ItemProps) => (
         <View>
             {dados.title && <Text style={styles.text}>{dados.title}</Text>}
-            {dados.button_title}
+            {dados.button_title && (
+                <TouchableOpacity onPress={() => reproduzir(dados.button_title)}>
+                    <View style={styles.containerIcon}>
+                        <MaterialIcons name="play-circle" style={styles.icon} />
+                        <Text style={styles.textButton}>Áudio</Text>
+                    </View>
+                </TouchableOpacity>
+            )}
             {dados.title_Secundario && (
                 <View style={styles.tagButton}>
                     <Text style={styles.tagText}>{dados.title_Secundario}</Text>
@@ -136,7 +134,14 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             )}
             {dados.text_first && <Text style={styles.textInfo}>{dados.text_first}</Text>}
             {dados.video1 && dados.video1}
-            {dados.button_textLast}
+            {dados.button_textLast && (
+                <TouchableOpacity onPress={() => reproduzir(dados.button_textLast)}>
+                    <View style={styles.containerIcon}>
+                        <MaterialIcons name="play-circle" style={styles.icon} />
+                        <Text style={styles.textButton}>Áudio</Text>
+                    </View>
+                </TouchableOpacity>
+            )}
             {dados.text_last && <Text style={styles.textInfoLast}>{dados.text_last}</Text>}
             {dados.textInfo && <Text style={styles.textInfoVideo}>{dados.textInfo}</Text>}
             {dados.video2 && dados.video2}
@@ -197,7 +202,7 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         marginHorizontal: 30,
-        padding: 5,      
+        padding: 5,
         alignItems: 'center'
     },
     textInfo: {

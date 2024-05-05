@@ -1,7 +1,10 @@
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, SectionList } from 'react-native';
 import bg from './../../imgs/background.png';
 import { AppHeader } from '../../components/header';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
+import { Audio } from 'expo-av';
+import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 
 export interface HomescreenProps {
     navigation: any;
@@ -9,32 +12,49 @@ export interface HomescreenProps {
 
 export function HomeScreen(props: HomescreenProps) {
 
-    const reproduzir = async () => {
-        Alert.alert('Reproduz o áudio')
-    }
+    const [sound, setSound] = useState<Audio.Sound>();
+
+
     const jsonData = [
         {
-            data: [{ type: 'PERÍODOS E FASES DO PARTO', type_id: 'periodoFases' }],
+            data: [{ type: 'PERÍODOS E FASES DO PARTO', type_id: 'periodoFases', audio: require('../../audios/Continuar.mp3') }],
         },
         {
-            data: [{ type: 'COMO ALIVIAR A DOR NO TRABALHO DE PARTO', type_id: 'aliviarDor' }],
+            data: [{ type: 'COMO ALIVIAR A DOR NO TRABALHO DE PARTO', type_id: 'aliviarDor', audio: require('../../audios/Continuar.mp3') }],
         },
         {
-            data: [{ type: 'POSIÇÕES PARA PARIR', type_id: 'posicaoParir' }],
+            data: [{ type: 'POSIÇÕES PARA PARIR', type_id: 'posicaoParir', audio: require('../../audios/Continuar.mp3') }],
         },
         {
-            data: [{ type: 'CUIDADOS NO INICIO DO PÓS-PARTO', type_id: 'cuidadosPosParto' }],
+            data: [{ type: 'CUIDADOS NO INICIO DO PÓS-PARTO', type_id: 'cuidadosPosParto', audio: require('../../audios/Continuar.mp3') }],
         },
         {
-            data: [{ type: 'MAMADAS INICIAIS', type_id: 'mamadasIniciais' }],
+            data: [{ type: 'MAMADAS INICIAIS', type_id: 'mamadasIniciais', audio: require('../../audios/Continuar.mp3') }],
         },
     ];
+
+    async function Reproduzir() {
+        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
+        );
+        setSound(sound);
+
+        await sound.playAsync();
+    }
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound]);
+
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppHeader />
             <View style={styles.container}>
                 <Text style={styles.text}>Vamos começar?</Text>
-                <TouchableOpacity onPress={reproduzir}>
+                <TouchableOpacity onPress={Reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
                         <Text style={styles.textButton}>Áudio - Descrição</Text>

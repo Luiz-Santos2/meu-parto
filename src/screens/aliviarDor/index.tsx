@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Alert
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
+import { useEffect, useState } from 'react';
+import { Audio } from 'expo-av';
 
 export interface AliviarDorscreenProps {
     navigation: any;
@@ -9,9 +11,24 @@ export interface AliviarDorscreenProps {
 
 export function AliviarDorScreen(props: AliviarDorscreenProps) {
 
-    const reproduzir = async () => {
-        Alert.alert('Reproduz o áudio')
+    const [sound, setSound] = useState<Audio.Sound>();
+
+    async function reproduzir() {
+        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
+        );
+        setSound(sound);
+
+        await sound.playAsync();
     }
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound]);
+
     const jsonData = [
         {
             data: [{ type: 'EXERCÍCIOS PARA A PELVE E PERÍNEO', type_id: 1 }],

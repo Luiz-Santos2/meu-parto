@@ -2,7 +2,8 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, Image
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Audio } from 'expo-av';
 
 export interface PosicaoParirScreenScreenProps {
 
@@ -10,9 +11,24 @@ export interface PosicaoParirScreenScreenProps {
 
 export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
 
-    const reproduzir = async () => {
-        Alert.alert('Reproduz o áudio')
+    const [sound, setSound] = useState<Audio.Sound>();
+
+    async function reproduzir() {
+        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
+        );
+        setSound(sound);
+
+        await sound.playAsync();
     }
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound]);
+
     type ItemData = {
         id: any;
         title: any;

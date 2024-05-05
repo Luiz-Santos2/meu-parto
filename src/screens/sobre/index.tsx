@@ -1,26 +1,28 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import bg from './../../imgs/background.png';
 import lg from './../../imgs/logo.png';
 import { AppHeader } from '../../components/header';
 import { MaterialIcons } from '@expo/vector-icons'
+import { Audio } from 'expo-av';
 
 export interface SobrescreenProps {
     navigation: any;
 }
 
-
 export function SobreScreen(props: SobrescreenProps) {
+
     const [index, setIndex] = useState(0);
+    const [sound, setSound] = useState<Audio.Sound>();
 
     const jsonData = [
         {
             nome: "Bem-vinda, mamãe! Este aplicativo é seu aliado na jornada da maternidade, oferecendo informações confiáveis e apoio durante a fase inicial. Estamos aqui para ajudá-la a vivenciar essa experiência com mais segurança e tranquilidade.",
-            valor: "Valor 1"
+            audio: require('../../audios/Continuar.mp3')
         },
         {
             nome: "Este aplicativo é produto de dissertação do programa de pós-graduação em Biotecnologia em Saúde Humana e Animal (PPGBIOTEC) vinculado à Universidade Estadual do Ceará (UECE), onde o Centro Universitário Cesmac é instituição associada. O aplicativo foi desenvolvido em parceria com o Núcleo de Robótica do Centro Universitário Cesmac.",
-            valor: "Valor 2"
+            audio: require('../../audios/a melhor posição para parir.mp3')
         },
     ];
 
@@ -32,9 +34,27 @@ export function SobreScreen(props: SobrescreenProps) {
         }
     };
 
+    useEffect(() => {
+
+        const reproduzir = async () => {
+            const { sound } = await Audio.Sound.createAsync(jsonData[index].audio);
+            setSound(sound);
+        };
+
+        reproduzir();
+
+        return () => {
+            if (sound) {
+                sound.unloadAsync();
+            }
+        };
+    }, [index]);
+
     const reproduzir = async () => {
-        { jsonData[index].valor }
-    }
+        if (sound) {
+            await sound.replayAsync();
+        }
+    };
 
     return (
         <ImageBackground source={bg} style={styles.background}>

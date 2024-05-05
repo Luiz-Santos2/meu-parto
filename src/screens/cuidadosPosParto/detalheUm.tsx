@@ -2,9 +2,10 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, Image
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { CuidadosPosPartoParams } from '../../navigations/cuidadosPosParto';
+import { Audio } from 'expo-av';
 export interface DetalheUmPosPartoScreenScreenProps {
     navigation: any;
     route: RouteProp<CuidadosPosPartoParams, "DetalheUmCuidadosPosParto">;
@@ -12,9 +13,21 @@ export interface DetalheUmPosPartoScreenScreenProps {
 
 export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProps) {
 
-    const reproduzir = async () => {
-        Alert.alert('Reproduz o áudio')
-    }
+    const [sound, setSound] = useState<Audio.Sound | null>(null);
+
+    const reproduzir = async (audio: any) => {
+        try {
+            if (sound) {
+                await sound.unloadAsync();
+            }
+            const { sound: newSound } = await Audio.Sound.createAsync(audio);
+            setSound(newSound);
+            await newSound.playAsync();
+        } catch (error) {
+            console.error("Erro ao reproduzir o áudio:", error);
+        }
+    };
+
 
     //@ts-ignore
     const { item_id } = props.route.params
@@ -40,28 +53,13 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
         {
             id: Math.random().toString(12).substring(0),
             title: 'CUIDADOS NO PÓS-PARTO',
-            button_title: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            button_title: require('../../audios/a melhor posição para parir.mp3'),
             title_Secundario: <View style={styles.tagButton}>
                 <Text style={styles.tagText}>SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?</Text>
             </View>,
-            button1: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon1}>
-                    <MaterialIcons name="play-circle" style={styles.icon1} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            button1: require('../../audios/a melhor posição para parir.mp3'),
             text: 'Você sabia que o sangramento da mulher imediatamente após o parto e nos dias seguintes são chamados de lóquios ou loquiações? De agora em diante, você não vai chamá-lo de menstruação, como muita gente acha que é.',
-            button: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon1}>
-                    <MaterialIcons name="play-circle" style={styles.icon1} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            button: require('../../audios/a melhor posição para parir.mp3'),
             title_Terciario: 'Os lóquios ou loquiações podem ser:',
             title_Quartenario: 'Vermelhos ou sanguinolentos',
             img: <Image style={styles.img} source={require('./../../imgs/33.png')} />,
@@ -111,11 +109,32 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
     const Item = ({ dados }: ItemProps) => (
         <View>
             {dados.title && <Text style={styles.text}>{dados.title}</Text>}
-            {dados.button_title}
+            {dados.button_title && (
+                <TouchableOpacity onPress={() => reproduzir(dados.button_title)}>
+                    <View style={styles.containerIcon}>
+                        <MaterialIcons name="play-circle" style={styles.icon} />
+                        <Text style={styles.textButton}>Áudio</Text>
+                    </View>
+                </TouchableOpacity>
+            )}
             {dados.title_Secundario}
-            {dados.button1}
+            {dados.button1 && (
+                <TouchableOpacity onPress={() => reproduzir(dados.button1)}>
+                    <View style={styles.containerIcon1}>
+                        <MaterialIcons name="play-circle" style={styles.icon1} />
+                        <Text style={styles.textButton}>Áudio</Text>
+                    </View>
+                </TouchableOpacity>
+            )}
             {dados.text && <Text style={styles.text2}>{dados.text}</Text>}
-            {dados.button}
+            {dados.button && (
+                <TouchableOpacity onPress={() => reproduzir(dados.button)}>
+                    <View style={styles.containerIcon1}>
+                        <MaterialIcons name="play-circle" style={styles.icon1} />
+                        <Text style={styles.textButton}>Áudio</Text>
+                    </View>
+                </TouchableOpacity>
+            )}
             {dados.title_Terciario && <Text style={styles.title}>{dados.title_Terciario}</Text>}
             {dados.title_Quartenario && <Text style={styles.title_Quartenario}>{dados.title_Quartenario}</Text>}
             <View style={styles.ajuste1}>
@@ -228,7 +247,7 @@ const styles = StyleSheet.create({
     },
     textObsInfo: {
         width: 320,
-        color: '#5F5F5F',        
+        color: '#5F5F5F',
         alignSelf: 'center',
         marginVertical: 20,
         fontSize: 18,

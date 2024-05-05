@@ -1,29 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
+import { Audio } from 'expo-av';
 
 export interface PeriodoFasesScreenProps {
     navigation: any;
 }
 
 export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
-
-    const reproduzir = async () => {
-        Alert.alert('Reproduz o áudio')
-    }
-
-    type ItemData = {
-        id: any;
-        title: any;
-        period: any;
-        screen: any;
-        audio: any;
-        fases: any[]
-
-
-    };
+    const [sound, setSound] = useState<Audio.Sound | null>(null);
+    const [index, setIndex] = useState(0);
 
     const jsonData = [
         {
@@ -31,76 +19,71 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
             title: 'FASE LATENTE',
             period: '1º Período do Trabalho de Parto',
             screen: 'DetalhesPeriodoFases',
-            audio: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon1}>
-                    <MaterialIcons name="play-circle" style={styles.icon1} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            audio: require('../../audios/a melhor posição para parir.mp3'),
             fases: [
-                { id: '1', title: "FASE LATENTE", screen: 'DetalhesPeriodoFases' },
-                { id: '2', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases' },
+                { id: '1', title: "FASE LATENTE", screen: 'DetalhesPeriodoFases', audio: require('../../audios/a melhor posição para parir.mp3') },
+                { id: '2', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/Continuar.mp3') },
             ]
-
         },
         {
             id: '2',
             title: 'FASE PASSIVA',
             period: '2º Período do Trabalho de Parto',
             screen: 'DetalhesPeriodoFases',
-            audio: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon1}>
-                    <MaterialIcons name="play-circle" style={styles.icon1} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            audio: require('../../audios/Continuar.mp3'),
             fases: [
-                { id: '3', title: "FASE PASSIVA", screen: 'DetalhesPeriodoFases' },
-                { id: '4', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases' },
+                { id: '3', title: "FASE PASSIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/Continuar.mp3') },
+                { id: '4', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/a melhor posição para parir.mp3') },
             ]
-
         },
-
         {
             id: '3',
             title: 'DESPRENDIMENTO E SAÍDA DA PLACENTA',
             period: '3º Período do Trabalho de Parto',
             screen: 'DetalhesPeriodoFases',
-            audio: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon1}>
-                    <MaterialIcons name="play-circle" style={styles.icon1} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
+            audio: require('../../audios/a melhor posição para parir.mp3'),
             fases: [
-                {id: '5',  title: "DESPRENDIMENTO E SAÍDA DA PLACENTA", screen: 'DetalhesPeriodoFases' },
+                { id: '5', title: "DESPRENDIMENTO E SAÍDA DA PLACENTA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/a melhor posição para parir.mp3') },
             ]
         },
     ];
 
-    type ItemProps = {
-        dados: ItemData
+    useEffect(() => {
+        return () => {
+            if (sound) {
+                sound.unloadAsync();
+            }
+        };
+    }, []);
+
+    const reproduzirAudio = async (audio: any) => {
+        try {
+            if (sound) {
+                await sound.unloadAsync();
+            }
+            const { sound: newSound } = await Audio.Sound.createAsync(audio);
+            setSound(newSound);
+            await newSound.replayAsync();
+        } catch (error) {
+            console.error("Erro ao reproduzir o áudio:", error);
+        }
     };
 
-    const Item = ({ dados }: ItemProps) => (
+    const renderFase = ({ item }: { item: any }) => (
         <View style={{ marginBottom: 40 }}>
             <View style={{ marginBottom: 30 }}>
-                {dados.audio && (
-                    <TouchableOpacity onPress={reproduzir}>
-                        <View style={styles.containerIcon1}>
-                            <MaterialIcons name="play-circle" style={styles.icon1} />
-                            <Text style={styles.textButton}>Áudio</Text>
-                        </View>
-                    </TouchableOpacity>
-                )}
-                {dados.period && (
-                    <Text style={styles.period}>{dados.period}</Text>
-                )}
+                <TouchableOpacity onPress={() => reproduzirAudio(item.audio)}>
+                    <View style={styles.containerIcon1}>
+                        <MaterialIcons name="play-circle" style={styles.icon1} />
+                        <Text style={styles.textButton}>Áudio</Text>
+                    </View>
+                </TouchableOpacity>
+                <Text style={styles.period}>{item.period}</Text>
             </View>
             <View style={styles.ajuste}>
-                {dados.fases.map((fase, index) => (
-                    <View key={"fase" + index}  >
-                        <TouchableOpacity onPress={reproduzir}>
+                {item.fases.map((fase: any, index: number) => (
+                    <View key={"fase" + index}>
+                        <TouchableOpacity onPress={() => reproduzirAudio(fase.audio)}>
                             <View style={styles.containerIcon}>
                                 <MaterialIcons name="play-circle" style={styles.icon} />
                                 <Text style={styles.textButton}>Áudio</Text>
@@ -124,8 +107,8 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                 <Text style={styles.title}>PERÍODOS E FASES DO PARTO</Text>
                 <FlatList
                     initialNumToRender={4}
-                    renderItem={({ item }) => <Item dados={item} />}
-                    keyExtractor={item => item.id}
+                    renderItem={renderFase}
+                    keyExtractor={(item) => item.id}
                     data={jsonData}
                 />
             </View>
@@ -190,9 +173,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25
 
     },
-    ajuste:{
-        flexDirection: 'row', 
-        justifyContent: 'space-around', 
+    ajuste: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         marginVertical: 10
     },
 });
