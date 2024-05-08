@@ -18,7 +18,7 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
     const [sound, setSound] = useState<Audio.Sound>();
 
     async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
+        const { sound } = await Audio.Sound.createAsync(require('../../audios/Essas primeiras mamadas podem não ser tão fáceis....mp3')
         );
         setSound(sound);
 

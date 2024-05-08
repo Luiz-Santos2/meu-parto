@@ -45,7 +45,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
     const getItems = [
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/Nesse momento voce pode.mp3'),
             title: '1º Período do Trabalho de Parto',
             titulo_secundario: 'FASE LATENTE',
             text: 'Nesse momento, você pode achar que já deve ir à maternidade, mas calma!\n\nEssa fase pode demorar um tempo muito variável, as contrações uterinas são dolorosas, mas podem estar com duração e intervalos entre elas ainda irregulares e a dilatação do colo do útero chega até 4 cm.',
@@ -63,7 +63,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/Agora sim, podemos.mp3'),
             title: '1º Período do Trabalho de Parto',
             titulo_secundario: 'FASE ATIVA',
             text: ' Agora sim, podemos dizer que começou o trabalho de parto!\n\nAs contrações uterinas são regulares, aparecem num intervalo semelhante entre elas, e há dilatação do colo do útero progressiva a partir dos 4 cm até os 10 cm.\n\nNas mães de primeira viagem dura em média 8 horas e é pouco provável que dure mais que 18 horas; nas mulheres que já pariram dura em média 5 horas e é pouco provável que dure mais que 12 horas.',
@@ -80,7 +80,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/Ufa, Já.mp3'),
             title: '2º Período do Trabalho de Parto',
             titulo_secundario: 'FASE PASSIVA',
             text: 'Ufa! Já estamos com os tão sonhados 10 cm, que é a dilatação total do colo, mas sem sensação de vontade de fazer força para expulsar o bebê.\n\nSeu corpo está se preparando para que o bebê comece a descer pelo canal do parto.\n\nAté o momento não falamos em que período a bolsa das águas (membrana amniótica) rompe no trabalho de parto. Vamos lá! A bolsa pode romper antes das contrações iniciarem, porém, o mais comum é que isso aconteça após o início delas e até no momento do nascimento. Alguns bebês podem nascer sem que a bolsa rompa e chamamos esse parto de empelicado.',
@@ -89,7 +89,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/O colo do útero tem.mp3'),
             title: '2º Período do Trabalho de Parto',
             titulo_secundario: 'FASE ATIVA',
             text: 'O colo do útero tem dilatação total (10 cm), as contrações do útero e a vontade de empurrar da mamãe fazem com que o bebê desça pelo canal do parto e tornam a cabeça do bebê visível na vulva, se ele estiver com a cabeça pra baixo. Isso é o que chamamos de coroar! Em seguida, sai todo o corpo do bebê!',
@@ -106,8 +106,8 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
-            title: '3º Período do Parto',
+            audio: require('../../audios/nesse momento ocorre o despresdimento.mp3'),
+            title: '3º Período do Trabalho de Parto',
             titulo_secundario: 'DESPRENDIMENTO E SAÍDA DA PLACENTA',
             text: 'Nesse momento, ocorre o desprendimento da placenta do útero e sua saída pelo canal do parto. Esse processo pode durar até uma hora.',
             video: <View style={styles.posicaoVideo}>

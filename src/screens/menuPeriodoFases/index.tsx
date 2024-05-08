@@ -16,34 +16,28 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
     const jsonData = [
         {
             id: '1',
-            title: 'FASE LATENTE',
             period: '1º Período do Trabalho de Parto',
-            screen: 'DetalhesPeriodoFases',
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/1 periodo do trabalho de parto.mp3'),
             fases: [
-                { id: '1', title: "FASE LATENTE", screen: 'DetalhesPeriodoFases', audio: require('../../audios/a melhor posição para parir.mp3') },
-                { id: '2', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/Continuar.mp3') },
+                { id: '1', title: "FASE LATENTE", screen: 'DetalhesPeriodoFases', audio: require('../../audios/fase latente.mp3') },
+                { id: '2', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/fase ativa.mp3') },
             ]
         },
         {
             id: '2',
-            title: 'FASE PASSIVA',
             period: '2º Período do Trabalho de Parto',
-            screen: 'DetalhesPeriodoFases',
-            audio: require('../../audios/Continuar.mp3'),
+            audio: require('../../audios/2 periodo do trabalho de parto.mp3'),
             fases: [
-                { id: '3', title: "FASE PASSIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/Continuar.mp3') },
-                { id: '4', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/a melhor posição para parir.mp3') },
+                { id: '3', title: "FASE PASSIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/fase passiva.mp3') },
+                { id: '4', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/fase ativa.mp3') },
             ]
         },
         {
             id: '3',
-            title: 'DESPRENDIMENTO E SAÍDA DA PLACENTA',
             period: '3º Período do Trabalho de Parto',
-            screen: 'DetalhesPeriodoFases',
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/3 periodo do trabalho de parto.mp3'),
             fases: [
-                { id: '5', title: "DESPRENDIMENTO E SAÍDA DA PLACENTA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/a melhor posição para parir.mp3') },
+                { id: '5', title: "DESPRENDIMENTO E SAÍDA DA PLACENTA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/desprendimento e saida da placenta.mp3') },
             ]
         },
     ];

@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
     },
 });
 
-AppSecundario.defaultProps = {
+AppSecundario.AppsecundarioProps = {
     showName: true
 }

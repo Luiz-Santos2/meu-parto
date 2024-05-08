@@ -14,7 +14,7 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
     const [sound, setSound] = useState<Audio.Sound>();
 
     async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
+        const { sound } = await Audio.Sound.createAsync(require('../../audios/Cuidados no inicio do pós parto.mp3')
         );
         setSound(sound);
 
@@ -47,7 +47,7 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
                 <TouchableOpacity onPress={reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
-                        <Text style={styles.textButton}>Áudio - Descrição</Text>
+                        <Text style={styles.textButton}>Áudio</Text>
                     </View>
                 </TouchableOpacity>
                 <Text style={styles.text}>CUIDADOS NO INICIO DO PÓS-PARTO</Text>

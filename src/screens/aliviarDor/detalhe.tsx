@@ -46,7 +46,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
     const getItems = [
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/exercicios para a pelve e perinio.mp3'),
             title: 'EXERCÍCIOS PARA A PELVE E PERÍNEO',
             text: '',
             video: <View style={styles.posicaoVideo}>
@@ -63,7 +63,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/as massagens podem ser.mp3'),
             title: 'TÉCNICAS DE MASSAGEM',
             text: 'As massagens podem ser realizadas em posições que deixem as costas livres, como sentada, em pé ou de quatro apoios.',
             video: <View style={styles.posicaoVideo}>
@@ -80,7 +80,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/tecnicas de respiração.mp3'),
             title: 'TÉCNICA DE RESPIRAÇÃO',
             text: '',
             video: <View style={styles.posicaoVideo}>
@@ -97,7 +97,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/Posições q podem ajudar.mp3'),
             title: 'POSIÇÕES QUE PODEM AJUDAR',
             text: '',
             video: <View style={styles.posicaoVideo}>
@@ -114,7 +114,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/O banho morno.mp3'),
             title: 'BANHO MORNO',
             text: 'O banho morno pode ser realizado no chuveiro, na posição que a mulher escolher (em pé, de cócoras, sentada na cadeira ou na bola suíça) ou, se disponível, pode-se usar banheira ou piscina.',
             video: '',
@@ -124,7 +124,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         },
         {
             id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/a melhor posição para parir.mp3'),
+            audio: require('../../audios/ouvir musicas das suas preferencias.mp3'),
             title: 'MÚSICAS DE ESCOLHA DA MULHER',
             text: 'Ouvir músicas da sua preferência durante qualquer fase do trabalho de parto pode diminuir os sintomas de dor e ansiedade e proporcionar uma experiência de parto mais leve e feliz.',
             video: '',

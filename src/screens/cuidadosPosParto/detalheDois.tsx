@@ -49,11 +49,9 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
         {
             id: Math.random().toString(12).substring(0),
             title: 'CUIDADOS NO PÓS-PARTO',
-            button_title: require('../../audios/a melhor posição para parir.mp3'),
-            title_Secundario: <View style={styles.tagButton}>
-                <Text style={styles.tagText}>CUIDADOS COM OS PONTOS (SUTURA) DO PARTO NORMAL</Text>
-            </View>,
-            button_text: require('../../audios/a melhor posição para parir.mp3'),
+            button_title: require('../../audios/cuidados com os pontos sutura do parto normal.mp3'),
+            title_Secundario: 'CUIDADOS COM OS PONTOS (SUTURA) DO PARTO NORMAL',
+            button_text: require('../../audios/A passagem do bebê pelo canal do parto e pela vulva.mp3'),
             text_first: 'A passagem do bebê pelo canal do parto e pela vulva pode provocar lacerações, que são semelhantes a cortes. Quando as lacerações são mais profundas ou permanecem sangrando é necessário dar pontos, ou seja, suturá-las.',
             title_Terciario: 'Alguns cuidados que devem ser tomados são:',
             button_textLast: null,
@@ -63,14 +61,12 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
         {
             id: Math.random().toString(12).substring(0),
             title: 'CUIDADOS NO PÓS-PARTO',
-            button_title: require('../../audios/a melhor posição para parir.mp3'),
-            title_Secundario: <View style={styles.tagButton}>
-                <Text style={styles.tagText}>CUIDADOS COM OS PONTOS (SUTURA) DA CESARIANA</Text>
-            </View>,
+            button_title: require('../../audios/cuidados com os pontos sutura da cesariana.mp3'),
+            title_Secundario: 'CUIDADOS COM OS PONTOS (SUTURA) DA CESARIANA',
             button_text: null,
             text_first: '',
             title_Terciario: '',
-            button_textLast: require('../../audios/a melhor posição para parir.mp3'),
+            button_textLast: require('../../audios/Lave a região da cicatriz com água e sabonete neutro, sem esfregar ou usar buchas..mp3'),
             text_last: '- Lave a região da cicatriz com água e sabonete neutro, sem esfregar ou usar buchas.\n\n- Seque bem com uma toalha limpa e macia, sem esfregar.\n\n- Evite usar roupas apertadas ou que causem atrito com os pontos.\n\n- Procure levantar da cama com ajuda ou virando para o lado primeiro para depois levantar-se, caso não a tenha ajuda.\n\n- Prefira roupas íntimas de algodão e calças largas e confortáveis.\n\n- Observe os sinais de alerta, como vermelhidão, inchaço, secreção amarela, secreção esverdeada ou febre. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento.\n\n- Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
             item_id: 2
         },
@@ -92,7 +88,11 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
                     </View>
                 </TouchableOpacity>
             )}
-            {dados.title_Secundario}
+            {dados.title_Secundario && (
+                <View style={styles.tagButton}>
+                    <Text style={styles.tagText}>{dados.title_Secundario}</Text>
+                </View>
+            )}
             {dados.button_text && (
                 <TouchableOpacity onPress={() => reproduzir(dados.button_text)}>
                     <View style={styles.containerIconText}>

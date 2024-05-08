@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, Image
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Audio } from 'expo-av';
 
 export interface PosicaoParirScreenScreenProps {
@@ -11,23 +11,20 @@ export interface PosicaoParirScreenScreenProps {
 
 export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
 
-    const [sound, setSound] = useState<Audio.Sound>();
+    const [sound, setSound] = useState<Audio.Sound | null>(null);
 
-    async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
-        );
-        setSound(sound);
-
-        await sound.playAsync();
-    }
-
-    useEffect(() => {
-        return sound
-            ? () => {
-                sound.unloadAsync();
+    const reproduzir = async (audio: any) => {
+        try {
+            if (sound) {
+                await sound.unloadAsync();
             }
-            : undefined;
-    }, [sound]);
+            const { sound: newSound } = await Audio.Sound.createAsync(audio);
+            setSound(newSound);
+            await newSound.playAsync();
+        } catch (error) {
+            console.error("Erro ao reproduzir o áudio:", error);
+        }
+    };
 
     type ItemData = {
         id: any;
@@ -37,26 +34,17 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
         title_Terciario: any;
         img: any;
         first: any;
-        last: any;
     };
 
     const jsonData = [
         {
             id: Math.random().toString(12).substring(0),
             title: 'POSIÇÕES PARA PARIR',
-            button_title: <TouchableOpacity onPress={reproduzir}>
-                <View style={styles.containerIcon}>
-                    <MaterialIcons name="play-circle" style={styles.icon} />
-                    <Text style={styles.textButton}>Áudio</Text>
-                </View>
-            </TouchableOpacity>,
-            title_Secundario: <View style={styles.tagButton}>
-                <Text style={styles.tagText}>POSIÇÕES PARA PARIR</Text>
-            </View>,
+            button_title: require('../../audios/a melhor posição para parir.mp3') ,
+            title_Secundario: 'POSIÇÕES PARA PARIR',
             first: 'A melhor posição para parir é a de escolha da mulher, se tudo estiver ocorrendo bem! Algumas das posições que podem ser adotadas para parir são:',
             title_Terciario: 'DE CÓCORAS',
             img: <Image style={styles.img} source={require('./../../imgs/DE CÓCORAS.png')} />,
-            last: null,
         },
         {
             id: Math.random().toString(12).substring(0),
@@ -65,7 +53,6 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             title_Secundario: null,
             title: null,
             first: null,
-            last: null,
             button_title: null,
         },
         {
@@ -74,7 +61,6 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             img: <Image style={styles.img} source={require('./../../imgs/QUATRO APOIOS.png')} />,
             title: null,
             first: null,
-            last: null,
             button_title: null,
             title_Secundario: null,
         },
@@ -84,7 +70,6 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             img: <Image style={styles.img} source={require('./../../imgs/SEMISSENTADA E LATERALIZADA.png')} />,
             title: null,
             first: null,
-            last: null,
             button_title: null,
             title_Secundario: null,
         },
@@ -92,7 +77,6 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             id: Math.random().toString(12).substring(0),
             title_Terciario: 'EM PÉ',
             img: <Image style={styles.img} source={require('./../../imgs/EM PÉ.png')} />,
-            last: 'As posições em pé, de cócoras e sentada deixam a mulher mais verticalizada e isso pode ajudar na descida do bebê pelo canal de parto  e exigir menos esforço materno. As posições lateralizada e de quatro apoios podem diminuir a chance de ocorrer lacerações.',
             title: null,
             first: null,
             button_title: null,
@@ -107,7 +91,15 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
     const Item = ({ dados }: ItemProps) => (
         <View>
             {dados.title && <Text style={styles.text}>{dados.title}</Text>}
-            {dados.button_title}
+
+            {dados.button_title && (
+                <TouchableOpacity onPress={() => reproduzir(dados.button_title)}>
+                    <View style={styles.containerIcon}>
+                        <MaterialIcons name="play-circle" style={styles.icon} />
+                        <Text style={styles.textButton}>Áudio</Text>
+                    </View>
+                </TouchableOpacity>
+            )}
             {dados.title_Secundario && (
                 <View style={styles.tagButton}>
                     <Text style={styles.tagText}>{dados.title_Secundario}</Text>
@@ -116,7 +108,6 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             {dados.first && <Text style={styles.textInfo}>{dados.first}</Text>}
             {dados.title_Terciario && <Text style={styles.title}>{dados.title_Terciario}</Text>}
             {dados.img && dados.img}
-            {dados.last && <Text style={styles.textInfo}>{dados.last}</Text>}
         </View>
     );
 
@@ -171,8 +162,8 @@ const styles = StyleSheet.create({
     tagButton: {
         borderRadius: 9,
         backgroundColor: 'rgba(247, 99, 110, 1)',
-        padding: 6,
-        paddingHorizontal: 30,
+        padding: 10,
+        paddingHorizontal: 70,
         alignSelf: 'center'
     },
     textInfo: {
@@ -185,7 +176,7 @@ const styles = StyleSheet.create({
         color: '#5F5F5F',
     },
     img: {
-        marginTop: 20,
+        marginVertical: 20,
         width: 300,
         height: 300,
         alignSelf: 'center',

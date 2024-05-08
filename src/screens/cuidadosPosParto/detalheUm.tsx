@@ -53,13 +53,13 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
         {
             id: Math.random().toString(12).substring(0),
             title: 'CUIDADOS NO PÓS-PARTO',
-            button_title: require('../../audios/a melhor posição para parir.mp3'),
+            button_title: require('../../audios/sangramento pós-parto.mp3'),
             title_Secundario: <View style={styles.tagButton}>
                 <Text style={styles.tagText}>SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?</Text>
             </View>,
-            button1: require('../../audios/a melhor posição para parir.mp3'),
+            button1: require('../../audios/Você sabia que o sangramento da mulher....mp3'),
             text: 'Você sabia que o sangramento da mulher imediatamente após o parto e nos dias seguintes são chamados de lóquios ou loquiações? De agora em diante, você não vai chamá-lo de menstruação, como muita gente acha que é.',
-            button: require('../../audios/a melhor posição para parir.mp3'),
+            button: require('../../audios/Os loquios ou loquiações.mp3'),
             title_Terciario: 'Os lóquios ou loquiações podem ser:',
             title_Quartenario: 'Vermelhos ou sanguinolentos',
             img: <Image style={styles.img} source={require('./../../imgs/33.png')} />,

@@ -17,24 +17,24 @@ export function HomeScreen(props: HomescreenProps) {
 
     const jsonData = [
         {
-            data: [{ type: 'PERÍODOS E FASES DO PARTO', type_id: 'periodoFases', audio: require('../../audios/Continuar.mp3') }],
+            data: [{ type: 'PERÍODOS E FASES DO PARTO', type_id: 'periodoFases' }],
         },
         {
-            data: [{ type: 'COMO ALIVIAR A DOR NO TRABALHO DE PARTO', type_id: 'aliviarDor', audio: require('../../audios/Continuar.mp3') }],
+            data: [{ type: 'COMO ALIVIAR A DOR NO TRABALHO DE PARTO', type_id: 'aliviarDor',}],
         },
         {
-            data: [{ type: 'POSIÇÕES PARA PARIR', type_id: 'posicaoParir', audio: require('../../audios/Continuar.mp3') }],
+            data: [{ type: 'POSIÇÕES PARA PARIR', type_id: 'posicaoParir' }],
         },
         {
-            data: [{ type: 'CUIDADOS NO INICIO DO PÓS-PARTO', type_id: 'cuidadosPosParto', audio: require('../../audios/Continuar.mp3') }],
+            data: [{ type: 'CUIDADOS NO INICIO DO PÓS-PARTO', type_id: 'cuidadosPosParto' }],
         },
         {
-            data: [{ type: 'MAMADAS INICIAIS', type_id: 'mamadasIniciais', audio: require('../../audios/Continuar.mp3') }],
+            data: [{ type: 'MAMADAS INICIAIS', type_id: 'mamadasIniciais' }],
         },
     ];
 
     async function Reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
+        const { sound } = await Audio.Sound.createAsync(require('../../audios/vamos começar.mp3')
         );
         setSound(sound);
 
@@ -57,7 +57,7 @@ export function HomeScreen(props: HomescreenProps) {
                 <TouchableOpacity onPress={Reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
-                        <Text style={styles.textButton}>Áudio - Descrição</Text>
+                        <Text style={styles.textButton}>Áudio</Text>
                     </View>
                 </TouchableOpacity>
                 <SectionList

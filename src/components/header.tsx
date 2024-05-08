@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
 });
 
 
-AppHeader.defaultProps = {
+AppHeader.AppHeaderProps = {
     showName: true
 }

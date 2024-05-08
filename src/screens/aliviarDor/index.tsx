@@ -14,7 +14,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
     const [sound, setSound] = useState<Audio.Sound>();
 
     async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(require('../../audios/Continuar.mp3')
+        const { sound } = await Audio.Sound.createAsync(require('../../audios/Como aliviar a dor na hora do parto sem medicamentos.mp3')
         );
         setSound(sound);
 
@@ -56,7 +56,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
                 <TouchableOpacity onPress={reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
-                        <Text style={styles.textButton}>Áudio - Descrição</Text>
+                        <Text style={styles.textButton}>Áudio</Text>
                     </View>
                 </TouchableOpacity>
                 <Text style={styles.text}>COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS</Text>
