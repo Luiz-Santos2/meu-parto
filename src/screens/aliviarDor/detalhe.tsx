@@ -32,7 +32,6 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
 
     //@ts-ignore
     const { item_id } = props.route.params
-    console.log('item_id:', item_id)
 
     type ItemData = {
         id: string;
@@ -116,7 +115,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
             id: Math.random().toString(12).substring(0),
             audio: require('../../audios/O banho morno.mp3'),
             title: 'BANHO MORNO',
-            text: 'O banho morno pode ser realizado no chuveiro, na posição que a mulher escolher (em pé, de cócoras, sentada na cadeira ou na bola suíça) ou, se disponível, pode-se usar banheira ou piscina.',
+            text: 'O banho morno pode ser realizado no chuveiro, na posição que a mulher escolher (em pé, de cócoras, sentada na cadeira ou na bola suíça) ou, se disponíveis, banheiras ou piscinas podem ser usadas.',
             video: '',
             foto: null,
             item_id: 5,

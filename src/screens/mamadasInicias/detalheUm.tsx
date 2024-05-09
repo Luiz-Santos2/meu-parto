@@ -30,7 +30,6 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
     };
     //@ts-ignore
     const { item_id } = props.route.params
-    console.log('item_id:', item_id)
 
     type ItemData = {
         id: any;

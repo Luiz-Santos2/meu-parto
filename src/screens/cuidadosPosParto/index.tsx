@@ -50,7 +50,7 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
                         <Text style={styles.textButton}>Áudio</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.text}>CUIDADOS NO INICIO DO PÓS-PARTO</Text>
+                <Text style={styles.text}>CUIDADOS NO INÍCIO DO PÓS-PARTO</Text>
                 <SectionList
                     sections={jsonData}
                     keyExtractor={(item) => item.type}
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     img: {
-        width: 250,
-        height: 250,
+        width: 220,
+        height: 220,
         alignSelf: 'flex-end',
         objectFit: 'contain'
     },

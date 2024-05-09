@@ -26,7 +26,7 @@ export function HomeScreen(props: HomescreenProps) {
             data: [{ type: 'POSIÇÕES PARA PARIR', type_id: 'posicaoParir' }],
         },
         {
-            data: [{ type: 'CUIDADOS NO INICIO DO PÓS-PARTO', type_id: 'cuidadosPosParto' }],
+            data: [{ type: 'CUIDADOS NO INÍCIO DO PÓS-PARTO', type_id: 'cuidadosPosParto' }],
         },
         {
             data: [{ type: 'MAMADAS INICIAIS', type_id: 'mamadasIniciais' }],

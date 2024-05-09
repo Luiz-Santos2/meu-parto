@@ -31,7 +31,6 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
 
     //@ts-ignore
     const { item_id } = props.route.params
-    console.log('item_id:', item_id)
 
     type ItemData = {
         id: any;
@@ -102,7 +101,6 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             </View>,
             item_id: 2
         },
-
 
     ];
 
@@ -237,7 +235,7 @@ const styles = StyleSheet.create({
     textInfoVideo: {
         width: 330,
         marginVertical: 20,
-        color: '#F7636E',
+        color: 'black',
         fontWeight: 'bold',
         fontSize: 18,
         textAlign: 'justify',

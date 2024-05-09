@@ -137,11 +137,12 @@ const styles = StyleSheet.create({
     },
     containerIcon1: {
         flexDirection: 'row',
-        marginLeft: 20
+        marginLeft: 20,
+        alignItems: 'center',
     },
     icon1: {
         fontSize: 25,
-        color: '#5F5F5F'
+        color: '#5F5F5F',
     },
     textButton: {
         fontWeight: 'bold',
@@ -162,6 +163,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     text: {
+        fontWeight: 'bold',
         textAlign: 'center',
         color: 'white',
         paddingHorizontal: 25

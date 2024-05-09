@@ -31,7 +31,6 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
 
     //@ts-ignore
     const { item_id } = props.route.params
-    console.log('item_id:', item_id)
 
     type ItemData = {
         id: any;
@@ -48,26 +47,26 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
     const jsonData = [
         {
             id: Math.random().toString(12).substring(0),
-            title: 'CUIDADOS NO PÓS-PARTO',
+            title: 'CUIDADOS NO INÍCIO DO PÓS-PARTO',
             button_title: require('../../audios/cuidados com os pontos sutura do parto normal.mp3'),
             title_Secundario: 'CUIDADOS COM OS PONTOS (SUTURA) DO PARTO NORMAL',
             button_text: require('../../audios/A passagem do bebê pelo canal do parto e pela vulva.mp3'),
             text_first: 'A passagem do bebê pelo canal do parto e pela vulva pode provocar lacerações, que são semelhantes a cortes. Quando as lacerações são mais profundas ou permanecem sangrando é necessário dar pontos, ou seja, suturá-las.',
             title_Terciario: 'Alguns cuidados que devem ser tomados são:',
             button_textLast: null,
-            text_last: '- Lave a região da vulva com água e sabonete líquido ou em barra, sem esfregar ou usar buchas. Prefira lavar a usar papel higiênico.\n\n- Compressas geladas no local podem ajudar a diminuir a dor e o inchaço local.\n\n- Seque bem com uma toalha limpa e macia, sem esfregar.\n\n- Evite usar roupas apertadas ou que causem atrito com os pontos.\n\n- Prefira roupas íntimas de algodão e calças largas e confortáveis.\n\n- Observe os sinais de alerta como vermelhidão, inchaço, secreção amarela, secreção esverdeada ou febre. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento.\n\n- Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
+            text_last: '- Lave a região da vulva com água e sabonete líquido ou em barra, sem esfregar ou usar buchas. Prefira lavar a usar papel higiênico.\n\n- Compressas geladas no local podem ajudar a diminuir a dor e o inchaço local.\n\n- Seque bem com uma toalha limpa e macia, sem esfregar.\n\n- Evite usar roupas apertadas ou que causem atrito com os pontos.\n\n- Prefira roupas íntimas de algodão e calças largas e confortáveis.\n\n- Observe os sinais de alerta como vermelhidão, inchaço, febre, secreção amarela ou esverdeada. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento.\n\n- Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
             item_id: 1
         },
         {
             id: Math.random().toString(12).substring(0),
-            title: 'CUIDADOS NO PÓS-PARTO',
+            title: 'CUIDADOS NO INÍCIO DO PÓS-PARTO',
             button_title: require('../../audios/cuidados com os pontos sutura da cesariana.mp3'),
             title_Secundario: 'CUIDADOS COM OS PONTOS (SUTURA) DA CESARIANA',
             button_text: null,
             text_first: '',
             title_Terciario: '',
             button_textLast: require('../../audios/Lave a região da cicatriz com água e sabonete neutro, sem esfregar ou usar buchas..mp3'),
-            text_last: '- Lave a região da cicatriz com água e sabonete neutro, sem esfregar ou usar buchas.\n\n- Seque bem com uma toalha limpa e macia, sem esfregar.\n\n- Evite usar roupas apertadas ou que causem atrito com os pontos.\n\n- Procure levantar da cama com ajuda ou virando para o lado primeiro para depois levantar-se, caso não a tenha ajuda.\n\n- Prefira roupas íntimas de algodão e calças largas e confortáveis.\n\n- Observe os sinais de alerta, como vermelhidão, inchaço, secreção amarela, secreção esverdeada ou febre. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento.\n\n- Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
+            text_last: '- Lave a região da cicatriz com água e sabonete neutro, sem esfregar ou usar buchas.\n\n- Seque bem com uma toalha limpa e macia, sem esfregar.\n\n- Evite usar roupas apertadas ou que causem atrito com os pontos.\n\n- Procure levantar da cama com ajuda ou virando para o lado primeiro para depois levantar-se, caso não a tenha.\n\n- Prefira roupas íntimas de algodão e calças largas e confortáveis.\n\n- Observe os sinais de alerta como vermelhidão, inchaço, febre, secreção amarela ou esverdeada. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento.\n\n- Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
             item_id: 2
         },
 
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
     },
     text: {
         width: 300,
-        marginTop: -5,
+        marginTop: 0,
         marginVertical: 10,
         left: 34,
         fontSize: 20,
@@ -193,7 +192,7 @@ const styles = StyleSheet.create({
     title: {
         width: 330,
         marginTop: 20,
-        color: '#F7636E',
+        color: 'black',
         fontSize: 18,
         textAlign: 'justify',
         left: 15,

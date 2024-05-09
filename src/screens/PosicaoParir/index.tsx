@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     },
     text: {
         alignItems: 'center',
-        marginTop: 5,
+        marginTop: 0,
         marginVertical: 30,
         fontSize: 20,
         textAlign: 'center',

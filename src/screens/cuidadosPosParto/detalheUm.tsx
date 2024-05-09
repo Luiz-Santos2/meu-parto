@@ -31,7 +31,6 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
 
     //@ts-ignore
     const { item_id } = props.route.params
-    console.log('item_id:', item_id)
 
     type ItemData = {
         id: any;
@@ -52,11 +51,9 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
     const jsonData = [
         {
             id: Math.random().toString(12).substring(0),
-            title: 'CUIDADOS NO PÓS-PARTO',
+            title: 'CUIDADOS NO INÍCIO DO PÓS-PARTO',
             button_title: require('../../audios/sangramento pós-parto.mp3'),
-            title_Secundario: <View style={styles.tagButton}>
-                <Text style={styles.tagText}>SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?</Text>
-            </View>,
+            title_Secundario: 'SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?',
             button1: require('../../audios/Você sabia que o sangramento da mulher....mp3'),
             text: 'Você sabia que o sangramento da mulher imediatamente após o parto e nos dias seguintes são chamados de lóquios ou loquiações? De agora em diante, você não vai chamá-lo de menstruação, como muita gente acha que é.',
             button: require('../../audios/Os loquios ou loquiações.mp3'),
@@ -117,7 +114,11 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
                     </View>
                 </TouchableOpacity>
             )}
-            {dados.title_Secundario}
+            {dados.title_Secundario && (
+                <View style={styles.tagButton}>
+                    <Text style={styles.tagText}>{dados.title_Secundario}</Text>
+                </View>
+            )}
             {dados.button1 && (
                 <TouchableOpacity onPress={() => reproduzir(dados.button1)}>
                     <View style={styles.containerIcon1}>
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
     },
     text: {
         width: 300,
-        marginTop: -5,
+        marginTop: 0,
         marginVertical: 30,
         left: 34,
         fontSize: 20,
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
     },
     title: {
         marginTop: 10,
-        color: '#F7636E',
+        color: 'black',
         fontWeight: 'bold',
         fontSize: 18,
         left: 20,
@@ -259,7 +260,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'justify',
         alignSelf: 'center',
-        marginTop: 20
+        marginTop: 20,
+        color: 'black',
     },
     ajuste1: {
         flexDirection: 'row',

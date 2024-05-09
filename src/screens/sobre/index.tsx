@@ -17,11 +17,11 @@ export function SobreScreen(props: SobrescreenProps) {
 
     const jsonData = [
         {
-            nome: "Bem-vinda, mamãe! Este aplicativo é seu aliado na jornada da maternidade, oferecendo informações confiáveis e apoio durante a fase inicial. Estamos aqui para ajudá-la a vivenciar essa experiência com mais segurança e tranquilidade.",
+            nome: "Bem-vinda, mamãe! Este aplicativo é seu aliado na jornada da maternidade, oferecendo informações confiáveis e apoio durante o parto e a fase inicial do pós parto. Estamos aqui para ajudá-la a vivenciar essa experiência com mais segurança e tranquilidade.",
             audio: require('../../audios/Bem-vinda mamãe.mp3')
         },
         {
-            nome: "Este aplicativo é produto de dissertação do programa de pós-graduação em Biotecnologia em Saúde Humana e Animal (PPGBIOTEC) vinculado à Universidade Estadual do Ceará (UECE), onde o Centro Universitário Cesmac é instituição associada. O aplicativo foi desenvolvido em parceria com o Núcleo de Robótica do Centro Universitário Cesmac.",
+            nome: "Este aplicativo é produto de dissertação do Programa Profissional de Pós-graduação em Biotecnologia em Saúde Humana e Animal (PPGBIOTEC) vinculado à Universidade Estadual do Ceará (UECE), onde o Centro Universitário Cesmac é instituição associada. O aplicativo foi desenvolvido em parceria com o Núcleo de Robótica do Centro Universitário Cesmac.",
             audio: require('../../audios/Este aplicativo é.mp3')
         },
     ];

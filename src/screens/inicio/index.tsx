@@ -84,7 +84,6 @@ export function InicioScreen(props: InicioscreenProps) {
                 imagem: (imagem ? imagem : avatarBase64), // Adicionando a imagem ao objeto
             };
             await AsyncStorage.setItem('dados', JSON.stringify(imageData));
-            console.log('Dados salvos com sucesso!');
             setUsuario(imageData);
             props.navigation.navigate('sobre');
         } catch (error) {

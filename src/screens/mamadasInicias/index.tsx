@@ -51,7 +51,7 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
                 <TouchableOpacity onPress={reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
-                        <Text style={styles.textButton}>Áudio - Descrição</Text>
+                        <Text style={styles.textButton}>Áudio</Text>
                     </View>
                 </TouchableOpacity>
                 <Text style={styles.text}>MAMADAS INICIAIS</Text>

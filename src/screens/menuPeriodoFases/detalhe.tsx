@@ -31,7 +31,6 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
 
     //@ts-ignore
     const { item_id } = props.route.params
-    console.log('item_id:', item_id)
 
     type ItemData = {
         id: string;
@@ -83,7 +82,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             audio: require('../../audios/Ufa, Já.mp3'),
             title: '2º Período do Trabalho de Parto',
             titulo_secundario: 'FASE PASSIVA',
-            text: 'Ufa! Já estamos com os tão sonhados 10 cm, que é a dilatação total do colo, mas sem sensação de vontade de fazer força para expulsar o bebê.\n\nSeu corpo está se preparando para que o bebê comece a descer pelo canal do parto.\n\nAté o momento não falamos em que período a bolsa das águas (membrana amniótica) rompe no trabalho de parto. Vamos lá! A bolsa pode romper antes das contrações iniciarem, porém, o mais comum é que isso aconteça após o início delas e até no momento do nascimento. Alguns bebês podem nascer sem que a bolsa rompa e chamamos esse parto de empelicado.',
+            text: 'Ufa! Já estamos com os tão sonhados 10 cm, que é a dilatação total do colo, mas sem sensação de vontade de fazer força para expulsar o bebê.\n\nSeu corpo está se preparando para que o bebê comece a descer pelo canal do parto.\n\nAté o momento não falamos em que período a bolsa das águas (membrana amniótica) rompe no trabalho de parto.\n\n Vamos lá! A bolsa pode romper antes das contrações iniciarem, porém, o mais comum é que isso aconteça após o início delas e até no momento do nascimento. Alguns bebês podem nascer sem que a bolsa rompa e chamamos esse parto de empelicado.',
             video: null,
             item_id: 3,
         },
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
         color: '#5F5F5F'
     },
     text: {
-        marginTop: -5,
+        marginTop: 0,
         marginVertical: 30,
         fontSize: 20,
         textAlign: 'center',
@@ -216,7 +215,7 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         fontSize: 18,
         textAlign: 'justify',
-        color: '#5F5F5F'
+        color: '#5F5F5F',
     },
     posicaoVideo: {
         alignItems: 'center',
