@@ -80,7 +80,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         {
             id: Math.random().toString(12).substring(0),
             audio: require('../../audios/tecnicas de respiração.mp3'),
-            title: 'TÉCNICA DE RESPIRAÇÃO',
+            title: 'TÉCNICAS DE RESPIRAÇÃO',
             text: '',
             video: <View style={styles.posicaoVideo}>
                 <Video

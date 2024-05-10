@@ -50,7 +50,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             id: Math.random().toString(12).substring(0),
             title: 'MAMADAS INICIAIS',
             button_title: require('../../audios/A pega cprreta é a forma mais adequada.mp3'),
-            title_Secundario: 'MEU BEBÊ ESTÁ FAZENDO A PEGA NA MAMA DA FORMA CORRETA?',
+            title_Secundario: 'PEGA CORRETA',
             text_first: 'A pega correta é a forma mais adequada da boca do seu bebê abocanhar sua mama. O posicionamento do seu corpinho e sua cabeça em relação a mama e a forma dele sugar o leite.',
             video1: <View style={styles.posicaoVideo}>
                 <Video
@@ -72,7 +72,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             title: 'MAMADAS INICIAIS',
             button_title: require('../../audios/Após o banho seque seus seios suavemente.....mp3'),
             title_Secundario: 'CUIDANDO DAS RACHADURAS NA MAMA',
-            text_first: '1 - Após o banho seque seus seios suavemente, pois assim a lubrificação natural de proteção do mamilo será preservada.\n\n2 - Utilizar sutiãs de tecido de algodão e adequados ao tamanho dos seios.\n\n3 - Não, aplicar hidratantes ou substancias não orientadas no mamilo.\n\n4 - Se as rachaduras (fissuras) já estiverem presente, após amamentar, pressione com delicadeza o bico do peito e passe o leite sobre o bico.\n\n5 - Pega do bebê: ATENÇÃO! Quando não está correta é um dos maiores causadores de rachaduras mamilares. Você lembra que já viu aqui como é a pega correta? Se esqueceu, veja como é novamente:',
+            text_first: '1 - Após o banho seque seus seios suavemente, pois assim a lubrificação natural de proteção do mamilo será preservada.\n\n2 - Utilizar sutiãs de tecido de algodão e adequados ao tamanho dos seios.\n\n3 - Não aplicar hidratantes ou substancias não orientadas no mamilo.\n\n4 - Se as rachaduras (fissuras) já estiverem presentes, após amamentar, pressione com delicadeza o bico do peito e passe o leite sobre o bico.\n\n5 - Pega do bebê: ATENÇÃO! Quando não está correta é um dos maiores causadores de rachaduras mamilares. Você lembra que já viu aqui como é a pega correta? Se esqueceu, veja como é novamente:',
             video1: null,
             button_textLast: null,
             text_last: null,

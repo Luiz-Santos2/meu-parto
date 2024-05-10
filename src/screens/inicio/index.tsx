@@ -111,7 +111,7 @@ export function InicioScreen(props: InicioscreenProps) {
                     initialValues={{ nome: '' }}
                     onSubmit={(values) => saveData(values)}
                     validationSchema={Yup.object({
-                        nome: Yup.string().required('O campo nome precisa ser informado'),
+                        nome: Yup.string(),
                     })}
                 >
                     {({ handleChange, errors, touched, handleBlur, isSubmitting, handleSubmit, values }) => (

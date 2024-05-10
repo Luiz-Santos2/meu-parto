@@ -17,7 +17,7 @@ export function SobreScreen(props: SobrescreenProps) {
 
     const jsonData = [
         {
-            nome: "Bem-vinda, mamãe! Este aplicativo é seu aliado na jornada da maternidade, oferecendo informações confiáveis e apoio durante o parto e a fase inicial do pós parto. Estamos aqui para ajudá-la a vivenciar essa experiência com mais segurança e tranquilidade.",
+            nome: "Bem-vinda, mamãe! Este aplicativo é seu aliado na jornada da maternidade, oferecendo informações confiáveis e apoio durante o parto e a fase inicial do pós-parto. Estamos aqui para ajudá-la a vivenciar essa experiência com mais segurança e tranquilidade.",
             audio: require('../../audios/Bem-vinda mamãe.mp3')
         },
         {
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     },
     text: {
         width: 340,
-        height: 280,
+        height: 360,
         top: 10,
         marginLeft: 'auto',
         marginRight: 'auto',
