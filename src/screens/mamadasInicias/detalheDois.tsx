@@ -37,6 +37,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
         title: any;
         button_title: any;
         title_Secundario: any;
+        button_Secundario: any;
         text_first: any;
         video1: any;
         button_textLast: any;
@@ -49,9 +50,10 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
         {
             id: Math.random().toString(12).substring(0),
             title: 'MAMADAS INICIAIS',
-            button_title: require('../../audios/A pega cprreta é a forma mais adequada.mp3'),
+            button_title: require('../../audios/A pega correta é a forma mais adequada.mp3'),
             title_Secundario: 'PEGA CORRETA',
-            text_first: 'A pega correta é a forma mais adequada da boca do seu bebê abocanhar sua mama. O posicionamento do seu corpinho e sua cabeça em relação a mama e a forma dele sugar o leite.',
+            button_Secundario: null,
+            text_first: 'A pega correta é a forma mais adequada da boca do seu bebê abocanhar sua mama, o posicionamento do seu corpinho e sua cabeça em relação a mama e a forma dele sugar o leite.',
             video1: <View style={styles.posicaoVideo}>
                 <Video
                     source={require('../../videos/pega correta.mp4')}
@@ -62,7 +64,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
                 <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
             </View>,
             button_textLast: require('../../audios/Nesse momento, após assistir ao vídeo.mp3'),
-            text_last: 'Nesse momento, após assistir o vídeo, você pode tentar aplicar o que aprendeu com o seu bebê. Se não conseguiu na primeira tentativa, não se desespere, nem sempre é simples, persistam, tentem de novo. Você não está só!',
+            text_last: 'Nesse momento, após assistir ao vídeo, você pode tentar aplicar o que aprendeu com o seu bebê. Se não conseguiu na primeira tentativa, não se desespere, nem sempre é simples, persista, tente de novo. Você não está só!',
             video2: null,
             textInfo: null,
             item_id: 1
@@ -72,7 +74,8 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             title: 'MAMADAS INICIAIS',
             button_title: require('../../audios/Após o banho seque seus seios suavemente.....mp3'),
             title_Secundario: 'CUIDANDO DAS RACHADURAS NA MAMA',
-            text_first: '1 - Após o banho seque seus seios suavemente, pois assim a lubrificação natural de proteção do mamilo será preservada.\n\n2 - Utilizar sutiãs de tecido de algodão e adequados ao tamanho dos seios.\n\n3 - Não aplicar hidratantes ou substancias não orientadas no mamilo.\n\n4 - Se as rachaduras (fissuras) já estiverem presentes, após amamentar, pressione com delicadeza o bico do peito e passe o leite sobre o bico.\n\n5 - Pega do bebê: ATENÇÃO! Quando não está correta é um dos maiores causadores de rachaduras mamilares. Você lembra que já viu aqui como é a pega correta? Se esqueceu, veja como é novamente:',
+            button_Secundario: null,
+            text_first: '1 - Após o banho seque seus seios suavemente, pois assim a lubrificação natural de proteção do mamilo será preservada.\n\n2 - Utilize sutiãs de tecido de algodão e adequados ao tamanho dos seios.\n\n3 - Não aplique hidratantes ou substâncias não orientadas no mamilo.\n\n4 - Se as rachaduras (fissuras) já estiverem presentes, após amamentar,  pressione o seio para ordenhar um pouco de leite e passe no local machucado do mamilo.\n\n5 - Pega do bebê: ATENÇÃO! Quando não está correta é um dos maiores causadores de rachaduras mamilares. Você lembra que já viu aqui como é a pega correta? Se esqueceu, veja como é novamente:',
             video1: null,
             button_textLast: null,
             text_last: null,
@@ -84,12 +87,13 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             id: Math.random().toString(12).substring(0),
             title: null,
             button_title: null,
-            title_Secundario: 'MEU BEBÊ ESTÁ FAZENDO A PEGA NA MAMA DA FORMA CORRETA?',
+            title_Secundario: null,
+            button_Secundario: 'PEGA CORRETA',
             text_first: '6 - Quando os mamilos estiverem machucados podem ser usados os rolinhos de fraldas ou rosquinhas de amamentação para protegê-los e evitar que entrem em contato com o sutiã.',
             video1: null,
             button_textLast: null,
             text_last: null,
-            textInfo: 'Como fazer os rolinhos de fralda que são semelhantes às rosquinhas de amamentação?\n\nVEJA O VÍDEO!',
+            textInfo: 'Como fazer os rolinhos de fraldas que são semelhantes às rosquinhas de amamentação?\n\nVEJA O VÍDEO!',
             video2: <View style={styles.posicaoVideo}>
                 <Video
                     source={require('../../videos/Rosquinha de amamentação.mp4')}
@@ -123,6 +127,13 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
                 <View style={styles.tagButton}>
                     <Text style={styles.tagText}>{dados.title_Secundario}</Text>
                 </View>
+            )}
+            {dados.button_Secundario && (
+                <TouchableOpacity onPress={() => props.navigation.navigate('DetalheDoisMamadasIniciais', { item_id: 1 })}>
+                <View style={styles.tagButton}>
+                    <Text style={styles.tagText}>{dados.button_Secundario}</Text>
+                </View>
+                </TouchableOpacity>
             )}
             {dados.text_first && <Text style={styles.textInfo}>{dados.text_first}</Text>}
             {dados.video1 && dados.video1}

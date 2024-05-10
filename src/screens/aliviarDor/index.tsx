@@ -37,7 +37,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
             data: [{ type: 'TÉCNICAS DE MASSAGEM', type_id: 2 }],
         },
         {
-            data: [{ type: 'TÉCNICA DE RESPIRAÇÃO', type_id: 3 }],
+            data: [{ type: 'TÉCNICAS DE RESPIRAÇÃO', type_id: 3 }],
         },
         {
             data: [{ type: 'POSIÇÕES QUE PODEM AJUDAR', type_id: 4 }],

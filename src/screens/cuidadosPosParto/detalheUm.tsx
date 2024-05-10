@@ -94,7 +94,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
             img: <Image style={styles.img} source={require('./../../imgs/11.png')} />,
             img2: null,
             first: 'São observados após o 10º dia, podendo se estender até a 5ª ou 6ª semana e assumem coloração amarelada ou branca.',
-            textObs: 'Atenção: nem sempre a mudança da cor dos lóquios seguem esses períodos descritos. Isso pode variar em cada mulher.',
+            textObs: 'Atenção: nem sempre a mudança da cor dos lóquios segue esses períodos descritos. Isso pode variar em cada mulher.',
             item_id: 0
         },
     ];

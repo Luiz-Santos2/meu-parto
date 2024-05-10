@@ -64,7 +64,7 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
             button: require('../../audios/sentada tradicional.mp3'),
             title_Terciario: 'SENTADA (TRADICIONAL):',
             img: <Image style={styles.img} source={require('./../../imgs/sentadaTradicional.png')} />,
-            first: 'O bebê fica com a barriguinha encostada na mãe, enquanto é segurado por baixo do seu corpo com os dois braços materno.',
+            first: 'O bebê fica com a barriguinha encostada na mãe, enquanto é segurado por baixo do seu corpo com os dois braços.',
             textObs: null,
             item_id: 0
         },
@@ -76,7 +76,7 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
             button: require('../../audios/deitada - a mulher fica de lado....mp3'),
             title_Terciario: 'DEITADA:',
             img: <Image style={styles.img} source={require('./../../imgs/DEITADA.png')} />,
-            first: 'A mulher fica de lado, podendo apoiar sua cabeça no braço ou numa almofada. Deve-se oferecer a mama que está mais próxima do colchão.\n\nEsta posição é confortável para mãe e bebê, sendo útil quando você está cansada e no pós parto. Mas muito cuidado para não dormir por cima do bebê evitando acidentes!',
+            first: 'A mulher fica de lado, podendo apoiar sua cabeça no braço ou numa almofada. Deve-se oferecer a mama que está mais próxima do colchão.\n\nEssa posição é confortável para mãe e bebê, sendo útil quando você está cansada e no pós parto. Mas muito cuidado para não dormir por cima do bebê, evitando acidentes!',
             textObs: null,
             item_id: 0
         },
@@ -100,7 +100,7 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
             button: require('../../audios/posição sentada em posição de cavalinho.mp3'),
             title_Terciario: 'POSIÇÃO SENTADA EM POSIÇÃO DE CAVALINHO:',
             img: <Image style={styles.img} source={require('./../../imgs/cavalinho.png')} />,
-            first: 'O bebê fica sentado numa das coxas de frente pra mama e a mãe o segura apoiando suas costas. Esta posição é ideal para bebês com mais de 3 meses que já seguram bem a cabeça e para aqueles que apresentam refluxo.',
+            first: 'O bebê fica sentado numa das coxas de frente para a mama e a mãe o segura apoiando suas costas. Esta posição é ideal para bebês com mais de 3 meses que já seguram bem a cabeça e para aqueles que apresentam refluxo.',
             textObs: 'Não existe uma regra para qual posição você e seu bebê devem ficar! A melhor escolha é aquela mais confortável para os dois, onde ocorre a pega correta! Mas o que é a pega correta?\n\nVeja no próximo tópico!',
             item_id: 0
         },

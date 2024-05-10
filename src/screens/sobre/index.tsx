@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     },
     text: {
         width: 340,
-        height: 360,
+        height: 300,
         top: 10,
         marginLeft: 'auto',
         marginRight: 'auto',
