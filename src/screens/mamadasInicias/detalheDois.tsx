@@ -39,7 +39,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
 
     const buscarDados = async () => {
         const todosOsDados = await getDoc(doc(db, 'forms', '10')).then(snap => snap.data()) as any;
-        const jsonData = [
+        const jsonData: any[] = [
             {
                 id: Math.random().toString(12).substring(0),
                 title: todosOsDados.tituloPrincipal,
