@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, Image, SafeAreaView, SectionList, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image, SafeAreaView, SectionList, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface PosicaoParirScreenScreenProps {
 
@@ -12,6 +14,85 @@ export interface PosicaoParirScreenScreenProps {
 export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
+    const [jsonData, setJsonData] = useState<ItemData[]>([]);
+
+    type ItemData = {
+        id: any;
+        title: any;
+        button_title: any;
+        title_Secundario: any;
+        title_Terciario: any;
+        img: any;
+        first: any;
+    };
+
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '7')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                id: Math.random().toString(12).substring(0),
+                title: 'POSIÇÕES PARA PARIR',
+                button_title: {uri: todosOsDados.audio},
+                title_Secundario: todosOsDados.titulo,
+                first: todosOsDados.texto,
+                title_Terciario: todosOsDados.subtítulo1,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem1}} />,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title_Terciario: todosOsDados.subtítulo2,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem2}} />,
+                title_Secundario: null,
+                title: null,
+                first: null,
+                button_title: null,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title_Terciario: todosOsDados.subtítulo3,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem3}} />,
+                title: null,
+                first: null,
+                button_title: null,
+                title_Secundario: null,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title_Terciario: todosOsDados.subtítulo4,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem4}} />,
+                title: null,
+                first: null,
+                button_title: null,
+                title_Secundario: null,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title_Terciario: todosOsDados.subtítulo5,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem5}} />,
+                title: null,
+                first: null,
+                button_title: null,
+                title_Secundario: null,
+            },
+        ];
+
+        setJsonData(jsonData);
+    }
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound, jsonData]);
 
     const reproduzir = async (audio: any) => {
         try {
@@ -25,64 +106,6 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             console.error("Erro ao reproduzir o áudio:", error);
         }
     };
-
-    type ItemData = {
-        id: any;
-        title: any;
-        button_title: any;
-        title_Secundario: any;
-        title_Terciario: any;
-        img: any;
-        first: any;
-    };
-
-    const jsonData = [
-        {
-            id: Math.random().toString(12).substring(0),
-            title: 'POSIÇÕES PARA PARIR',
-            button_title: require('../../audios/a melhor posição para parir.mp3') ,
-            title_Secundario: 'POSIÇÕES PARA PARIR',
-            first: 'A melhor posição para parir é a de escolha da mulher, se tudo estiver ocorrendo bem! Algumas das posições que podem ser adotadas para parir são:',
-            title_Terciario: 'DE CÓCORAS',
-            img: <Image style={styles.img} source={require('./../../imgs/DE CÓCORAS.png')} />,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title_Terciario: 'SENTADA',
-            img: <Image style={styles.img} source={require('./../../imgs/SENTADA.png')} />,
-            title_Secundario: null,
-            title: null,
-            first: null,
-            button_title: null,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title_Terciario: 'QUATRO APOIOS',
-            img: <Image style={styles.img} source={require('./../../imgs/QUATRO APOIOS.png')} />,
-            title: null,
-            first: null,
-            button_title: null,
-            title_Secundario: null,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title_Terciario: 'SEMISSENTADA E LATERALIZADA',
-            img: <Image style={styles.img} source={require('./../../imgs/SEMISSENTADA E LATERALIZADA.png')} />,
-            title: null,
-            first: null,
-            button_title: null,
-            title_Secundario: null,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title_Terciario: 'EM PÉ',
-            img: <Image style={styles.img} source={require('./../../imgs/EM PÉ.png')} />,
-            title: null,
-            first: null,
-            button_title: null,
-            title_Secundario: null,
-        },
-    ];
 
     type ItemProps = {
         dados: ItemData

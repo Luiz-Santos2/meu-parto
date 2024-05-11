@@ -2,10 +2,12 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, SafeA
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { CuidadosPosPartoParams } from '../../navigations/cuidadosPosParto';
 import { Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface DetalheDoisPosPartoScreenScreenProps {
     navigation: any;
@@ -15,19 +17,8 @@ export interface DetalheDoisPosPartoScreenScreenProps {
 export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
+    const [jsonData, setJsonData] = useState<ItemData[]>([]);
 
-    const reproduzir = async (audio: any) => {
-        try {
-            if (sound) {
-                await sound.unloadAsync();
-            }
-            const { sound: newSound } = await Audio.Sound.createAsync(audio);
-            setSound(newSound);
-            await newSound.playAsync();
-        } catch (error) {
-            console.error("Erro ao reproduzir o áudio:", error);
-        }
-    };
 
     //@ts-ignore
     const { item_id } = props.route.params
@@ -42,35 +33,68 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
         text_first: any;
         button_textLast: any;
         text_last: any;
+        item_id: number;
     };
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '13')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                id: Math.random().toString(12).substring(0),
+                title: todosOsDados.tituloPrincipal,
+                button_title: {uri: todosOsDados.audio1},
+                title_Secundario: todosOsDados.titulo1,
+                button_text: {uri: todosOsDados.audio2},
+                text_first: todosOsDados.texto1,
+                title_Terciario: todosOsDados.titulo2,
+                button_textLast: null,
+                text_last: todosOsDados.texto2,
+                item_id: 1
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: todosOsDados.tituloPrincipal,
+                button_title: {uri: todosOsDados.audio3},
+                title_Secundario: todosOsDados.titulo3,
+                button_text: null,
+                text_first: null,
+                title_Terciario: null,
+                button_textLast: {uri: todosOsDados.audio4},
+                text_last: todosOsDados.texto3,
+                item_id: 2
+            },
 
-    const jsonData = [
-        {
-            id: Math.random().toString(12).substring(0),
-            title: 'CUIDADOS NO INÍCIO DO PÓS-PARTO',
-            button_title: require('../../audios/cuidados com os pontos sutura do parto normal.mp3'),
-            title_Secundario: 'CUIDADOS COM OS PONTOS (SUTURA) DO PARTO NORMAL',
-            button_text: require('../../audios/A passagem do bebê pelo canal do parto e pela vulva.mp3'),
-            text_first: 'A passagem do bebê pelo canal do parto e pela vulva pode provocar lacerações, que são semelhantes a cortes. Quando as lacerações são mais profundas ou permanecem sangrando é necessário dar pontos, ou seja, suturá-las.',
-            title_Terciario: 'Alguns cuidados que devem ser tomados são:',
-            button_textLast: null,
-            text_last: '- Lave a região da vulva com água e sabonete líquido ou em barra, sem esfregar ou usar buchas. Prefira lavar a usar papel higiênico.\n\n- Compressas geladas no local podem ajudar a diminuir a dor e o inchaço local.\n\n- Seque bem com uma toalha limpa e macia, sem esfregar.\n\n- Evite usar roupas apertadas ou que causem atrito com os pontos.\n\n- Prefira roupas íntimas de algodão e calças largas e confortáveis.\n\n- Observe os sinais de alerta como vermelhidão, inchaço,  secreção amarela ou esverdeada ou febre. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento.\n\n- Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
-            item_id: 1
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title: 'CUIDADOS NO INÍCIO DO PÓS-PARTO',
-            button_title: require('../../audios/cuidados com os pontos sutura da cesariana.mp3'),
-            title_Secundario: 'CUIDADOS COM OS PONTOS (SUTURA) DA CESARIANA',
-            button_text: null,
-            text_first: '',
-            title_Terciario: '',
-            button_textLast: require('../../audios/Lave a região da cicatriz com água e sabonete neutro, sem esfregar ou usar buchas..mp3'),
-            text_last: '- Lave a região da cicatriz com água e sabonete neutro, sem esfregar ou usar buchas.\n\n- Seque bem com uma toalha limpa e macia, sem esfregar.\n\n- Evite usar roupas apertadas ou que causem atrito com os pontos.\n\n- Procure levantar da cama com ajuda ou virando para o lado primeiro para depois levantar-se, caso não a tenha.\n\n- Prefira roupas íntimas de algodão e calças largas e confortáveis.\n\n- Observe os sinais de alerta como vermelhidão, inchaço,  secreção amarela ou esverdeada ou febre. Se você apresentar algum desses sintomas, procure um serviço de saúde para atendimento.\n\n- Lembre-se que o seu corpo precisa de tempo e cuidado para se recuperar do parto. Respeite o seu ritmo.',
-            item_id: 2
-        },
+        ];
+        setJsonData(jsonData);
+    }
 
-    ];
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound, jsonData]);
+
+
+    const reproduzir = async (audio: any) => {
+        try {
+            if (sound) {
+                await sound.unloadAsync();
+            }
+            const { sound: newSound } = await Audio.Sound.createAsync(audio);
+            setSound(newSound);
+            await newSound.playAsync();
+        } catch (error) {
+            console.error("Erro ao reproduzir o áudio:", error);
+        }
+    };
 
     type ItemProps = {
         dados: ItemData

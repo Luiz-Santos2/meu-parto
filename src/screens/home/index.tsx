@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, SectionList } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, SectionList } from 'react-native';
 import bg from './../../imgs/background.png';
 import { AppHeader } from '../../components/header';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
-import { Item } from 'react-native-paper/lib/typescript/components/List/List';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface HomescreenProps {
     navigation: any;
@@ -14,32 +15,49 @@ export function HomeScreen(props: HomescreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound>();
 
+    const [jsonData, setJsonData] = useState<{ data: { type: string, type_id: string }[] }[]>([]);
+    const [observationText, setObservationText] = useState('');
+    const [audio, setAudio] = useState<any>(null);
 
-    const jsonData = [
-        {
-            data: [{ type: 'PERÍODOS E FASES DO PARTO', type_id: 'periodoFases' }],
-        },
-        {
-            data: [{ type: 'COMO ALIVIAR A DOR NO TRABALHO DE PARTO', type_id: 'aliviarDor',}],
-        },
-        {
-            data: [{ type: 'POSIÇÕES PARA PARIR', type_id: 'posicaoParir' }],
-        },
-        {
-            data: [{ type: 'CUIDADOS NO INÍCIO DO PÓS-PARTO', type_id: 'cuidadosPosParto' }],
-        },
-        {
-            data: [{ type: 'MAMADAS INICIAIS', type_id: 'mamadasIniciais' }],
-        },
-    ];
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '2')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                data: [{ type: todosOsDados.menu1, type_id: 'periodoFases' }],
+            },
+            {
+                data: [{ type: todosOsDados.menu2, type_id: 'aliviarDor', }],
+            },
+            {
+                data: [{ type: todosOsDados.menu3, type_id: 'posicaoParir' }],
+            },
+            {
+                data: [{ type: todosOsDados.menu4, type_id: 'cuidadosPosParto' }],
+            },
+            {
+                data: [{ type: todosOsDados.menu5, type_id: 'mamadasIniciais' }],
+            },
+        ];
+
+        setObservationText(todosOsDados.texto);
+        setAudio({ uri: todosOsDados.audio });
+        setJsonData(jsonData);
+
+    }
 
     async function Reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(require('../../audios/vamos começar.mp3')
-        );
+        const { sound } = await Audio.Sound.createAsync(audio);
         setSound(sound);
 
         await sound.playAsync();
     }
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
 
     useEffect(() => {
         return sound
@@ -47,12 +65,12 @@ export function HomeScreen(props: HomescreenProps) {
                 sound.unloadAsync();
             }
             : undefined;
-    }, [sound]);
+    }, [sound, jsonData]);
 
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppHeader />
-            <View style={styles.container}>
+            {jsonData.length > 0 && <View style={styles.container}>
                 <Text style={styles.text}>Vamos começar?</Text>
                 <TouchableOpacity onPress={Reproduzir}>
                     <View style={styles.containerIcon}>
@@ -72,10 +90,9 @@ export function HomeScreen(props: HomescreenProps) {
                     )}
                 />
                 <View style={styles.TextObsposition}>
-                    <Text style={styles.TextObs}>Atenção: as orientações a seguir não pretendem substituir o acompanhamento
-                        obstétrico personalizado.</Text>
+                    <Text style={styles.TextObs}>{observationText}</Text>
                 </View>
-            </View>
+            </View>}
         </ImageBackground>
     );
 }

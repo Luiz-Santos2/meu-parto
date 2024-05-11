@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, SafeAreaView, FlatList, Button } from 'react-native';
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
@@ -6,6 +6,8 @@ import { AppSecundario } from '../../components/secundario';
 import { RouteProp } from '@react-navigation/native';
 import { PeriodoFaseParams } from '../../navigations/periodoFases';
 import { Video, ResizeMode, Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface PeriodoFasesSecundariaScreenProps {
     navigation: any;
@@ -15,6 +17,120 @@ export interface PeriodoFasesSecundariaScreenProps {
 export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
+    const [getItems, setGetItems] = useState<ItemData[]>([]);
+
+    //@ts-ignore
+    const { item_id } = props.route.params
+
+    type ItemData = {
+        id: string;
+        audio: any;
+        title: string;
+        titulo_secundario: string;
+        text: string;
+        video: any;
+        item_id: any;
+    };
+
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '4')).then(snap => snap.data()) as any;
+        const getItems = [
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: { uri: todosOsDados.audio1 },
+                title: todosOsDados.titulo1,
+                titulo_secundario: todosOsDados.subtitulo1,
+                text: todosOsDados.texto1,
+                video:
+                    <View style={styles.posicaoVideo}>
+                        <Video
+                            source={{ uri: todosOsDados.video1 }}
+                            style={{ width: 257, height: 437 }}
+                            useNativeControls={true}
+                            resizeMode={ResizeMode.COVER}
+                        />
+                        <Text style={styles.autor}>{todosOsDados.autor1}</Text>
+                    </View>,
+                item_id: 1,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: { uri: todosOsDados.audio2 },
+                title: todosOsDados.titulo2,
+                titulo_secundario: todosOsDados.subtitulo2,
+                text: todosOsDados.texto2,
+                video: <View style={styles.posicaoVideo}>
+                    <Video
+                        source={{ uri: todosOsDados.video2 }}
+                        style={{ width: 257, height: 437 }}
+                        useNativeControls={true}
+                        resizeMode={ResizeMode.COVER}
+                    />
+                    <Text style={styles.autor}>{todosOsDados.autor2}</Text>
+                </View>,
+                item_id: 2,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: { uri: todosOsDados.audio3 },
+                title: todosOsDados.titulo3,
+                titulo_secundario: todosOsDados.subtitulo3,
+                text: todosOsDados.texto3,
+                video: null,
+                item_id: 3,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: { uri: todosOsDados.audio4 },
+                title: todosOsDados.titulo4,
+                titulo_secundario: todosOsDados.subtitulo4,
+                text: todosOsDados.texto4,
+                video: <View style={styles.posicaoVideo}>
+                    <Video
+                        source={{ uri: todosOsDados.video4 }}
+                        style={{ width: 332, height: 191 }}
+                        useNativeControls={true}
+                        resizeMode={ResizeMode.COVER}
+                    />
+                    <Text style={styles.autor}>{todosOsDados.autor4}</Text>
+                </View>,
+                item_id: 4,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: { uri: todosOsDados.audio5},
+                title: todosOsDados.titulo5,
+                titulo_secundario: todosOsDados.subtitulo5,
+                text: todosOsDados.texto5,
+                video: <View style={styles.posicaoVideo}>
+                    <Video
+                        source={{ uri: todosOsDados.video5 }}
+                        style={{ width: 332, height: 191 }}
+                        useNativeControls={true}
+                        resizeMode={ResizeMode.COVER}
+                    />
+                    <Text style={styles.autor}>{todosOsDados.autor5}</Text>
+                </View>,
+                item_id: 5,
+            },
+        ];
+        setGetItems(getItems)
+    }
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
+
+    useEffect(() => {
+        return () => {
+            if (sound) {
+                sound.unloadAsync();
+            }
+        };
+    }, [sound, getItems]);
 
     const reproduzir = async (audio: any) => {
         try {
@@ -28,100 +144,6 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             console.error("Erro ao reproduzir o áudio:", error);
         }
     };
-
-    //@ts-ignore
-    const { item_id } = props.route.params
-
-    type ItemData = {
-        id: string;
-        audio: any;
-        title: string;
-        titulo_secundario: string;
-        text: string;
-        video: any;
-    };
-
-    const getItems = [
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/Nesse momento voce pode.mp3'),
-            title: '1º Período do Trabalho de Parto',
-            titulo_secundario: 'FASE LATENTE',
-            text: 'Nesse momento, você pode achar que já deve ir à maternidade, mas calma!\n\nEssa fase pode demorar um tempo muito variável, as contrações uterinas são dolorosas, mas podem estar com duração e intervalos entre elas ainda irregulares e a dilatação do colo do útero chega até 4 cm.',
-            video:
-                <View style={styles.posicaoVideo}>
-                    <Video
-                        source={require('../../videos/faseLatente.mp4')}
-                        style={{ width: 257, height: 437 }}
-                        useNativeControls={true}
-                        resizeMode={ResizeMode.COVER}
-                    />
-                    <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-                </View>,
-            item_id: 1,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/Agora sim, podemos.mp3'),
-            title: '1º Período do Trabalho de Parto',
-            titulo_secundario: 'FASE ATIVA',
-            text: ' Agora sim, podemos dizer que começou o trabalho de parto!\n\nAs contrações uterinas são regulares, aparecem num intervalo semelhante entre elas, e há dilatação do colo do útero progressiva a partir dos 4 cm até os 10 cm.\n\nNas mães de primeira viagem dura em média 8 horas e é pouco provável que dure mais que 18 horas; nas mulheres que já pariram dura em média 5 horas e é pouco provável que dure mais que 12 horas.',
-            video: <View style={styles.posicaoVideo}>
-                <Video
-                    source={require('../../videos/Fase ativa - 1º periodo.mp4')}
-                    style={{ width: 257, height: 437 }}
-                    useNativeControls={true}
-                    resizeMode={ResizeMode.COVER}
-                />
-                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-            </View>,
-            item_id: 2,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/Ufa, Já.mp3'),
-            title: '2º Período do Trabalho de Parto',
-            titulo_secundario: 'FASE PASSIVA',
-            text: 'Ufa! Já estamos com os tão sonhados 10 cm, que é a dilatação total do colo, mas sem sensação de vontade de fazer força para expulsar o bebê.\n\nSeu corpo está se preparando para que o bebê comece a descer pelo canal do parto.\n\nAté o momento não falamos em que período a bolsa das águas (membrana amniótica) rompe no trabalho de parto.\n\n Vamos lá! A bolsa pode romper antes das contrações iniciarem, porém, o mais comum é que isso aconteça após o início delas e até no momento do nascimento. Alguns bebês podem nascer sem que a bolsa rompa e chamamos esse parto de empelicado.',
-            video: null,
-            item_id: 3,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/O colo do útero tem.mp3'),
-            title: '2º Período do Trabalho de Parto',
-            titulo_secundario: 'FASE ATIVA',
-            text: 'O colo do útero tem dilatação total (10 cm), as contrações do útero e a vontade de empurrar da mamãe fazem com que o bebê desça pelo canal do parto e tornam a cabeça do bebê visível na vulva, se ele estiver com a cabeça pra baixo. Isso é o que chamamos de coroar! Em seguida, sai todo o corpo do bebê!',
-            video: <View style={styles.posicaoVideo}>
-                <Video
-                    source={require('../../videos/fase ativa - 2º periodo.mp4')}
-                    style={{ width: 332, height: 191 }}
-                    useNativeControls={true}
-                    resizeMode={ResizeMode.COVER}
-                />
-                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-            </View>,
-            item_id: 4,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/nesse momento ocorre o despresdimento.mp3'),
-            title: '3º Período do Trabalho de Parto',
-            titulo_secundario: 'DESPRENDIMENTO E SAÍDA DA PLACENTA',
-            text: 'Nesse momento, ocorre o desprendimento da placenta do útero e sua saída pelo canal do parto. Esse processo pode durar até uma hora.',
-            video: <View style={styles.posicaoVideo}>
-                <Video
-                    source={require('../../videos/DESPRENDIMENTO E saída da placenta.mp4')}
-                    style={{ width: 332, height: 191 }}
-                    useNativeControls={true}
-                    resizeMode={ResizeMode.COVER}
-                />
-                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-            </View>,
-            item_id: 5,
-
-        },
-    ];
 
     type ItemProps = {
         dados: ItemData

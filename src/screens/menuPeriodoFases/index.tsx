@@ -4,6 +4,8 @@ import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
 import { Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface PeriodoFasesScreenProps {
     navigation: any;
@@ -11,36 +13,48 @@ export interface PeriodoFasesScreenProps {
 
 export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
     const [sound, setSound] = useState<Audio.Sound | null>(null);
-    const [index, setIndex] = useState(0);
+    const [jsonData, setJsonData] = useState<{ id: string, period: string, audio: any, fases: { id: string, title: string, audio: any }[] }[]>([]);
 
-    const jsonData = [
-        {
-            id: '1',
-            period: '1º Período do Trabalho de Parto',
-            audio: require('../../audios/1 periodo do trabalho de parto.mp3'),
-            fases: [
-                { id: '1', title: "FASE LATENTE", screen: 'DetalhesPeriodoFases', audio: require('../../audios/fase latente.mp3') },
-                { id: '2', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/fase ativa.mp3') },
-            ]
-        },
-        {
-            id: '2',
-            period: '2º Período do Trabalho de Parto',
-            audio: require('../../audios/2 periodo do trabalho de parto.mp3'),
-            fases: [
-                { id: '3', title: "FASE PASSIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/fase passiva.mp3') },
-                { id: '4', title: "FASE ATIVA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/fase ativa.mp3') },
-            ]
-        },
-        {
-            id: '3',
-            period: '3º Período do Trabalho de Parto',
-            audio: require('../../audios/3 periodo do trabalho de parto.mp3'),
-            fases: [
-                { id: '5', title: "DESPRENDIMENTO E SAÍDA DA PLACENTA", screen: 'DetalhesPeriodoFases', audio: require('../../audios/desprendimento e saida da placenta.mp3') },
-            ]
-        },
-    ];
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '3')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                id: '1',
+                period: todosOsDados.textoTitulo1,
+                audio: {uri: todosOsDados.audioTitulo1},
+                fases: [
+                    { id: '1', title: todosOsDados.textoSubtitulo1, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo1} },
+                    { id: '2', title: todosOsDados.textoSubtitulo2, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo2} },
+                ]
+            },
+            {
+                id: '2',
+                period: todosOsDados.textoTitulo2,
+                audio: {uri: todosOsDados.audioTitulo2},
+                fases: [
+                    { id: '3', title: todosOsDados.textoSubtitulo3, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo3} },
+                    { id: '4', title: todosOsDados.textoSubtitulo4, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo4 } },
+                ]
+            },
+            {
+                id: '3',
+                period: todosOsDados.textoTitulo3,
+                audio: {uri: todosOsDados.audioTitulo3},
+                fases: [
+                    { id: '5', title: todosOsDados.textoSubtitulo5, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo4 } },
+                ]
+            },
+        ];
+
+        setJsonData(jsonData);
+    }
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
 
     useEffect(() => {
         return () => {
@@ -48,7 +62,7 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                 sound.unloadAsync();
             }
         };
-    }, []);
+    }, [sound, jsonData]);
 
     const reproduzirAudio = async (audio: any) => {
         try {

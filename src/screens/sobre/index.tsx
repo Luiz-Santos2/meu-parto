@@ -1,30 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import bg from './../../imgs/background.png';
-import lg from './../../imgs/logo.png';
 import { AppHeader } from '../../components/header';
 import { MaterialIcons } from '@expo/vector-icons'
 import { Audio } from 'expo-av';
+import { getDoc, doc } from '@firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface SobrescreenProps {
     navigation: any;
 }
 
+
 export function SobreScreen(props: SobrescreenProps) {
 
     const [index, setIndex] = useState(0);
     const [sound, setSound] = useState<Audio.Sound>();
+    const [ jsonData, setJsonData ] = useState<{nome: string, audio: any, imagem: any}[]>([]);
 
-    const jsonData = [
-        {
-            nome: "Bem-vinda, mamãe! Este aplicativo é seu aliado na jornada da maternidade, oferecendo informações confiáveis e apoio durante o parto e a fase inicial do pós-parto. Estamos aqui para ajudá-la a vivenciar essa experiência com mais segurança e tranquilidade.",
-            audio: require('../../audios/Bem-vinda mamãe.mp3')
-        },
-        {
-            nome: "Este aplicativo é produto de dissertação do Programa Profissional de Pós-graduação em Biotecnologia em Saúde Humana e Animal (PPGBIOTEC) vinculado à Universidade Estadual do Ceará (UECE), onde o Centro Universitário Cesmac é instituição associada. O aplicativo foi desenvolvido em parceria com o Núcleo de Robótica do Centro Universitário Cesmac.",
-            audio: require('../../audios/Este aplicativo é.mp3')
-        },
-    ];
+    
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '1')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                nome: todosOsDados.texto1,
+                audio: { uri: todosOsDados.audio1 },
+                imagem: { uri: todosOsDados.imagem }
+            },
+            {
+                nome: todosOsDados.texto2,
+                audio: { uri: todosOsDados.audio2 },
+                imagem: { uri: todosOsDados.imagem }
+            },
+        ];
+        setJsonData(jsonData);
+    }
+
+
 
     const nextItem = async () => {
         if (index < jsonData.length - 1) {
@@ -35,20 +47,31 @@ export function SobreScreen(props: SobrescreenProps) {
     };
 
     useEffect(() => {
+                (async () => {
+            await buscarDados();
+        }) ()
 
-        const reproduzir = async () => {
-            const { sound } = await Audio.Sound.createAsync(jsonData[index].audio);
-            setSound(sound);
-        };
+    }, [])
 
-        reproduzir();
+    useEffect(() => {
+
+        if (jsonData.length > 0) {
+   
+            const reproduzir = async () => {
+                const { sound } = await Audio.Sound.createAsync(jsonData[index].audio);
+                setSound(sound);
+            };
+
+
+            reproduzir();
+        }
 
         return () => {
             if (sound) {
                 sound.unloadAsync();
             }
         };
-    }, [index]);
+    }, [index, jsonData]);
 
     const reproduzir = async () => {
         if (sound) {
@@ -59,7 +82,7 @@ export function SobreScreen(props: SobrescreenProps) {
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppHeader />
-            <View style={styles.container}>
+            {jsonData.length > 0 && <View style={styles.container}>
                 <TouchableOpacity onPress={reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
@@ -72,8 +95,8 @@ export function SobreScreen(props: SobrescreenProps) {
                         <Text style={styles.Buttontext}>Continuar</Text>
                     </View>
                 </TouchableOpacity>
-                <Image source={lg} style={styles.image} />
-            </View>
+                <Image source={jsonData[index].imagem} style={styles.image} />
+            </View>}
         </ImageBackground>
     );
 }

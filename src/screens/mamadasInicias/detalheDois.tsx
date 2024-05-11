@@ -1,11 +1,13 @@
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, SafeAreaView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { MamadasIniciaisParams } from '../../navigations/mamadasIniciais';
 import { Video, ResizeMode, Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface DetalheDoisMamadasIniciaisScreenScreenProps {
     navigation: any;
@@ -15,6 +17,106 @@ export interface DetalheDoisMamadasIniciaisScreenScreenProps {
 export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasIniciaisScreenScreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
+    const [jsonData, setJsonData] = useState<ItemData[]>([]);
+
+    //@ts-ignore
+    const { item_id } = props.route.params
+
+    type ItemData = {
+        id: string;
+        title: string;
+        button_title: any;
+        title_Secundario: string;
+        button_Secundario: any;
+        text_first: string;
+        video1: any;
+        button_textLast: any;
+        text_last: string;
+        textInfo: string;
+        video2: any;
+        item_id: number;
+    };
+
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '10')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                id: Math.random().toString(12).substring(0),
+                title: todosOsDados.tituloPrincipal,
+                button_title: { uri: todosOsDados.audio1 },
+                title_Secundario: todosOsDados.titulo1,
+                button_Secundario: null,
+                text_first: todosOsDados.texto1,
+                video1: <View style={styles.posicaoVideo}>
+                    <Video
+                        source={{ uri: todosOsDados.video1 }}
+                        style={{ width: 351, height: 189 }}
+                        useNativeControls={true}
+                        resizeMode={ResizeMode.COVER}
+                    />
+                    <Text style={styles.autor}>{todosOsDados.autor1}</Text>
+                </View>,
+                button_textLast: { uri: todosOsDados.audio2 },
+                text_last: todosOsDados.texto2,
+                video2: null,
+                textInfo: null,
+                item_id: 1
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: todosOsDados.tituloPrincipal,
+                button_title: { uri: todosOsDados.audio3 },
+                title_Secundario: todosOsDados.titulo2,
+                button_Secundario: null,
+                text_first: todosOsDados.texto3,
+                video1: null,
+                button_textLast: null,
+                text_last: null,
+                textInfo: null,
+                video2: null,
+                item_id: 2
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: null,
+                button_title: null,
+                title_Secundario: null,
+                button_Secundario: todosOsDados.titulo3,
+                text_first: todosOsDados.texto4,
+                button_textLast: null,
+                text_last: null,
+                textInfo: todosOsDados.observacao,
+                video2: <View style={styles.posicaoVideo}>
+                    <Video
+                        source={{ uri: todosOsDados.video2 }}
+                        style={{ width: 351, height: 200 }}
+                        useNativeControls={true}
+                        resizeMode={ResizeMode.COVER}
+                    />
+                    <Text style={styles.autor}>{todosOsDados.autor2}</Text>
+                </View>,
+                item_id: 2
+            },
+
+        ];
+
+        setJsonData(jsonData);
+    }
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound, jsonData]);
 
     const reproduzir = async (audio: any) => {
         try {
@@ -28,85 +130,6 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             console.error("Erro ao reproduzir o áudio:", error);
         }
     };
-
-    //@ts-ignore
-    const { item_id } = props.route.params
-
-    type ItemData = {
-        id: any;
-        title: any;
-        button_title: any;
-        title_Secundario: any;
-        button_Secundario: any;
-        text_first: any;
-        video1: any;
-        button_textLast: any;
-        text_last: any;
-        textInfo: any;
-        video2: any;
-    };
-
-    const jsonData = [
-        {
-            id: Math.random().toString(12).substring(0),
-            title: 'MAMADAS INICIAIS',
-            button_title: require('../../audios/A pega correta é a forma mais adequada.mp3'),
-            title_Secundario: 'PEGA CORRETA',
-            button_Secundario: null,
-            text_first: 'A pega correta é a forma mais adequada da boca do seu bebê abocanhar sua mama, o posicionamento do seu corpinho e sua cabeça em relação a mama e a forma dele sugar o leite.',
-            video1: <View style={styles.posicaoVideo}>
-                <Video
-                    source={require('../../videos/pega correta.mp4')}
-                    style={{ width: 351, height: 189 }}
-                    useNativeControls={true}
-                    resizeMode={ResizeMode.COVER}
-                />
-                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-            </View>,
-            button_textLast: require('../../audios/Nesse momento, após assistir ao vídeo.mp3'),
-            text_last: 'Nesse momento, após assistir ao vídeo, você pode tentar aplicar o que aprendeu com o seu bebê. Se não conseguiu na primeira tentativa, não se desespere, nem sempre é simples, persista, tente de novo. Você não está só!',
-            video2: null,
-            textInfo: null,
-            item_id: 1
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title: 'MAMADAS INICIAIS',
-            button_title: require('../../audios/Após o banho seque seus seios suavemente.....mp3'),
-            title_Secundario: 'CUIDANDO DAS RACHADURAS NA MAMA',
-            button_Secundario: null,
-            text_first: '1 - Após o banho seque seus seios suavemente, pois assim a lubrificação natural de proteção do mamilo será preservada.\n\n2 - Utilize sutiãs de tecido de algodão e adequados ao tamanho dos seios.\n\n3 - Não aplique hidratantes ou substâncias não orientadas no mamilo.\n\n4 - Se as rachaduras (fissuras) já estiverem presentes, após amamentar,  pressione o seio para ordenhar um pouco de leite e passe no local machucado do mamilo.\n\n5 - Pega do bebê: ATENÇÃO! Quando não está correta é um dos maiores causadores de rachaduras mamilares. Você lembra que já viu aqui como é a pega correta? Se esqueceu, veja como é novamente:',
-            video1: null,
-            button_textLast: null,
-            text_last: null,
-            textInfo: null,
-            video2: null,
-            item_id: 2
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title: null,
-            button_title: null,
-            title_Secundario: null,
-            button_Secundario: 'PEGA CORRETA',
-            text_first: '6 - Quando os mamilos estiverem machucados podem ser usados os rolinhos de fraldas ou rosquinhas de amamentação para protegê-los e evitar que entrem em contato com o sutiã.',
-            video1: null,
-            button_textLast: null,
-            text_last: null,
-            textInfo: 'Como fazer os rolinhos de fraldas que são semelhantes às rosquinhas de amamentação?\n\nVEJA O VÍDEO!',
-            video2: <View style={styles.posicaoVideo}>
-                <Video
-                    source={require('../../videos/Rosquinha de amamentação.mp4')}
-                    style={{ width: 351, height: 200 }}
-                    useNativeControls={true}
-                    resizeMode={ResizeMode.COVER}
-                />
-                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-            </View>,
-            item_id: 2
-        },
-
-    ];
 
     type ItemProps = {
         dados: ItemData
@@ -130,9 +153,9 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
             )}
             {dados.button_Secundario && (
                 <TouchableOpacity onPress={() => props.navigation.navigate('DetalheDoisMamadasIniciais', { item_id: 1 })}>
-                <View style={styles.tagButton}>
-                    <Text style={styles.tagText}>{dados.button_Secundario}</Text>
-                </View>
+                    <View style={styles.tagButton}>
+                        <Text style={styles.tagText}>{dados.button_Secundario}</Text>
+                    </View>
                 </TouchableOpacity>
             )}
             {dados.text_first && <Text style={styles.textInfo}>{dados.text_first}</Text>}

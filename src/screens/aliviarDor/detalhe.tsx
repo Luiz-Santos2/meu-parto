@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, SafeAreaView, FlatList, Image } from 'react-native';
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
@@ -6,6 +6,8 @@ import { AppSecundario } from '../../components/secundario';
 import { RouteProp } from '@react-navigation/native';
 import { AliviarDorParams } from '../../navigations/aliviarDor';
 import { Video, ResizeMode, Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 
 export interface AliviarDorSecundariaScreenProps {
@@ -16,6 +18,131 @@ export interface AliviarDorSecundariaScreenProps {
 export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
+    const [getItems, setGetItems] = useState<ItemData[]>([]);
+
+
+    //@ts-ignore
+    const { item_id } = props.route.params
+
+    type ItemData = {
+        id: string;
+        audio: any;
+        title: string;
+        text: string;
+        video: any;
+        foto: any;
+        item_id: number
+    };
+
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '6')).then(snap => snap.data()) as any;
+        const getItems = [
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: {uri: todosOsDados.audio1},
+                title: todosOsDados.titulo1,
+                text: todosOsDados.texto1,
+                video: <View style={styles.posicaoVideo}>
+                    <Video
+                        source={{uri: todosOsDados.video1}}
+                        style={{ width: 332, height: 187 }}
+                        useNativeControls={true}
+                        resizeMode={ResizeMode.COVER}
+                    />
+                    <Text style={styles.autor}>{todosOsDados.autor1}</Text>
+                </View>,
+                foto: <Image style={styles.img} source={{uri: todosOsDados.imagem1}} />,
+                item_id: 1,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: {uri: todosOsDados.audio2},
+                title: todosOsDados.titulo2,
+                text: todosOsDados.texto2,
+                video: <View style={styles.posicaoVideo}>
+                    <Video
+                        source={{uri: todosOsDados.video2}}
+                        style={{ width: 332, height: 187 }}
+                        useNativeControls={true}
+                        resizeMode={ResizeMode.COVER}
+                    />
+                    <Text style={styles.autor}>{todosOsDados.autor2}</Text>
+                </View>,
+                foto: <Image style={styles.img} source={{uri: todosOsDados.imagem2}} />,
+                item_id: 2,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: {uri: todosOsDados.audio3},
+                title: todosOsDados.titulo3,
+                text: todosOsDados.texto3,
+                video: <View style={styles.posicaoVideo}>
+                    <Video
+                        source={{uri: todosOsDados.video3}}
+                        style={{ width: 332, height: 187 }}
+                        useNativeControls={true}
+                        resizeMode={ResizeMode.COVER}
+                    />
+                    <Text style={styles.autor}>{todosOsDados.autor3}</Text>
+                </View>,
+                foto: <Image style={styles.img} source={{uri: todosOsDados.imagem3}} />,
+                item_id: 3,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: {uri: todosOsDados.audio4},
+                title: todosOsDados.titulo4,
+                text: todosOsDados.texto4,
+                video: <View style={styles.posicaoVideo}>
+                    <Video
+                        source={{uri: todosOsDados.video4}}
+                        style={{ width: 332, height: 187 }}
+                        useNativeControls={true}
+                        resizeMode={ResizeMode.COVER}
+                    />
+                    <Text style={styles.autor}>{todosOsDados.autor4}</Text>
+                </View>,
+                foto: null,
+                item_id: 4,
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: {uri: todosOsDados.audio5},
+                title: todosOsDados.titulo5,
+                text: todosOsDados.texto5,
+                video: null,
+                foto: null,
+                item_id: 5,
+
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                audio: {uri: todosOsDados.audio6},
+                title: todosOsDados.titulo6,
+                text: todosOsDados.texto6,
+                video: null,
+                foto: null,
+                item_id: 6,
+
+            },
+        ];
+        setGetItems(getItems);
+    }
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound, getItems]);
 
     const reproduzir = async (audio: any) => {
         try {
@@ -29,109 +156,6 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
             console.error("Erro ao reproduzir o áudio:", error);
         }
     };
-
-    //@ts-ignore
-    const { item_id } = props.route.params
-
-    type ItemData = {
-        id: string;
-        audio: any;
-        title: string;
-        text: string;
-        video: any;
-        foto: any;
-    };
-
-    const getItems = [
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/exercicios para a pelve e perinio.mp3'),
-            title: 'EXERCÍCIOS PARA A PELVE E PERÍNEO',
-            text: '',
-            video: <View style={styles.posicaoVideo}>
-                <Video
-                    source={require('../../videos/exercícios para a pelve e perÍneo.mp4')}
-                    style={{ width: 332, height: 187 }}
-                    useNativeControls={true}
-                    resizeMode={ResizeMode.COVER}
-                />
-                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-            </View>,
-            foto: <Image style={styles.img} source={require('./../../imgs/pelvePerineo.png')} />,
-            item_id: 1,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/as massagens podem ser.mp3'),
-            title: 'TÉCNICAS DE MASSAGEM',
-            text: 'As massagens podem ser realizadas em posições que deixem as costas livres, como sentada, em pé ou de quatro apoios.',
-            video: <View style={styles.posicaoVideo}>
-                <Video
-                    source={require('../../videos/tecnicas de massagem.mp4')}
-                    style={{ width: 332, height: 187 }}
-                    useNativeControls={true}
-                    resizeMode={ResizeMode.COVER}
-                />
-                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-            </View>,
-            foto: <Image style={styles.img} source={require('./../../imgs/tecnicaMassagem.png')} />,
-            item_id: 2,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/tecnicas de respiração.mp3'),
-            title: 'TÉCNICAS DE RESPIRAÇÃO',
-            text: '',
-            video: <View style={styles.posicaoVideo}>
-                <Video
-                    source={require('../../videos/tecnica de respiração.mp4')}
-                    style={{ width: 332, height: 187 }}
-                    useNativeControls={true}
-                    resizeMode={ResizeMode.COVER}
-                />
-                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-            </View>,
-            foto: <Image style={styles.img} source={require('./../../imgs/tecnicaRespiracao.png')} />,
-            item_id: 3,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/Posições q podem ajudar.mp3'),
-            title: 'POSIÇÕES QUE PODEM AJUDAR',
-            text: '',
-            video: <View style={styles.posicaoVideo}>
-                <Video
-                    source={require('../../videos/Posições que podem ajudar.mp4')}
-                    style={{ width: 332, height: 187 }}
-                    useNativeControls={true}
-                    resizeMode={ResizeMode.COVER}
-                />
-                <Text style={styles.autor}>Fonte: AUTORES, 2023.</Text>
-            </View>,
-            foto: null,
-            item_id: 4,
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/O banho morno.mp3'),
-            title: 'BANHO MORNO',
-            text: 'O banho morno pode ser realizado no chuveiro, na posição que a mulher escolher (em pé, de cócoras, sentada na cadeira ou na bola suíça) ou, se disponíveis, banheiras ou piscinas podem ser usadas.',
-            video: '',
-            foto: null,
-            item_id: 5,
-
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            audio: require('../../audios/ouvir musicas das suas preferencias.mp3'),
-            title: 'MÚSICAS DE ESCOLHA DA MULHER',
-            text: 'Ouvir músicas da sua preferência durante qualquer fase do trabalho de parto pode diminuir os sintomas de dor e ansiedade e proporcionar uma experiência de parto mais leve e feliz.',
-            video: '',
-            foto: null,
-            item_id: 6,
-
-        },
-    ];
 
     type ItemProps = {
         dados: ItemData

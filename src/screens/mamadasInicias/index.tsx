@@ -6,6 +6,8 @@ import { RouteProp } from '@react-navigation/native';
 import { MamadasIniciaisParams } from '../../navigations/mamadasIniciais';
 import { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 
 export interface MamadasIniciaisScreenscreenProps {
@@ -16,14 +18,41 @@ export interface MamadasIniciaisScreenscreenProps {
 export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound>();
+    const [texto, setTexto] = useState('');
+    const [titulo, setTitulo] = useState('');
+    const [audio, setAudio] = useState<any>(null);
+    const [imagem, setImagem] = useState<any>(null);
+    const [jsonData, setJsonData] = useState<{ data: { type: string, tela: string,  type_id: number }[] }[]>([]);
 
-    async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(require('../../audios/Essas primeiras mamadas podem não ser tão fáceis....mp3')
-        );
-        setSound(sound);
 
-        await sound.playAsync();
+
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '8')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                data: [{ type: todosOsDados.menu1, tela: 'DetalheUmMamadasIniciais', type_id: 0 }],
+            },
+            {
+                data: [{ type: todosOsDados.menu2, tela: 'DetalheDoisMamadasIniciais', type_id: 1 }],
+            },
+            {
+                data: [{ type: todosOsDados.menu3, tela: 'DetalheDoisMamadasIniciais', type_id: 2 }],
+            },
+        ];
+        setAudio({ uri: todosOsDados.audio });
+        setImagem({ uri: todosOsDados.imagem });
+        setTexto(todosOsDados.texto)
+        setTitulo(todosOsDados.titulo)
+        setJsonData(jsonData);
     }
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
+
 
     useEffect(() => {
         return sound
@@ -31,19 +60,14 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
                 sound.unloadAsync();
             }
             : undefined;
-    }, [sound]);
+    }, [sound, jsonData]);
 
-    const jsonData = [
-        {
-            data: [{ type: 'POSIÇÕES PARA AMAMENTAR', tela: 'DetalheUmMamadasIniciais', type_id: 0 }],
-        },
-        {
-            data: [{ type: 'MEU BEBÊ ESTÁ FAZENDO A PEGA NA MAMA DA FORMA CORRETA?', tela: 'DetalheDoisMamadasIniciais', type_id: 1 }],
-        },
-        {
-            data: [{ type: 'CUIDANDO DAS RACHADURAS NA MAMA', tela: 'DetalheDoisMamadasIniciais', type_id: 2 }],
-        },
-    ];
+    async function reproduzir() {
+        const { sound } = await Audio.Sound.createAsync(audio)
+        setSound(sound);
+
+        await sound.playAsync();
+    }
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
@@ -54,9 +78,8 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
                         <Text style={styles.textButton}>Áudio</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.text}>MAMADAS INICIAIS</Text>
-                <Text style={styles.TextObs}>Essas primeiras mamadas podem não ser tão fáceis como parecem, mas vamos lá, fique tranquila e
-                    veja algumas dicas que podem te ajudar nesse período!</Text>
+                <Text style={styles.text}>{titulo}</Text>
+                <Text style={styles.TextObs}>{texto}</Text>
                 <SectionList
                     sections={jsonData}
                     keyExtractor={(item) => item.type}
@@ -69,7 +92,7 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
                     )}
                 />
             </View>
-            <Image style={styles.img} source={require('./../../imgs/menuPos.png')} />
+            <Image style={styles.img} source={imagem} />
         </ImageBackground>
     );
 }

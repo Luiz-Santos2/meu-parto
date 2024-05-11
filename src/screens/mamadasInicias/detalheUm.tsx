@@ -1,11 +1,13 @@
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, Image, SafeAreaView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image, SafeAreaView, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { MamadasIniciaisParams } from '../../navigations/mamadasIniciais';
 import { Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface DetalheUmMamadasIniciaisScreenScreenProps {
     navigation: any;
@@ -15,19 +17,9 @@ export interface DetalheUmMamadasIniciaisScreenScreenProps {
 export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisScreenScreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
+    const [jsonData, setJsonData] = useState<ItemData[]>([]);
 
-    const reproduzir = async (audio: any) => {
-        try {
-            if (sound) {
-                await sound.unloadAsync();
-            }
-            const { sound: newSound } = await Audio.Sound.createAsync(audio);
-            setSound(newSound);
-            await newSound.playAsync();
-        } catch (error) {
-            console.error("Erro ao reproduzir o áudio:", error);
-        }
-    };
+
     //@ts-ignore
     const { item_id } = props.route.params
 
@@ -41,70 +33,102 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
         img: any;
         first: any;
         textObs: any;
+        item_id: number;
     };
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '9')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                id: Math.random().toString(12).substring(0),
+                title: todosOsDados.tituloPrincipal,
+                button_title: {uri: todosOsDados.audio1},
+                title_Secundario: todosOsDados.titulo,
+                button: {uri: todosOsDados.audio2},
+                title_Terciario: todosOsDados.subtítulo1,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem1}} />,
+                first: todosOsDados.texto1,
+                textObs: null,
+                item_id: 0
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: null,
+                button_title: null,
+                title_Secundario: null,
+                button: {uri: todosOsDados.audio3},
+                title_Terciario: todosOsDados.subtítulo2,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem2}} />,
+                first: todosOsDados.texto2,
+                textObs: null,
+                item_id: 0
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: null,
+                button_title: null,
+                title_Secundario: null,
+                button: {uri: todosOsDados.audio4},
+                title_Terciario: todosOsDados.subtítulo3,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem3}} />,
+                first: todosOsDados.texto3,
+                textObs: null,
+                item_id: 0
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: null,
+                button_title: null,
+                title_Secundario: null,
+                button: {uri: todosOsDados.audio5},
+                title_Terciario: todosOsDados.subtítulo4,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem4}} />,
+                first: todosOsDados.texto4,
+                textObs: null,
+                item_id: 0
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: null,
+                button_title: null,
+                title_Secundario: null,
+                button: {uri: todosOsDados.audio6},
+                title_Terciario: todosOsDados.subtítulo5,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem5}} />,
+                first: todosOsDados.texto5,
+                textObs: todosOsDados.observacao,
+                item_id: 0
+            },
+        ];
+        setJsonData(jsonData)
+    }
 
-    const jsonData = [
-        {
-            id: Math.random().toString(12).substring(0),
-            title: 'MAMADAS INICIAIS',
-            button_title: require('../../audios/posições para amamentar.mp3'),
-            title_Secundario: 'POSIÇÕES PARA AMAMENTAR',
-            button: require('../../audios/em pé o bebe é colocado no colo.mp3'),
-            title_Terciario: 'EM PÉ:',
-            img: <Image style={styles.img} source={require('./../../imgs/emPe.png')} />,
-            first: 'O bebê é colocado no colo da mãe e apoiado com uma das mãos da mãe.',
-            textObs: null,
-            item_id: 0
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title: null,
-            button_title: null,
-            title_Secundario: null,
-            button: require('../../audios/sentada tradicional.mp3'),
-            title_Terciario: 'SENTADA (TRADICIONAL):',
-            img: <Image style={styles.img} source={require('./../../imgs/sentadaTradicional.png')} />,
-            first: 'O bebê fica com a barriguinha encostada na mãe, enquanto é segurado por baixo do seu corpo com os dois braços.',
-            textObs: null,
-            item_id: 0
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title: null,
-            button_title: null,
-            title_Secundario: null,
-            button: require('../../audios/deitada - a mulher fica de lado....mp3'),
-            title_Terciario: 'DEITADA:',
-            img: <Image style={styles.img} source={require('./../../imgs/DEITADA.png')} />,
-            first: 'A mulher fica de lado, podendo apoiar sua cabeça no braço ou numa almofada. Deve-se oferecer a mama que está mais próxima do colchão.\n\nEssa posição é confortável para mãe e bebê, sendo útil quando você está cansada e no pós parto. Mas muito cuidado para não dormir por cima do bebê, evitando acidentes!',
-            textObs: null,
-            item_id: 0
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title: null,
-            button_title: null,
-            title_Secundario: null,
-            button: require('../../audios/posição do jogador de futebol americano .mp3'),
-            title_Terciario: 'POSIÇÃO DO JOGADOR DE FUTEBOL AMERICANO:',
-            img: <Image style={styles.img} source={require('./../../imgs/futebolAmericano.png')} />,
-            first: 'O bebê é colocado debaixo do braço da mãe com as suas pernas para trás, na lateral do corpo da mãe. Muito útil para gêmeos (um de cada lado).',
-            textObs: null,
-            item_id: 0
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title: null,
-            button_title: null,
-            title_Secundario: null,
-            button: require('../../audios/posição sentada em posição de cavalinho.mp3'),
-            title_Terciario: 'POSIÇÃO SENTADA EM POSIÇÃO DE CAVALINHO:',
-            img: <Image style={styles.img} source={require('./../../imgs/cavalinho.png')} />,
-            first: 'O bebê fica sentado numa das coxas de frente para a mama e a mãe o segura apoiando suas costas. Esta posição é ideal para bebês com mais de 3 meses que já seguram bem a cabeça e para aqueles que apresentam refluxo.',
-            textObs: 'Não existe uma regra para qual posição você e seu bebê devem ficar! A melhor escolha é aquela mais confortável para os dois, onde ocorre a pega correta! Mas o que é a pega correta?\n\nVeja no próximo tópico!',
-            item_id: 0
-        },
-    ];
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound, jsonData]);
+
+    const reproduzir = async (audio: any) => {
+        try {
+            if (sound) {
+                await sound.unloadAsync();
+            }
+            const { sound: newSound } = await Audio.Sound.createAsync(audio);
+            setSound(newSound);
+            await newSound.playAsync();
+        } catch (error) {
+            console.error("Erro ao reproduzir o áudio:", error);
+        }
+    };
 
     type ItemProps = {
         dados: ItemData

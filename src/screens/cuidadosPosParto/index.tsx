@@ -4,6 +4,8 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
 import { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface CuidadosPosPartoscreenProps {
     navigation: any;
@@ -12,14 +14,40 @@ export interface CuidadosPosPartoscreenProps {
 export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound>();
+    const [texto, setTexto] = useState('');
+    const [audio, setAudio] = useState<any>(null);
+    const [imagem, setImagem] = useState<any>(null);
+    const [jsonData, setJsonData] = useState<{ data: { type: string, tela: string,  type_id: number }[] }[]>([]);
 
-    async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(require('../../audios/Cuidados no inicio do pós parto.mp3')
-        );
-        setSound(sound);
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '11')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                data: [{ type: todosOsDados.menu1, tela: 'DetalheUmCuidadosPosParto', type_id: 0 }],
+            },
+            {
+                data: [{ type: todosOsDados.menu2, tela: 'DetalheDoisCuidadosPosParto', type_id: 1 }],
+            },
+            {
+                data: [{ type: todosOsDados.menu3, tela: 'DetalheDoisCuidadosPosParto', type_id: 2 }],
+            },
+        ];
 
-        await sound.playAsync();
+        setAudio({ uri: todosOsDados.audio });
+        setImagem({ uri: todosOsDados.imagem });
+        setTexto(todosOsDados.titulo)
+        setJsonData(jsonData);
     }
+
+   
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
+
 
     useEffect(() => {
         return sound
@@ -27,19 +55,15 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
                 sound.unloadAsync();
             }
             : undefined;
-    }, [sound]);
+    }, [sound, jsonData]);
 
-    const jsonData = [
-        {
-            data: [{ type: 'SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?', tela: 'DetalheUmCuidadosPosParto', type_id: 0 }],
-        },
-        {
-            data: [{ type: 'CUIDADOS COM OS PONTOS (SUTURA) DO PARTO NORMAL', tela: 'DetalheDoisCuidadosPosParto', type_id: 1 }],
-        },
-        {
-            data: [{ type: 'CUIDADOS COM OS PONTOS (SUTURA) DA CESARIANA', tela: 'DetalheDoisCuidadosPosParto', type_id: 2 }],
-        },
-    ];
+    async function reproduzir() {
+        const { sound } = await Audio.Sound.createAsync(audio)
+        setSound(sound);
+
+        await sound.playAsync();
+    }
+
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
@@ -50,7 +74,7 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
                         <Text style={styles.textButton}>Áudio</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.text}>CUIDADOS NO INÍCIO DO PÓS-PARTO</Text>
+                <Text style={styles.text}>{texto}</Text>
                 <SectionList
                     sections={jsonData}
                     keyExtractor={(item) => item.type}
@@ -63,7 +87,7 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
                     )}
                 />
             </View>
-            <Image style={styles.img} source={require('./../../imgs/menuCuidados.png')} />
+            <Image style={styles.img} source={imagem} />
         </ImageBackground>
     );
 }

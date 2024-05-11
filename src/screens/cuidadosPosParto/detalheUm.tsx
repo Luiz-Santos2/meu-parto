@@ -2,10 +2,12 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Alert, Image
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { CuidadosPosPartoParams } from '../../navigations/cuidadosPosParto';
 import { Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 export interface DetalheUmPosPartoScreenScreenProps {
     navigation: any;
     route: RouteProp<CuidadosPosPartoParams, "DetalheUmCuidadosPosParto">;
@@ -14,20 +16,7 @@ export interface DetalheUmPosPartoScreenScreenProps {
 export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
-
-    const reproduzir = async (audio: any) => {
-        try {
-            if (sound) {
-                await sound.unloadAsync();
-            }
-            const { sound: newSound } = await Audio.Sound.createAsync(audio);
-            setSound(newSound);
-            await newSound.playAsync();
-        } catch (error) {
-            console.error("Erro ao reproduzir o áudio:", error);
-        }
-    };
-
+    const [jsonData, setJsonData] = useState<ItemData[]>([]);
 
     //@ts-ignore
     const { item_id } = props.route.params
@@ -46,59 +35,90 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
         img2: any;
         first: any;
         textObs: any;
+        item_id: number
     };
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '12')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                id: Math.random().toString(12).substring(0),
+                title: todosOsDados.tituloPrincipal,
+                button_title: {uri: todosOsDados.audio1},
+                title_Secundario: todosOsDados.titulo1,
+                button1: {uri: todosOsDados.audio2},
+                text: todosOsDados.texto1,
+                button: {uri: todosOsDados.audio3},
+                title_Terciario: todosOsDados.titulo2,
+                title_Quartenario: todosOsDados.titulo3,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem1}} />,
+                img2: null,
+                first: todosOsDados.texto2,
+                textObs: null,
+                item_id: 0
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: null,
+                button_title: null,
+                title_Secundario: null,
+                button1: null,
+                text: null,
+                button: null,
+                title_Terciario: null,
+                title_Quartenario: todosOsDados.titulo4,
+                img: null,
+                img2: <Image style={styles.img} source={{uri: todosOsDados.imagem2}} />,
+                first: todosOsDados.texto3,
+                textObs: null,
+                item_id: 0
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: null,
+                button_title: null,
+                title_Secundario: null,
+                button1: null,
+                text: null,
+                button: null,
+                title_Terciario: null,
+                title_Quartenario: todosOsDados.titulo5,
+                img: <Image style={styles.img} source={{uri: todosOsDados.imagem3}} />,
+                img2: null,
+                first: todosOsDados.texto4,
+                textObs: todosOsDados.observacao,
+                item_id: 0
+            },
+        ];
+        setJsonData(jsonData)
+    }
 
-    const jsonData = [
-        {
-            id: Math.random().toString(12).substring(0),
-            title: 'CUIDADOS NO INÍCIO DO PÓS-PARTO',
-            button_title: require('../../audios/sangramento pós-parto.mp3'),
-            title_Secundario: 'SANGRAMENTO PÓS-PARTO - ATÉ QUANDO É NORMAL?',
-            button1: require('../../audios/Você sabia que o sangramento da mulher....mp3'),
-            text: 'Você sabia que o sangramento da mulher imediatamente após o parto e nos dias seguintes são chamados de lóquios ou loquiações? De agora em diante, você não vai chamá-lo de menstruação, como muita gente acha que é.',
-            button: require('../../audios/Os loquios ou loquiações.mp3'),
-            title_Terciario: 'Os lóquios ou loquiações podem ser:',
-            title_Quartenario: 'Vermelhos ou sanguinolentos',
-            img: <Image style={styles.img} source={require('./../../imgs/33.png')} />,
-            img2: null,
-            first: 'Presentes até o 3º ou 4º dia pós-parto, constituindo-se de sangue vermelho intenso e geralmente a quantidade é semelhante a do fluxo menstrual;',
-            textObs: null,
-            item_id: 0
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title: null,
-            button_title: null,
-            title_Secundario: null,
-            button1: null,
-            text: null,
-            button: null,
-            title_Terciario: null,
-            title_Quartenario: 'Serosanguinolentos',
-            img: null,
-            img2: <Image style={styles.img} source={require('./../../imgs/22.png')} />,
-            first: 'Presentes a partir do 4º dia até o 10º dia. Sua coloração torna-se vermelha mais escura ou acastanhada;',
-            textObs: null,
-            item_id: 0
-        },
-        {
-            id: Math.random().toString(12).substring(0),
-            title: null,
-            button_title: null,
-            title_Secundario: null,
-            button1: null,
-            text: null,
-            button: null,
-            title_Terciario: null,
-            title_Quartenario: 'Serosos',
-            img: <Image style={styles.img} source={require('./../../imgs/11.png')} />,
-            img2: null,
-            first: 'São observados após o 10º dia, podendo se estender até a 5ª ou 6ª semana e assumem coloração amarelada ou branca.',
-            textObs: 'Atenção: nem sempre a mudança da cor dos lóquios segue esses períodos descritos. Isso pode variar em cada mulher.',
-            item_id: 0
-        },
-    ];
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
 
+    }, [])
+
+    useEffect(() => {
+        return sound
+            ? () => {
+                sound.unloadAsync();
+            }
+            : undefined;
+    }, [sound, jsonData]);
+
+    const reproduzir = async (audio: any) => {
+        try {
+            if (sound) {
+                await sound.unloadAsync();
+            }
+            const { sound: newSound } = await Audio.Sound.createAsync(audio);
+            setSound(newSound);
+            await newSound.playAsync();
+        } catch (error) {
+            console.error("Erro ao reproduzir o áudio:", error);
+        }
+    };
     type ItemProps = {
         dados: ItemData
     };

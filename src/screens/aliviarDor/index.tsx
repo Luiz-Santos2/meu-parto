@@ -4,6 +4,8 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
 import { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface AliviarDorscreenProps {
     navigation: any;
@@ -11,15 +13,47 @@ export interface AliviarDorscreenProps {
 
 export function AliviarDorScreen(props: AliviarDorscreenProps) {
 
+    const [jsonData, setJsonData] = useState<{ data: { type: string, type_id: number }[] }[]>([]);
     const [sound, setSound] = useState<Audio.Sound>();
+    const [audio, setAudio] = useState<any>(null);
+    const [imagem, setImagem] = useState<any>(null);
+    const [texto, setTexto] = useState('');
 
-    async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(require('../../audios/Como aliviar a dor na hora do parto sem medicamentos.mp3')
-        );
-        setSound(sound);
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '5')).then(snap => snap.data()) as any;
+        const jsonData = [
+            {
+                data: [{ type: todosOsDados.menu1, type_id: 1 }],
+            },
+            {
+                data: [{ type: todosOsDados.menu2, type_id: 2 }],
+            },
+            {
+                data: [{ type: todosOsDados.menu3, type_id: 3 }],
+            },
+            {
+                data: [{ type: todosOsDados.menu4, type_id: 4 }],
+            },
+            {
+                data: [{ type: todosOsDados.menu5, type_id: 5 }],
+            },
+            {
+                data: [{ type: todosOsDados.menu6, type_id: 6 }],
+            },
+        ];
 
-        await sound.playAsync();
+        setAudio({ uri: todosOsDados.audio  });
+        setImagem({ uri: todosOsDados.imagem });
+        setTexto(todosOsDados.titulo)
+        setJsonData(jsonData);
     }
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
 
     useEffect(() => {
         return sound
@@ -27,28 +61,14 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
                 sound.unloadAsync();
             }
             : undefined;
-    }, [sound]);
+    }, [sound, jsonData]);
 
-    const jsonData = [
-        {
-            data: [{ type: 'EXERCÍCIOS PARA A PELVE E PERÍNEO', type_id: 1 }],
-        },
-        {
-            data: [{ type: 'TÉCNICAS DE MASSAGEM', type_id: 2 }],
-        },
-        {
-            data: [{ type: 'TÉCNICAS DE RESPIRAÇÃO', type_id: 3 }],
-        },
-        {
-            data: [{ type: 'POSIÇÕES QUE PODEM AJUDAR', type_id: 4 }],
-        },
-        {
-            data: [{ type: 'BANHO MORNO', type_id: 5 }],
-        },
-        {
-            data: [{ type: 'MÚSICAS DE ESCOLHA DA MULHER', type_id: 6 }],
-        },
-    ];
+    async function reproduzir() {
+        const { sound } = await Audio.Sound.createAsync(audio)
+        setSound(sound);
+
+        await sound.playAsync();
+    }
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
@@ -59,7 +79,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
                         <Text style={styles.textButton}>Áudio</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.text}>COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS</Text>
+                <Text style={styles.text}>{texto}</Text>
                 <SectionList
                     sections={jsonData}
                     keyExtractor={(item) => item.type}
@@ -72,7 +92,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
                     )}
                 />
             </View>
-            <Image style={styles.img} source={require('./../../imgs/menuGestante.png')} />
+            <Image style={styles.img} source={imagem} />
         </ImageBackground>
     );
 }
