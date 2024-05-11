@@ -43,7 +43,7 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                 period: todosOsDados.textoTitulo3,
                 audio: { uri: todosOsDados.audioTitulo3 },
                 fases: [
-                    { id: '5', title: todosOsDados.textoSubtitulo5, screen: 'DetalhesPeriodoFases', audio: { uri: todosOsDados.audioSubtitulo4 } },
+                    { id: '5', title: todosOsDados.textoSubtitulo5, screen: 'DetalhesPeriodoFases', audio: { uri: todosOsDados.audioSubtitulo5 } },
                 ]
             },
         ];
