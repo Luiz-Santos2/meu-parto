@@ -12,7 +12,9 @@ export interface PeriodoFasesScreenProps {
 }
 
 export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
+
     const [sound, setSound] = useState<Audio.Sound | null>(null);
+    const [text, setText] = useState('');
     const [jsonData, setJsonData] = useState<{ id: string, period: string, audio: any, fases: { id: string, title: string, audio: any }[] }[]>([]);
 
     const buscarDados = async () => {
@@ -21,32 +23,33 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
             {
                 id: '1',
                 period: todosOsDados.textoTitulo1,
-                audio: {uri: todosOsDados.audioTitulo1},
+                audio: { uri: todosOsDados.audioTitulo1 },
                 fases: [
-                    { id: '1', title: todosOsDados.textoSubtitulo1, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo1} },
-                    { id: '2', title: todosOsDados.textoSubtitulo2, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo2} },
+                    { id: '1', title: todosOsDados.textoSubtitulo1, screen: 'DetalhesPeriodoFases', audio: { uri: todosOsDados.audioSubtitulo1 } },
+                    { id: '2', title: todosOsDados.textoSubtitulo2, screen: 'DetalhesPeriodoFases', audio: { uri: todosOsDados.audioSubtitulo2 } },
                 ]
             },
             {
                 id: '2',
                 period: todosOsDados.textoTitulo2,
-                audio: {uri: todosOsDados.audioTitulo2},
+                audio: { uri: todosOsDados.audioTitulo2 },
                 fases: [
-                    { id: '3', title: todosOsDados.textoSubtitulo3, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo3} },
-                    { id: '4', title: todosOsDados.textoSubtitulo4, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo4 } },
+                    { id: '3', title: todosOsDados.textoSubtitulo3, screen: 'DetalhesPeriodoFases', audio: { uri: todosOsDados.audioSubtitulo3 } },
+                    { id: '4', title: todosOsDados.textoSubtitulo4, screen: 'DetalhesPeriodoFases', audio: { uri: todosOsDados.audioSubtitulo4 } },
                 ]
             },
             {
                 id: '3',
                 period: todosOsDados.textoTitulo3,
-                audio: {uri: todosOsDados.audioTitulo3},
+                audio: { uri: todosOsDados.audioTitulo3 },
                 fases: [
-                    { id: '5', title: todosOsDados.textoSubtitulo5, screen: 'DetalhesPeriodoFases', audio: {uri: todosOsDados.audioSubtitulo4 } },
+                    { id: '5', title: todosOsDados.textoSubtitulo5, screen: 'DetalhesPeriodoFases', audio: { uri: todosOsDados.audioSubtitulo4 } },
                 ]
             },
         ];
 
         setJsonData(jsonData);
+        setText(todosOsDados.tituloPrincipal)
     }
 
     useEffect(() => {
@@ -112,7 +115,7 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
             <View style={styles.container}>
-                <Text style={styles.title}>PERÍODOS E FASES DO PARTO</Text>
+                <Text style={styles.title}>{text}</Text>
                 <FlatList
                     initialNumToRender={4}
                     renderItem={renderFase}

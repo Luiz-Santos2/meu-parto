@@ -17,7 +17,7 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
     const [texto, setTexto] = useState('');
     const [audio, setAudio] = useState<any>(null);
     const [imagem, setImagem] = useState<any>(null);
-    const [jsonData, setJsonData] = useState<{ data: { type: string, tela: string,  type_id: number }[] }[]>([]);
+    const [jsonData, setJsonData] = useState<{ data: { type: string, tela: string, type_id: number }[] }[]>([]);
 
     const buscarDados = async () => {
         const todosOsDados = await getDoc(doc(db, 'forms', '11')).then(snap => snap.data()) as any;
@@ -39,15 +39,12 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
         setJsonData(jsonData);
     }
 
-   
-
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
     }, [])
-
 
     useEffect(() => {
         return sound
@@ -91,6 +88,7 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
         </ImageBackground>
     );
 }
+
 const styles = StyleSheet.create({
     background: {
         flex: 1,

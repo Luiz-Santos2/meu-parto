@@ -18,6 +18,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
     const [getItems, setGetItems] = useState<ItemData[]>([]);
+    const [text, setText] = useState('');
 
     //@ts-ignore
     const { item_id } = props.route.params
@@ -98,7 +99,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             },
             {
                 id: Math.random().toString(12).substring(0),
-                audio: { uri: todosOsDados.audio5},
+                audio: { uri: todosOsDados.audio5 },
                 title: todosOsDados.titulo5,
                 titulo_secundario: todosOsDados.subtitulo5,
                 text: todosOsDados.texto5,
@@ -115,6 +116,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             },
         ];
         setGetItems(getItems)
+        setText(todosOsDados.tituloPrincipal)
     }
 
     useEffect(() => {
@@ -151,7 +153,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
 
     const Item = ({ dados }: ItemProps) => (
         <View>
-            <Text style={styles.text}>PERÍODOS E FASES DO PARTO</Text>
+            <Text style={styles.text}>{text}</Text>
             <Text style={styles.tagText}>{dados.title}</Text>
             <TouchableOpacity onPress={() => reproduzir(dados.audio)}>
                 <View style={styles.containerIcon}>

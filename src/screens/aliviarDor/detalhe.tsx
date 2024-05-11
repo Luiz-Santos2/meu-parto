@@ -19,7 +19,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
     const [getItems, setGetItems] = useState<ItemData[]>([]);
-
+    const [text, setText] = useState('');
 
     //@ts-ignore
     const { item_id } = props.route.params
@@ -39,63 +39,63 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         const getItems = [
             {
                 id: Math.random().toString(12).substring(0),
-                audio: {uri: todosOsDados.audio1},
+                audio: { uri: todosOsDados.audio1 },
                 title: todosOsDados.titulo1,
                 text: todosOsDados.texto1,
                 video: <View style={styles.posicaoVideo}>
                     <Video
-                        source={{uri: todosOsDados.video1}}
+                        source={{ uri: todosOsDados.video1 }}
                         style={{ width: 332, height: 187 }}
                         useNativeControls={true}
                         resizeMode={ResizeMode.COVER}
                     />
                     <Text style={styles.autor}>{todosOsDados.autor1}</Text>
                 </View>,
-                foto: <Image style={styles.img} source={{uri: todosOsDados.imagem1}} />,
+                foto: <Image style={styles.img} source={{ uri: todosOsDados.imagem1 }} />,
                 item_id: 1,
             },
             {
                 id: Math.random().toString(12).substring(0),
-                audio: {uri: todosOsDados.audio2},
+                audio: { uri: todosOsDados.audio2 },
                 title: todosOsDados.titulo2,
                 text: todosOsDados.texto2,
                 video: <View style={styles.posicaoVideo}>
                     <Video
-                        source={{uri: todosOsDados.video2}}
+                        source={{ uri: todosOsDados.video2 }}
                         style={{ width: 332, height: 187 }}
                         useNativeControls={true}
                         resizeMode={ResizeMode.COVER}
                     />
                     <Text style={styles.autor}>{todosOsDados.autor2}</Text>
                 </View>,
-                foto: <Image style={styles.img} source={{uri: todosOsDados.imagem2}} />,
+                foto: <Image style={styles.img} source={{ uri: todosOsDados.imagem2 }} />,
                 item_id: 2,
             },
             {
                 id: Math.random().toString(12).substring(0),
-                audio: {uri: todosOsDados.audio3},
+                audio: { uri: todosOsDados.audio3 },
                 title: todosOsDados.titulo3,
                 text: todosOsDados.texto3,
                 video: <View style={styles.posicaoVideo}>
                     <Video
-                        source={{uri: todosOsDados.video3}}
+                        source={{ uri: todosOsDados.video3 }}
                         style={{ width: 332, height: 187 }}
                         useNativeControls={true}
                         resizeMode={ResizeMode.COVER}
                     />
                     <Text style={styles.autor}>{todosOsDados.autor3}</Text>
                 </View>,
-                foto: <Image style={styles.img} source={{uri: todosOsDados.imagem3}} />,
+                foto: <Image style={styles.img} source={{ uri: todosOsDados.imagem3 }} />,
                 item_id: 3,
             },
             {
                 id: Math.random().toString(12).substring(0),
-                audio: {uri: todosOsDados.audio4},
+                audio: { uri: todosOsDados.audio4 },
                 title: todosOsDados.titulo4,
                 text: todosOsDados.texto4,
                 video: <View style={styles.posicaoVideo}>
                     <Video
-                        source={{uri: todosOsDados.video4}}
+                        source={{ uri: todosOsDados.video4 }}
                         style={{ width: 332, height: 187 }}
                         useNativeControls={true}
                         resizeMode={ResizeMode.COVER}
@@ -107,7 +107,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
             },
             {
                 id: Math.random().toString(12).substring(0),
-                audio: {uri: todosOsDados.audio5},
+                audio: { uri: todosOsDados.audio5 },
                 title: todosOsDados.titulo5,
                 text: todosOsDados.texto5,
                 video: null,
@@ -117,7 +117,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
             },
             {
                 id: Math.random().toString(12).substring(0),
-                audio: {uri: todosOsDados.audio6},
+                audio: { uri: todosOsDados.audio6 },
                 title: todosOsDados.titulo6,
                 text: todosOsDados.texto6,
                 video: null,
@@ -127,6 +127,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
             },
         ];
         setGetItems(getItems);
+        setText(todosOsDados.tituloPrincipal);
     }
 
     useEffect(() => {
@@ -163,7 +164,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
 
     const Item = ({ dados }: ItemProps) => (
         <View>
-            <Text style={styles.text}>COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS</Text>
+            <Text style={styles.text}>{text}</Text>
             <TouchableOpacity onPress={() => reproduzir(dados.audio)}>
                 <View style={styles.containerIcon}>
                     <MaterialIcons name="play-circle" style={styles.icon} />

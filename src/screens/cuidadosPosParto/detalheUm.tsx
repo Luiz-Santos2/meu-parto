@@ -8,6 +8,7 @@ import { CuidadosPosPartoParams } from '../../navigations/cuidadosPosParto';
 import { Audio } from 'expo-av';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase-config';
+
 export interface DetalheUmPosPartoScreenScreenProps {
     navigation: any;
     route: RouteProp<CuidadosPosPartoParams, "DetalheUmCuidadosPosParto">;
@@ -37,20 +38,21 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
         textObs: any;
         item_id: number
     };
+
     const buscarDados = async () => {
         const todosOsDados = await getDoc(doc(db, 'forms', '12')).then(snap => snap.data()) as any;
         const jsonData = [
             {
                 id: Math.random().toString(12).substring(0),
                 title: todosOsDados.tituloPrincipal,
-                button_title: {uri: todosOsDados.audio1},
+                button_title: { uri: todosOsDados.audio1 },
                 title_Secundario: todosOsDados.titulo1,
-                button1: {uri: todosOsDados.audio2},
+                button1: { uri: todosOsDados.audio2 },
                 text: todosOsDados.texto1,
-                button: {uri: todosOsDados.audio3},
+                button: { uri: todosOsDados.audio3 },
                 title_Terciario: todosOsDados.titulo2,
                 title_Quartenario: todosOsDados.titulo3,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem1}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem1 }} />,
                 img2: null,
                 first: todosOsDados.texto2,
                 textObs: null,
@@ -67,7 +69,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
                 title_Terciario: null,
                 title_Quartenario: todosOsDados.titulo4,
                 img: null,
-                img2: <Image style={styles.img} source={{uri: todosOsDados.imagem2}} />,
+                img2: <Image style={styles.img} source={{ uri: todosOsDados.imagem2 }} />,
                 first: todosOsDados.texto3,
                 textObs: null,
                 item_id: 0
@@ -82,7 +84,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
                 button: null,
                 title_Terciario: null,
                 title_Quartenario: todosOsDados.titulo5,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem3}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem3 }} />,
                 img2: null,
                 first: todosOsDados.texto4,
                 textObs: todosOsDados.observacao,
@@ -119,6 +121,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
             console.error("Erro ao reproduzir o áudio:", error);
         }
     };
+    
     type ItemProps = {
         dados: ItemData
     };

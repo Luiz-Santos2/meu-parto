@@ -9,7 +9,6 @@ import { Audio } from 'expo-av';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase-config';
 
-
 export interface MamadasIniciaisScreenscreenProps {
     navigation: any;
     route: RouteProp<MamadasIniciaisParams, "MamadasIniciais">;
@@ -22,9 +21,7 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
     const [titulo, setTitulo] = useState('');
     const [audio, setAudio] = useState<any>(null);
     const [imagem, setImagem] = useState<any>(null);
-    const [jsonData, setJsonData] = useState<{ data: { type: string, tela: string,  type_id: number }[] }[]>([]);
-
-
+    const [jsonData, setJsonData] = useState<{ data: { type: string, tela: string, type_id: number }[] }[]>([]);
 
     const buscarDados = async () => {
         const todosOsDados = await getDoc(doc(db, 'forms', '8')).then(snap => snap.data()) as any;
@@ -53,7 +50,6 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
 
     }, [])
 
-
     useEffect(() => {
         return sound
             ? () => {
@@ -68,6 +64,7 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
 
         await sound.playAsync();
     }
+
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
@@ -96,6 +93,7 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
         </ImageBackground>
     );
 }
+
 const styles = StyleSheet.create({
     background: {
         flex: 1,

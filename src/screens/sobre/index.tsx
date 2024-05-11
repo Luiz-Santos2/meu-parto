@@ -11,14 +11,13 @@ export interface SobrescreenProps {
     navigation: any;
 }
 
-
 export function SobreScreen(props: SobrescreenProps) {
 
     const [index, setIndex] = useState(0);
     const [sound, setSound] = useState<Audio.Sound>();
-    const [ jsonData, setJsonData ] = useState<{nome: string, audio: any, imagem: any}[]>([]);
+    const [jsonData, setJsonData] = useState<{ nome: string, audio: any, imagem: any }[]>([]);
 
-    
+
     const buscarDados = async () => {
         const todosOsDados = await getDoc(doc(db, 'forms', '1')).then(snap => snap.data()) as any;
         const jsonData = [
@@ -36,8 +35,6 @@ export function SobreScreen(props: SobrescreenProps) {
         setJsonData(jsonData);
     }
 
-
-
     const nextItem = async () => {
         if (index < jsonData.length - 1) {
             setIndex(prevIndex => prevIndex + 1);
@@ -47,21 +44,19 @@ export function SobreScreen(props: SobrescreenProps) {
     };
 
     useEffect(() => {
-                (async () => {
+        (async () => {
             await buscarDados();
-        }) ()
+        })()
 
     }, [])
 
     useEffect(() => {
-
         if (jsonData.length > 0) {
-   
+
             const reproduzir = async () => {
                 const { sound } = await Audio.Sound.createAsync(jsonData[index].audio);
                 setSound(sound);
             };
-
 
             reproduzir();
         }
@@ -100,6 +95,7 @@ export function SobreScreen(props: SobrescreenProps) {
         </ImageBackground>
     );
 }
+
 const styles = StyleSheet.create({
     background: {
         flex: 1,

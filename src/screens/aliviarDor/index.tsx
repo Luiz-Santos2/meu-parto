@@ -42,7 +42,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
             },
         ];
 
-        setAudio({ uri: todosOsDados.audio  });
+        setAudio({ uri: todosOsDados.audio });
         setImagem({ uri: todosOsDados.imagem });
         setTexto(todosOsDados.titulo)
         setJsonData(jsonData);
@@ -69,6 +69,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
 
         await sound.playAsync();
     }
+
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />
@@ -96,6 +97,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
         </ImageBackground>
     );
 }
+
 const styles = StyleSheet.create({
     background: {
         flex: 1,

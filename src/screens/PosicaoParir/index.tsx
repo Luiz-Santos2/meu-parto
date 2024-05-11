@@ -31,17 +31,17 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
         const jsonData = [
             {
                 id: Math.random().toString(12).substring(0),
-                title: 'POSIÇÕES PARA PARIR',
-                button_title: {uri: todosOsDados.audio},
+                title: todosOsDados.tituloPrincipal,
+                button_title: { uri: todosOsDados.audio },
                 title_Secundario: todosOsDados.titulo,
                 first: todosOsDados.texto,
                 title_Terciario: todosOsDados.subtítulo1,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem1}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem1 }} />,
             },
             {
                 id: Math.random().toString(12).substring(0),
                 title_Terciario: todosOsDados.subtítulo2,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem2}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem2 }} />,
                 title_Secundario: null,
                 title: null,
                 first: null,
@@ -50,7 +50,7 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             {
                 id: Math.random().toString(12).substring(0),
                 title_Terciario: todosOsDados.subtítulo3,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem3}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem3 }} />,
                 title: null,
                 first: null,
                 button_title: null,
@@ -59,7 +59,7 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             {
                 id: Math.random().toString(12).substring(0),
                 title_Terciario: todosOsDados.subtítulo4,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem4}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem4 }} />,
                 title: null,
                 first: null,
                 button_title: null,
@@ -68,7 +68,7 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             {
                 id: Math.random().toString(12).substring(0),
                 title_Terciario: todosOsDados.subtítulo5,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem5}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem5 }} />,
                 title: null,
                 first: null,
                 button_title: null,

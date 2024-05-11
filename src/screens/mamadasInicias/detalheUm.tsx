@@ -19,7 +19,6 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
     const [sound, setSound] = useState<Audio.Sound | null>(null);
     const [jsonData, setJsonData] = useState<ItemData[]>([]);
 
-
     //@ts-ignore
     const { item_id } = props.route.params
 
@@ -35,17 +34,18 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
         textObs: any;
         item_id: number;
     };
+
     const buscarDados = async () => {
         const todosOsDados = await getDoc(doc(db, 'forms', '9')).then(snap => snap.data()) as any;
         const jsonData = [
             {
                 id: Math.random().toString(12).substring(0),
                 title: todosOsDados.tituloPrincipal,
-                button_title: {uri: todosOsDados.audio1},
+                button_title: { uri: todosOsDados.audio1 },
                 title_Secundario: todosOsDados.titulo,
-                button: {uri: todosOsDados.audio2},
+                button: { uri: todosOsDados.audio2 },
                 title_Terciario: todosOsDados.subtítulo1,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem1}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem1 }} />,
                 first: todosOsDados.texto1,
                 textObs: null,
                 item_id: 0
@@ -55,9 +55,9 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
                 title: null,
                 button_title: null,
                 title_Secundario: null,
-                button: {uri: todosOsDados.audio3},
+                button: { uri: todosOsDados.audio3 },
                 title_Terciario: todosOsDados.subtítulo2,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem2}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem2 }} />,
                 first: todosOsDados.texto2,
                 textObs: null,
                 item_id: 0
@@ -67,9 +67,9 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
                 title: null,
                 button_title: null,
                 title_Secundario: null,
-                button: {uri: todosOsDados.audio4},
+                button: { uri: todosOsDados.audio4 },
                 title_Terciario: todosOsDados.subtítulo3,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem3}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem3 }} />,
                 first: todosOsDados.texto3,
                 textObs: null,
                 item_id: 0
@@ -79,9 +79,9 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
                 title: null,
                 button_title: null,
                 title_Secundario: null,
-                button: {uri: todosOsDados.audio5},
+                button: { uri: todosOsDados.audio5 },
                 title_Terciario: todosOsDados.subtítulo4,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem4}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem4 }} />,
                 first: todosOsDados.texto4,
                 textObs: null,
                 item_id: 0
@@ -91,9 +91,9 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
                 title: null,
                 button_title: null,
                 title_Secundario: null,
-                button: {uri: todosOsDados.audio6},
+                button: { uri: todosOsDados.audio6 },
                 title_Terciario: todosOsDados.subtítulo5,
-                img: <Image style={styles.img} source={{uri: todosOsDados.imagem5}} />,
+                img: <Image style={styles.img} source={{ uri: todosOsDados.imagem5 }} />,
                 first: todosOsDados.texto5,
                 textObs: todosOsDados.observacao,
                 item_id: 0

@@ -14,9 +14,9 @@ export interface HomescreenProps {
 export function HomeScreen(props: HomescreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound>();
-
     const [jsonData, setJsonData] = useState<{ data: { type: string, type_id: string }[] }[]>([]);
     const [observationText, setObservationText] = useState('');
+    const [titulo, setTitulo] = useState('');
     const [audio, setAudio] = useState<any>(null);
 
     const buscarDados = async () => {
@@ -40,6 +40,7 @@ export function HomeScreen(props: HomescreenProps) {
         ];
 
         setObservationText(todosOsDados.texto);
+        setTitulo(todosOsDados.titulo);
         setAudio({ uri: todosOsDados.audio });
         setJsonData(jsonData);
 
@@ -71,7 +72,7 @@ export function HomeScreen(props: HomescreenProps) {
         <ImageBackground source={bg} style={styles.background}>
             <AppHeader />
             {jsonData.length > 0 && <View style={styles.container}>
-                <Text style={styles.text}>Vamos começar?</Text>
+                <Text style={styles.text}>{titulo}</Text>
                 <TouchableOpacity onPress={Reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
@@ -96,6 +97,7 @@ export function HomeScreen(props: HomescreenProps) {
         </ImageBackground>
     );
 }
+
 const styles = StyleSheet.create({
     background: {
         flex: 1,

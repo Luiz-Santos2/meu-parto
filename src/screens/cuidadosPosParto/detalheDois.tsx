@@ -35,15 +35,16 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
         text_last: any;
         item_id: number;
     };
+
     const buscarDados = async () => {
         const todosOsDados = await getDoc(doc(db, 'forms', '13')).then(snap => snap.data()) as any;
         const jsonData = [
             {
                 id: Math.random().toString(12).substring(0),
                 title: todosOsDados.tituloPrincipal,
-                button_title: {uri: todosOsDados.audio1},
+                button_title: { uri: todosOsDados.audio1 },
                 title_Secundario: todosOsDados.titulo1,
-                button_text: {uri: todosOsDados.audio2},
+                button_text: { uri: todosOsDados.audio2 },
                 text_first: todosOsDados.texto1,
                 title_Terciario: todosOsDados.titulo2,
                 button_textLast: null,
@@ -53,17 +54,18 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
             {
                 id: Math.random().toString(12).substring(0),
                 title: todosOsDados.tituloPrincipal,
-                button_title: {uri: todosOsDados.audio3},
+                button_title: { uri: todosOsDados.audio3 },
                 title_Secundario: todosOsDados.titulo3,
                 button_text: null,
                 text_first: null,
                 title_Terciario: null,
-                button_textLast: {uri: todosOsDados.audio4},
+                button_textLast: { uri: todosOsDados.audio4 },
                 text_last: todosOsDados.texto3,
                 item_id: 2
             },
 
         ];
+
         setJsonData(jsonData);
     }
 
@@ -81,7 +83,6 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
             }
             : undefined;
     }, [sound, jsonData]);
-
 
     const reproduzir = async (audio: any) => {
         try {
