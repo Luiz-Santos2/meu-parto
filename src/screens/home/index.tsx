@@ -20,7 +20,7 @@ export function HomeScreen(props: HomescreenProps) {
             data: [{ type: 'PERÍODOS E FASES DO PARTO', type_id: 'periodoFases' }],
         },
         {
-            data: [{ type: 'COMO ALIVIAR A DOR NO TRABALHO DE PARTO', type_id: 'aliviarDor',}],
+            data: [{ type: 'COMO ALIVIAR A DOR NA HORA DO PARTO SEM MEDICAMENTOS', type_id: 'aliviarDor',}],
         },
         {
             data: [{ type: 'POSIÇÕES PARA PARIR', type_id: 'posicaoParir' }],
