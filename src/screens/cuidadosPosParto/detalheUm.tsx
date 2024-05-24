@@ -121,7 +121,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
             console.error("Erro ao reproduzir o áudio:", error);
         }
     };
-    
+
     type ItemProps = {
         dados: ItemData
     };
