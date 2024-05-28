@@ -50,7 +50,6 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
                             useNativeControls={true}
                             resizeMode={ResizeMode.COVER}
                         />
-                        <Text style={styles.autor}>{todosOsDados.autor1}</Text>
                     </View>,
                 item_id: 1,
             },
@@ -67,7 +66,6 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
                         useNativeControls={true}
                         resizeMode={ResizeMode.COVER}
                     />
-                    <Text style={styles.autor}>{todosOsDados.autor2}</Text>
                 </View>,
                 item_id: 2,
             },
@@ -93,7 +91,6 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
                         useNativeControls={true}
                         resizeMode={ResizeMode.COVER}
                     />
-                    <Text style={styles.autor}>{todosOsDados.autor4}</Text>
                 </View>,
                 item_id: 4,
             },
@@ -110,7 +107,6 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
                         useNativeControls={true}
                         resizeMode={ResizeMode.COVER}
                     />
-                    <Text style={styles.autor}>{todosOsDados.autor5}</Text>
                 </View>,
                 item_id: 5,
             },
@@ -245,12 +241,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginVertical: 20
     },
-    autor: {
-        fontSize: 12,
-        alignSelf: 'center',
-        marginTop: 10
-    },
-
 });
 
 

@@ -54,7 +54,6 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
                         useNativeControls={true}
                         resizeMode={ResizeMode.COVER}
                     />
-                    <Text style={styles.autor}>{todosOsDados.autor1}</Text>
                 </View>,
                 button_textLast: { uri: todosOsDados.audio2 },
                 text_last: todosOsDados.texto2,
@@ -93,7 +92,6 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
                         useNativeControls={true}
                         resizeMode={ResizeMode.COVER}
                     />
-                    <Text style={styles.autor}>{todosOsDados.autor2}</Text>
                 </View>,
                 item_id: 2
             },
@@ -275,11 +273,6 @@ const styles = StyleSheet.create({
         textAlign: 'justify',
         marginLeft: 'auto',
         marginRight: 'auto',
-    },
-    autor: {
-        fontSize: 12,
-        alignSelf: 'center',
-        marginTop: 10
     },
     posicaoVideo: {
         alignItems: 'center',

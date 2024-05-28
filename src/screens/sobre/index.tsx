@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native';
 import bg from './../../imgs/background.png';
 import { AppHeader } from '../../components/header';
 import { MaterialIcons } from '@expo/vector-icons'
 import { Audio } from 'expo-av';
 import { getDoc, doc } from '@firebase/firestore';
 import { db } from '../../config/firebase-config';
+import { useUsuarioContext } from '../../providers/usuario-provider';
 
 export interface SobrescreenProps {
     navigation: any;
@@ -13,60 +14,61 @@ export interface SobrescreenProps {
 
 export function SobreScreen(props: SobrescreenProps) {
 
+    const { usuario } = useUsuarioContext();
     const [index, setIndex] = useState(0);
     const [sound, setSound] = useState<Audio.Sound>();
-    const [jsonData, setJsonData] = useState<{ nome: string, audio: any, imagem: any }[]>([]);
+    const [data, setData] = useState<{ texto: string, audio: any, imagem: any }[]>([]);
 
-
-    const buscarDados = async () => {
-        const todosOsDados = await getDoc(doc(db, 'forms', '1')).then(snap => snap.data()) as any;
-        const jsonData = [
-            {
-                nome: todosOsDados.texto1,
-                audio: { uri: todosOsDados.audio1 },
-                imagem: { uri: todosOsDados.imagem }
-            },
-            {
-                nome: todosOsDados.texto2,
-                audio: { uri: todosOsDados.audio2 },
-                imagem: { uri: todosOsDados.imagem }
-            },
-        ];
-        setJsonData(jsonData);
-    }
-
-    const nextItem = async () => {
-        if (index < jsonData.length - 1) {
-            setIndex(prevIndex => prevIndex + 1);
-        } else {
-            props.navigation.navigate('home')
-        }
+    const substituirVariaveis = (texto: string) => {
+        return texto.replace('{nome}', usuario.nome);
     };
 
+    const buscarDados = useCallback(async () => {
+        const docSnap = await getDoc(doc(db, 'forms', '1'));
+        if (docSnap.exists()) {
+            const todosOsDados = docSnap.data();
+            const data = [
+                {
+                    texto: substituirVariaveis(todosOsDados.texto1),
+                    audio: { uri: todosOsDados.audio1 },
+                    imagem: { uri: todosOsDados.imagem },
+                },
+                {
+                    texto: substituirVariaveis(todosOsDados.texto2),
+                    audio: { uri: todosOsDados.audio2 },
+                    imagem: { uri: todosOsDados.imagem },
+                },
+            ];
+            setData(data);
+        }
+    }, [usuario.nome]);
+
+    const nextItem = useCallback(async () => {
+        if (index < data.length - 1) {
+            setIndex((prevIndex) => prevIndex + 1);
+        } else {
+            props.navigation.navigate('home');
+        }
+    }, [index, data.length, props.navigation]);
+
     useEffect(() => {
-        (async () => {
-            await buscarDados();
-        })()
-
-    }, [])
+        buscarDados();
+    }, [buscarDados]);
 
     useEffect(() => {
-        if (jsonData.length > 0) {
-
+        if (data.length > 0) {
             const reproduzir = async () => {
-                const { sound } = await Audio.Sound.createAsync(jsonData[index].audio);
+                const { sound } = await Audio.Sound.createAsync(data[index].audio);
                 setSound(sound);
             };
-
             reproduzir();
         }
-
         return () => {
             if (sound) {
                 sound.unloadAsync();
             }
         };
-    }, [index, jsonData]);
+    }, [index, data]);
 
     const reproduzir = async () => {
         if (sound) {
@@ -77,20 +79,20 @@ export function SobreScreen(props: SobrescreenProps) {
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppHeader />
-            {jsonData.length > 0 && <View style={styles.container}>
+            {data.length > 0 && <View style={styles.container}>
                 <TouchableOpacity onPress={reproduzir}>
                     <View style={styles.containerIcon}>
                         <MaterialIcons name="play-circle" style={styles.icon} />
                         <Text style={styles.textButton}>Áudio</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.text}>{jsonData[index].nome}</Text>
+                <Text style={styles.text}>{data[index].texto}</Text>
                 <TouchableOpacity onPress={nextItem}>
                     <View style={styles.buttonInput}>
                         <Text style={styles.Buttontext}>Continuar</Text>
                     </View>
                 </TouchableOpacity>
-                <Image source={jsonData[index].imagem} style={styles.image} />
+                <Image source={data[index].imagem} style={styles.image} />
             </View>}
         </ImageBackground>
     );
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     },
     text: {
         width: 340,
-        height: 300,
+        height: 450,
         top: 10,
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -128,8 +130,6 @@ const styles = StyleSheet.create({
     },
     buttonInput: {
         marginHorizontal: 37,
-        margin: 10,
-        marginTop: 100,
         backgroundColor: 'rgba(247, 99, 110, 1)',
         borderRadius: 9,
 
@@ -140,8 +140,8 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     image: {
-        width: 150,
-        height: 150,
+        width: 90,
+        height: 90,
         alignSelf: 'center',
         marginTop: 20,
         objectFit: 'contain'

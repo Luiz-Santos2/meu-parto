@@ -34,11 +34,12 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
         button_textLast: any;
         text_last: any;
         item_id: number;
+        obs: any,
     };
 
     const buscarDados = async () => {
         const todosOsDados = await getDoc(doc(db, 'forms', '13')).then(snap => snap.data()) as any;
-        const jsonData = [
+        const jsonData: any[] = [
             {
                 id: Math.random().toString(12).substring(0),
                 title: todosOsDados.tituloPrincipal,
@@ -49,6 +50,7 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
                 title_Terciario: todosOsDados.titulo2,
                 button_textLast: null,
                 text_last: todosOsDados.texto2,
+                obs: null,
                 item_id: 1
             },
             {
@@ -61,7 +63,21 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
                 title_Terciario: null,
                 button_textLast: { uri: todosOsDados.audio4 },
                 text_last: todosOsDados.texto3,
+                obs: null,
                 item_id: 2
+            },
+            {
+                id: Math.random().toString(12).substring(0),
+                title: todosOsDados.tituloPrincipal,
+                button_title: { uri: todosOsDados.audio5 },
+                title_Secundario: todosOsDados.titulo4,
+                button_text: null,
+                text_first: null,
+                title_Terciario: null,
+                button_textLast: { uri: todosOsDados.audio6 },
+                text_last: todosOsDados.texto4,
+                obs: todosOsDados.texto5,
+                item_id: 3
             },
 
         ];
@@ -136,6 +152,7 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
                 </TouchableOpacity>
             )}
             {dados.text_last && <Text style={styles.textInfoLast}>{dados.text_last}</Text>}
+            {dados.obs && <Text style={styles.textInfo}>{dados.obs}</Text>}
         </View>
     );
 

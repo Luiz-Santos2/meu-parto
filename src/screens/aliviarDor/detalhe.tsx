@@ -42,16 +42,8 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
                 audio: { uri: todosOsDados.audio1 },
                 title: todosOsDados.titulo1,
                 text: todosOsDados.texto1,
-                video: <View style={styles.posicaoVideo}>
-                    <Video
-                        source={{ uri: todosOsDados.video1 }}
-                        style={{ width: 332, height: 187 }}
-                        useNativeControls={true}
-                        resizeMode={ResizeMode.COVER}
-                    />
-                    <Text style={styles.autor}>{todosOsDados.autor1}</Text>
-                </View>,
-                foto: <Image style={styles.img} source={{ uri: todosOsDados.imagem1 }} />,
+                video: { uri: todosOsDados.video1 },
+                foto: { uri: todosOsDados.imagem1 },
                 item_id: 1,
             },
             {
@@ -59,16 +51,8 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
                 audio: { uri: todosOsDados.audio2 },
                 title: todosOsDados.titulo2,
                 text: todosOsDados.texto2,
-                video: <View style={styles.posicaoVideo}>
-                    <Video
-                        source={{ uri: todosOsDados.video2 }}
-                        style={{ width: 332, height: 187 }}
-                        useNativeControls={true}
-                        resizeMode={ResizeMode.COVER}
-                    />
-                    <Text style={styles.autor}>{todosOsDados.autor2}</Text>
-                </View>,
-                foto: <Image style={styles.img} source={{ uri: todosOsDados.imagem2 }} />,
+                video: { uri: todosOsDados.video2 },
+                foto: { uri: todosOsDados.imagem2 },
                 item_id: 2,
             },
             {
@@ -76,16 +60,8 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
                 audio: { uri: todosOsDados.audio3 },
                 title: todosOsDados.titulo3,
                 text: todosOsDados.texto3,
-                video: <View style={styles.posicaoVideo}>
-                    <Video
-                        source={{ uri: todosOsDados.video3 }}
-                        style={{ width: 332, height: 187 }}
-                        useNativeControls={true}
-                        resizeMode={ResizeMode.COVER}
-                    />
-                    <Text style={styles.autor}>{todosOsDados.autor3}</Text>
-                </View>,
-                foto: <Image style={styles.img} source={{ uri: todosOsDados.imagem3 }} />,
+                video: { uri: todosOsDados.video3 },
+                foto: { uri: todosOsDados.imagem3 },
                 item_id: 3,
             },
             {
@@ -93,15 +69,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
                 audio: { uri: todosOsDados.audio4 },
                 title: todosOsDados.titulo4,
                 text: todosOsDados.texto4,
-                video: <View style={styles.posicaoVideo}>
-                    <Video
-                        source={{ uri: todosOsDados.video4 }}
-                        style={{ width: 332, height: 187 }}
-                        useNativeControls={true}
-                        resizeMode={ResizeMode.COVER}
-                    />
-                    <Text style={styles.autor}>{todosOsDados.autor4}</Text>
-                </View>,
+                video: { uri: todosOsDados.video4 },
                 foto: null,
                 item_id: 4,
             },
@@ -175,8 +143,15 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
                 <Text style={styles.tagText}>{dados.title}</Text>
             </View>
             {dados.text && <Text style={styles.textInfo}>{dados.text}</Text>}
-            {dados.video && dados.video}
-            {dados.foto && dados.foto}
+            {dados.video && <View style={styles.posicaoVideo}>
+                <Video
+                    source={dados.video}
+                    style={styles.video}
+                    useNativeControls={true}
+                    resizeMode={ResizeMode.COVER}
+                />
+            </View>}
+            {dados.foto && <Image style={styles.img} source={dados.foto} />}
         </View>
     );
 
@@ -253,13 +228,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         objectFit: 'contain'
     },
-    autor: {
-        fontSize: 12,
-        alignSelf: 'center',
-        marginTop: 10
-    },
     posicaoVideo: {
         alignItems: 'center',
         marginVertical: 40
+    },
+    video: {
+        width: 332,
+        height: 450
     },
 });

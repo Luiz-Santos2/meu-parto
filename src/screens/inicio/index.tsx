@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, View, Text, StyleSheet, ImageBackground, Image, Alert, TouchableOpacity } from 'react-native';
 import bg from './../../imgs/background.png';
 import profile from './../../imgs/profile.png';
@@ -11,6 +11,8 @@ import { Input } from '@rneui/base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { avatarBase64 } from '../../imgs/profile';
 import { useUsuarioContext } from '../../providers/usuario-provider';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase-config';
 
 export interface InicioscreenProps {
     navigation: any;
@@ -22,6 +24,19 @@ export function InicioScreen(props: InicioscreenProps) {
     const [status, requestPermission] = ImagePicker.useCameraPermissions();
     const [imagem, setImagem] = useState<null | string>(null)
     const { setUsuario } = useUsuarioContext();
+    const [texto, setTexto] = useState('');
+
+    const buscarDados = async () => {
+        const todosOsDados = await getDoc(doc(db, 'forms', '14')).then(snap => snap.data()) as any;
+        setTexto(todosOsDados.texto)
+    }
+
+    useEffect(() => {
+        (async () => {
+            await buscarDados();
+        })()
+
+    }, [])
     // ====================================================================================
     const abrir = () => {
         try {
@@ -126,6 +141,7 @@ export function InicioScreen(props: InicioscreenProps) {
                                     <Text style={styles.textButton}>Pular</Text>
                                 </View>
                             </TouchableOpacity>
+                            <Text style={styles.text}>{texto}</Text>
                         </View>
                     )}
                 </Formik>
@@ -147,7 +163,7 @@ export function InicioScreen(props: InicioscreenProps) {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.cancel}>
-                        <Button title="Cancelar" color="tomato" onPress={() => {
+                        <Button title="Cancelar" color="rgba(247, 99, 110, 1)" onPress={() => {
                             Alert.alert('Cancelar', 'Deseja realmente cancelar?', [
                                 { text: 'Sim', onPress: () => modal.current?.close() },
                                 { text: 'Não' }
@@ -232,11 +248,18 @@ const styles = StyleSheet.create({
     },
     textButtonModal: {
         textAlign: 'center',
-        color: 'white',
+        color: '#fff',
         fontWeight: 'bold',
     },
     cancel: {
         alignItems: 'center',
+        paddingTop: 20,
+        fontWeight: 'bold',
+        marginLeft: 10
+    },
+    text: {
+        color: '#5F5F5F',
+        textAlign: 'center',
         paddingTop: 20,
         fontWeight: 'bold',
         marginLeft: 10

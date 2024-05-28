@@ -31,6 +31,9 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
             {
                 data: [{ type: todosOsDados.menu3, tela: 'DetalheDoisCuidadosPosParto', type_id: 2 }],
             },
+            {
+                data: [{ type: todosOsDados.menu4, tela: 'DetalheDoisCuidadosPosParto', type_id: 3 }],
+            },
         ];
 
         setAudio({ uri: todosOsDados.audio });
@@ -132,8 +135,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     img: {
-        width: 220,
-        height: 220,
+        width: 150,
+        height: 150,
         alignSelf: 'flex-end',
         objectFit: 'contain'
     },
