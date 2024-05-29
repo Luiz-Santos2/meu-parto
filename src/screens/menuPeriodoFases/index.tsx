@@ -80,6 +80,18 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
         }
     };
 
+    useEffect(() => {
+        const stop = props.navigation.addListener('blur', () => {
+            if (sound) {
+                sound.stopAsync();
+            }
+        });
+
+        return () => {
+            stop();
+        };
+    }, [sound, props.navigation]);
+
     const renderFase = ({ item }: { item: any }) => (
         <View style={{ marginBottom: 40 }}>
             <View style={{ marginBottom: 30 }}>

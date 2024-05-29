@@ -68,6 +68,18 @@ export function HomeScreen(props: HomescreenProps) {
             : undefined;
     }, [sound, jsonData]);
 
+    useEffect(() => {
+        const stop = props.navigation.addListener('blur', () => {
+            if (sound) {
+                sound.stopAsync();
+            }
+        });
+
+        return () => {
+            stop();
+        };
+    }, [sound, props.navigation]);
+
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppHeader />

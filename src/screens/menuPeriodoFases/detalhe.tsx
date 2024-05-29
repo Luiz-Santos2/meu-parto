@@ -143,6 +143,18 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
         }
     };
 
+    useEffect(() => {
+        const stop = props.navigation.addListener('blur', () => {
+            if (sound) {
+                sound.stopAsync();
+            }
+        });
+
+        return () => {
+            stop();
+        };
+    }, [sound, props.navigation]);
+
     type ItemProps = {
         dados: ItemData
     };

@@ -70,6 +70,18 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
         await sound.playAsync();
     }
 
+    useEffect(() => {
+        const stop = props.navigation.addListener('blur', () => {
+            if (sound) {
+                sound.stopAsync();
+            }
+        });
+
+        return () => {
+            stop();
+        };
+    }, [sound, props.navigation]);
+
     return (
         <ImageBackground source={bg} style={styles.background}>
             <AppSecundario />

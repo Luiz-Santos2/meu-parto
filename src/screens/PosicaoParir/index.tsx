@@ -106,6 +106,7 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
             console.error("Erro ao reproduzir o áudio:", error);
         }
     };
+    
 
     type ItemProps = {
         dados: ItemData

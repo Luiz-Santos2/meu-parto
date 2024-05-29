@@ -44,12 +44,14 @@ export function SobreScreen(props: SobrescreenProps) {
     }, [usuario.nome]);
 
     const nextItem = useCallback(async () => {
+        if (sound) sound.stopAsync();
+                
         if (index < data.length - 1) {
             setIndex((prevIndex) => prevIndex + 1);
         } else {
             props.navigation.navigate('home');
         }
-    }, [index, data.length, props.navigation]);
+    }, [index, data.length, props.navigation, sound]);
 
     useEffect(() => {
         buscarDados();
