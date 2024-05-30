@@ -2,7 +2,7 @@ name: update
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["firebase"]
+    branches: ["meu-parto"]
 
 jobs:
   update:
@@ -16,7 +16,7 @@ jobs:
             exit 1
           fi
 
-      - name: Checkout
+      - name: Checkout meu-parto
         uses: actions/checkout@v4
 
       - name: Setup Node
