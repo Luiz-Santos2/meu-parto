@@ -8,12 +8,8 @@
       "distribution": "internal",
       "channel": "development"
     },
-    "preview": {
-      "distribution": "internal",
-      "channel": "preview"
-    },
     "production": {
-      "channel": "production",
+      "channel": "firebase",
       "android": {
         "image": "latest",
         "buildType": "apk"
