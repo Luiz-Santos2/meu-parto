@@ -10,10 +10,19 @@
     },
     "preview": {
       "distribution": "internal",
-      "channel": "preview"
-    },
+      "channel": "preview",
+      "android": {
+        "buildType": "apk"
+      }
+    },    
     "production": {
-      "channel": "production"
+      "channel": "production",
+      "android": {
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest"
+      }
     }
   },
   "submit": {
