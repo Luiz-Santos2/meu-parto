@@ -36,3 +36,9 @@ jobs:
 
       - name: Publish update
         run: eas update --auto
+
+      - name: Build android
+        run: eas build -p android --profile production
+      
+      - name: Build android
+        run: eas build -p ios --profile production
