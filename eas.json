@@ -13,19 +13,19 @@
       "channel": "preview",
       "android": {
         "buildType": "apk"
-      },    
-      "production": {
-        "channel": "production",
-        "android": {
-          "image": "latest"
-        },
-        "ios": {
-          "image": "latest"
-        }
       }
     },
-    "submit": {
-      "production": {}
+    "production": {
+      "channel": "production",
+      "android": {
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest"
+      }
     }
+  },
+  "submit": {
+    "production": {}
   }
 }
