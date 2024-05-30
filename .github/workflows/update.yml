@@ -16,7 +16,7 @@ jobs:
             exit 1
           fi
 
-      - name: Checkout meu-parto
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node
