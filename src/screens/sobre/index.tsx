@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import bg from './../../imgs/background.png';
 import { AppHeader } from '../../components/header';
 import { MaterialIcons } from '@expo/vector-icons'

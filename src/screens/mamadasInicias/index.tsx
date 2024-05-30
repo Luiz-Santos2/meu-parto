@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Alert, SafeAreaView, SectionList } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, SectionList } from 'react-native';
 import bg from './../../imgs/background.png';
 import { MaterialIcons } from '@expo/vector-icons'
 import { AppSecundario } from '../../components/secundario';
