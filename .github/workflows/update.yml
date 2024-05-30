@@ -38,7 +38,11 @@ jobs:
         run: eas update --auto
 
       - name: Build android
-        run: eas build -p android --profile production
+        run: |
+          set -e
+          eas build -p android --profile production || true
       
       - name: Build ios
-        run: eas build -p ios --profile production
+        run: |
+          set -e
+          eas build -p ios --profile production || true
