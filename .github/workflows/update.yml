@@ -40,5 +40,5 @@ jobs:
       - name: Build android
         run: eas build -p android --profile production
       
-      - name: Build android
+      - name: Build ios
         run: eas build -p ios --profile production
