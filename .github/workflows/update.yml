@@ -39,17 +39,13 @@ jobs:
             echo "EAS Update failed on first attempt, retrying..."
             if ! eas update --auto; then
               echo "EAS Update failed again"
+              exit 1
             fi
           fi
 
       - name: Build android
-        run: |
-          if ! eas build -p android --profile production; then
-            echo "Android build failed"
-          fi
+        run: eas build -p android --profile production || echo "Android build failed"
       
       - name: Build ios
-        run: |
-          if ! eas build -p ios --profile production; then
-            echo "iOS build failed"
-          fi
+        run: eas build -p ios --profile production || echo "iOS build failed"
+
