@@ -34,16 +34,25 @@ jobs:
         run: npm install
 
       - name: Publish update
-        run: eas update --auto
+        run: |
+          if ! eas update --auto; then
+            echo "EAS Update failed on first attempt, retrying..."
+            if ! eas update --auto; then
+              echo "EAS Update failed again"
+              exit 1
+            fi
+          fi
 
       - name: Build android
         run: |
           if ! eas build -p android --profile production; then
             echo "Android build failed"
+            exit 1
           fi
       
       - name: Build ios
         run: |
           if ! eas build -p ios --profile production; then
             echo "iOS build failed"
+            exit 1
           fi

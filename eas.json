@@ -28,15 +28,8 @@
         "simulator": true
       }
     }
-      
   },
   "submit": {
     "production": {}
-  },
-  "owner": "ls_matias",
-  "extra": {
-    "eas": {
-      "projectId": "a8cd90a2-b424-415a-bab0-e60a456b8363"
-    }
   }
 }
