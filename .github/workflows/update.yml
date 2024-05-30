@@ -40,9 +40,9 @@ jobs:
       - name: Build android
         run: |
           set -e
-          eas build -p android --profile production || true
-      
+          eas build -p android --profile production || echo "Android build failed"
+
       - name: Build ios
         run: |
           set -e
-          eas build -p ios --profile production || true
+          eas build -p ios --profile production || echo "iOS build failed"
