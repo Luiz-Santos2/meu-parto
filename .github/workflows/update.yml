@@ -1,6 +1,5 @@
 name: update
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["firebase"]
 
@@ -35,14 +34,20 @@ jobs:
         run: npm install
 
       - name: Publish update
-        run: eas update --auto
+        run: |
+          if ! eas update --auto; then
+            echo "EAS Update failed"
+            exit 1
+          fi
 
       - name: Build android
         run: |
-          set -e
-          eas build -p android --profile production || echo "Android build failed"
-
+          if ! eas build -p android --profile production; then
+            echo "Android build failed"
+          fi
+      
       - name: Build ios
         run: |
-          set -e
-          eas build -p ios --profile production || echo "iOS build failed"
+          if ! eas build -p ios --profile production; then
+            echo "iOS build failed"
+          fi
