@@ -1,5 +1,8 @@
 name: update
-on: push
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["firebase"]
 
 jobs:
   update:
@@ -13,23 +16,23 @@ jobs:
             exit 1
           fi
 
-      - name: Checkout firebase
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: 20.x
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Setup EAS
-        uses: expo/expo-github-action@v9
+        uses: expo/expo-github-action@v8
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Publish update
         run: eas update --auto
