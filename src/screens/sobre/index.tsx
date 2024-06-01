@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import bg from './../../imgs/background.png';
 import { AppHeader } from '../../components/header';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import { getDoc, doc } from '@firebase/firestore';
 import { db } from '../../config/firebase-config';
@@ -10,7 +10,7 @@ import { useUsuarioContext } from '../../providers/usuario-provider';
 
 export interface SobrescreenProps {
     navigation: any;
-}
+};
 
 export function SobreScreen(props: SobrescreenProps) {
 
@@ -40,7 +40,7 @@ export function SobreScreen(props: SobrescreenProps) {
                 },
             ];
             setData(data);
-        }
+        };
     }, [usuario.nome]);
 
     const nextItem = useCallback(async () => {
@@ -64,7 +64,7 @@ export function SobreScreen(props: SobrescreenProps) {
                 setSound(sound);
             };
             reproduzir();
-        }
+        };
         return () => {
             if (sound) {
                 sound.unloadAsync();
@@ -75,7 +75,7 @@ export function SobreScreen(props: SobrescreenProps) {
     const reproduzir = async () => {
         if (sound) {
             await sound.replayAsync();
-        }
+        };
     };
 
     return (
@@ -98,14 +98,14 @@ export function SobreScreen(props: SobrescreenProps) {
             </View>}
         </ImageBackground>
     );
-}
+};
 
 const styles = StyleSheet.create({
     background: {
         flex: 1,
     },
     container: {
-
+        flex: 1,
     },
     containerIcon: {
         flexDirection: 'row',
@@ -148,5 +148,5 @@ const styles = StyleSheet.create({
         marginTop: 20,
         objectFit: 'contain'
 
-    }
+    },
 });

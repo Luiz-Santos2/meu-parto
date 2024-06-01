@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import { RouteProp } from '@react-navigation/native';
 import { PeriodoFaseParams } from '../../navigations/periodoFases';
@@ -12,7 +12,7 @@ import { db } from '../../config/firebase-config';
 export interface PeriodoFasesSecundariaScreenProps {
     navigation: any;
     route: RouteProp<PeriodoFaseParams, "DetalhesPeriodoFases">;
-}
+};
 
 export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreenProps) {
 
@@ -111,22 +111,22 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
                 item_id: 5,
             },
         ];
-        setGetItems(getItems)
-        setText(todosOsDados.tituloPrincipal)
-    }
+        setGetItems(getItems);
+        setText(todosOsDados.tituloPrincipal);
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return () => {
             if (sound) {
                 sound.unloadAsync();
-            }
+            };
         };
     }, [sound, getItems]);
 
@@ -134,20 +134,20 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
         try {
             if (sound) {
                 await sound.unloadAsync();
-            }
+            };
             const { sound: newSound } = await Audio.Sound.createAsync(audio);
             setSound(newSound);
             await newSound.playAsync();
         } catch (error) {
             console.error("Erro ao reproduzir o áudio:", error);
-        }
+        };
     };
 
     useEffect(() => {
         const stop = props.navigation.addListener('blur', () => {
             if (sound) {
                 sound.stopAsync();
-            }
+            };
         });
 
         return () => {
@@ -175,7 +175,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
             <Text style={styles.textInfo}>{dados.text}</Text>
             {dados.video}
         </View>
-    )
+    );
 
     return (
         <ImageBackground source={bg} style={styles.background}>
@@ -191,7 +191,7 @@ export function PeriodoFasesSecundariaScreen(props: PeriodoFasesSecundariaScreen
                 </SafeAreaView>
             </View>
         </ImageBackground>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

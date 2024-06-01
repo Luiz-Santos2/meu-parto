@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import React, { useEffect, useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
@@ -12,13 +12,12 @@ import { db } from '../../config/firebase-config';
 export interface DetalheDoisPosPartoScreenScreenProps {
     navigation: any;
     route: RouteProp<CuidadosPosPartoParams, "DetalheDoisCuidadosPosParto">;
-}
+};
 
 export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreenProps) {
 
     const [sound, setSound] = useState<Audio.Sound | null>(null);
     const [jsonData, setJsonData] = useState<ItemData[]>([]);
-
 
     //@ts-ignore
     const { item_id } = props.route.params
@@ -79,18 +78,16 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
                 obs: todosOsDados.texto5,
                 item_id: 3
             },
-
         ];
-
         setJsonData(jsonData);
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return sound
@@ -180,7 +177,7 @@ export function DetalheDoisPosPartoScreen(props: DetalheDoisPosPartoScreenScreen
                 />
             </SafeAreaView>
         </ImageBackground>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

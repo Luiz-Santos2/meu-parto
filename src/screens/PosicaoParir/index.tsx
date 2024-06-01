@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image, SafeAreaView, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import React, { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
@@ -9,7 +9,7 @@ import { db } from '../../config/firebase-config';
 
 export interface PosicaoParirScreenScreenProps {
 
-}
+};
 
 export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
 
@@ -75,16 +75,15 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
                 title_Secundario: null,
             },
         ];
-
         setJsonData(jsonData);
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return sound
@@ -98,15 +97,14 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
         try {
             if (sound) {
                 await sound.unloadAsync();
-            }
+            };
             const { sound: newSound } = await Audio.Sound.createAsync(audio);
             setSound(newSound);
             await newSound.playAsync();
         } catch (error) {
             console.error("Erro ao reproduzir o áudio:", error);
-        }
-    };
-    
+        };
+    };    
 
     type ItemProps = {
         dados: ItemData
@@ -147,7 +145,7 @@ export function PosicaoParirScreen(props: PosicaoParirScreenScreenProps) {
                 />
             </SafeAreaView>
         </ImageBackground>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

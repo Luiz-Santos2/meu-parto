@@ -9,7 +9,7 @@ import { db } from '../../config/firebase-config';
 
 export interface HomescreenProps {
     navigation: any;
-}
+};
 
 export function HomeScreen(props: HomescreenProps) {
 
@@ -38,27 +38,25 @@ export function HomeScreen(props: HomescreenProps) {
                 data: [{ type: todosOsDados.menu5, type_id: 'mamadasIniciais' }],
             },
         ];
-
         setObservationText(todosOsDados.texto);
         setTitulo(todosOsDados.titulo);
         setAudio({ uri: todosOsDados.audio });
         setJsonData(jsonData);
-
-    }
+    };
 
     async function Reproduzir() {
         const { sound } = await Audio.Sound.createAsync(audio);
         setSound(sound);
 
         await sound.playAsync();
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return sound
@@ -108,7 +106,7 @@ export function HomeScreen(props: HomescreenProps) {
             </View>}
         </ImageBackground>
     );
-}
+};
 
 const styles = StyleSheet.create({
     background: {

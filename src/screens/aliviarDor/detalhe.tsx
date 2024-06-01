@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, SafeAreaView, FlatList, Image } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import { RouteProp } from '@react-navigation/native';
 import { AliviarDorParams } from '../../navigations/aliviarDor';
@@ -9,11 +9,10 @@ import { Video, ResizeMode, Audio } from 'expo-av';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase-config';
 
-
 export interface AliviarDorSecundariaScreenProps {
     navigation: any;
     route: RouteProp<AliviarDorParams, "DetalhesAliviarDor">;
-}
+};
 
 export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProps) {
 
@@ -31,7 +30,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
         text: string;
         video: any;
         foto: any;
-        item_id: number
+        item_id: number;
     };
 
     const buscarDados = async () => {
@@ -91,19 +90,18 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
                 video: null,
                 foto: null,
                 item_id: 6,
-
             },
         ];
         setGetItems(getItems);
         setText(todosOsDados.tituloPrincipal);
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return sound
@@ -181,7 +179,7 @@ export function AliviarDorSecundariaScreen(props: AliviarDorSecundariaScreenProp
                 </SafeAreaView>
             </View>
         </ImageBackground>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

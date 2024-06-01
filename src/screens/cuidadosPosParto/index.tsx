@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, SectionList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
@@ -9,7 +9,7 @@ import { db } from '../../config/firebase-config';
 
 export interface CuidadosPosPartoscreenProps {
     navigation: any;
-}
+};
 
 export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
 
@@ -35,19 +35,18 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
                 data: [{ type: todosOsDados.menu4, tela: 'DetalheDoisCuidadosPosParto', type_id: 3 }],
             },
         ];
-
         setAudio({ uri: todosOsDados.audio });
         setImagem({ uri: todosOsDados.imagem });
         setTexto(todosOsDados.titulo)
         setJsonData(jsonData);
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return sound
@@ -58,11 +57,11 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
     }, [sound, jsonData]);
 
     async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(audio)
+        const { sound } = await Audio.Sound.createAsync(audio);
         setSound(sound);
 
         await sound.playAsync();
-    }
+    };
 
     useEffect(() => {
         const stop = props.navigation.addListener('blur', () => {
@@ -102,7 +101,7 @@ export function CuidadosPosPartoScreen(props: CuidadosPosPartoscreenProps) {
             <Image style={styles.img} source={imagem} />
         </ImageBackground>
     );
-}
+};
 
 const styles = StyleSheet.create({
     background: {

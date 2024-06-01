@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, SectionList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
@@ -9,7 +9,7 @@ import { db } from '../../config/firebase-config';
 
 export interface AliviarDorscreenProps {
     navigation: any;
-}
+};
 
 export function AliviarDorScreen(props: AliviarDorscreenProps) {
 
@@ -41,19 +41,18 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
                 data: [{ type: todosOsDados.menu6, type_id: 6 }],
             },
         ];
-
         setAudio({ uri: todosOsDados.audio });
         setImagem({ uri: todosOsDados.imagem });
-        setTexto(todosOsDados.titulo)
+        setTexto(todosOsDados.titulo);
         setJsonData(jsonData);
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return sound
@@ -64,11 +63,11 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
     }, [sound, jsonData]);
 
     async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(audio)
+        const { sound } = await Audio.Sound.createAsync(audio);
         setSound(sound);
 
         await sound.playAsync();
-    }
+    };
 
     useEffect(() => {
         const stop = props.navigation.addListener('blur', () => {
@@ -108,7 +107,7 @@ export function AliviarDorScreen(props: AliviarDorscreenProps) {
             <Image style={styles.img} source={imagem} />
         </ImageBackground>
     );
-}
+};
 
 const styles = StyleSheet.create({
     background: {

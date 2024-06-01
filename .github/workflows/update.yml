@@ -43,9 +43,11 @@ jobs:
             fi
           fi
 
-      - name: Build android
-        run: eas build -p android --profile production || echo "Android build failed"
+      # Caso queira realizar o build através do GitHub Actions.
+
+      #- name: Build android
+        #run: eas build -p android --profile production || echo "Android build failed"  
       
-      - name: Build ios
-        run: eas build -p ios --profile production || echo "iOS build failed"
+      #- name: Build ios
+        #run: eas build -p ios --profile production || echo "iOS build failed"
 

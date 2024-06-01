@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import React, { useEffect, useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
@@ -12,7 +12,7 @@ import { db } from '../../config/firebase-config';
 export interface DetalheDoisMamadasIniciaisScreenScreenProps {
     navigation: any;
     route: RouteProp<MamadasIniciaisParams, "DetalheDoisMamadasIniciais">;
-}
+};
 
 export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasIniciaisScreenScreenProps) {
 
@@ -95,18 +95,16 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
                 </View>,
                 item_id: 2
             },
-
         ];
-
         setJsonData(jsonData);
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return sound
@@ -120,13 +118,13 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
         try {
             if (sound) {
                 await sound.unloadAsync();
-            }
+            };
             const { sound: newSound } = await Audio.Sound.createAsync(audio);
             setSound(newSound);
             await newSound.playAsync();
         } catch (error) {
             console.error("Erro ao reproduzir o áudio:", error);
-        }
+        };
     };
 
     useEffect(() => {
@@ -196,7 +194,7 @@ export function DetalheDoisMamadasIniciaisScreen(props: DetalheDoisMamadasInicia
                 />
             </SafeAreaView>
         </ImageBackground>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

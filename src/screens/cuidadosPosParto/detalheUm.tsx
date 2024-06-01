@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image, SafeAreaView, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import React, { useEffect, useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
@@ -12,7 +12,7 @@ import { db } from '../../config/firebase-config';
 export interface DetalheUmPosPartoScreenScreenProps {
     navigation: any;
     route: RouteProp<CuidadosPosPartoParams, "DetalheUmCuidadosPosParto">;
-}
+};
 
 export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProps) {
 
@@ -92,7 +92,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
             },
         ];
         setJsonData(jsonData)
-    }
+    };
 
     useEffect(() => {
         (async () => {
@@ -194,7 +194,7 @@ export function DetalheUmPosPartoScreen(props: DetalheUmPosPartoScreenScreenProp
                 />
             </SafeAreaView>
         </ImageBackground>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

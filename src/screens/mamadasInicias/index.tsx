@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, SectionList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import { RouteProp } from '@react-navigation/native';
 import { MamadasIniciaisParams } from '../../navigations/mamadasIniciais';
@@ -12,7 +12,7 @@ import { db } from '../../config/firebase-config';
 export interface MamadasIniciaisScreenscreenProps {
     navigation: any;
     route: RouteProp<MamadasIniciaisParams, "MamadasIniciais">;
-}
+};
 
 export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
 
@@ -38,17 +38,17 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
         ];
         setAudio({ uri: todosOsDados.audio });
         setImagem({ uri: todosOsDados.imagem });
-        setTexto(todosOsDados.texto)
-        setTitulo(todosOsDados.titulo)
+        setTexto(todosOsDados.texto);
+        setTitulo(todosOsDados.titulo);
         setJsonData(jsonData);
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return sound
@@ -59,11 +59,11 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
     }, [sound, jsonData]);
 
     async function reproduzir() {
-        const { sound } = await Audio.Sound.createAsync(audio)
+        const { sound } = await Audio.Sound.createAsync(audio);
         setSound(sound);
 
         await sound.playAsync();
-    }
+    };
 
     useEffect(() => {
         const stop = props.navigation.addListener('blur', () => {
@@ -104,7 +104,7 @@ export function MamadasIniciaisScreen(props: MamadasIniciaisScreenscreenProps) {
             <Image style={styles.img} source={imagem} />
         </ImageBackground>
     );
-}
+};
 
 const styles = StyleSheet.create({
     background: {

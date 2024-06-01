@@ -16,7 +16,7 @@ import { db } from '../../config/firebase-config';
 
 export interface InicioscreenProps {
     navigation: any;
-}
+};
 
 export function InicioScreen(props: InicioscreenProps) {
 
@@ -29,22 +29,22 @@ export function InicioScreen(props: InicioscreenProps) {
     const buscarDados = async () => {
         const todosOsDados = await getDoc(doc(db, 'forms', '14')).then(snap => snap.data()) as any;
         setTexto(todosOsDados.texto)
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
     // ====================================================================================
     const abrir = () => {
         try {
             modal.current?.open();
         } catch (erro) {
-            console.log(erro)
+            console.log(erro);
         }
-    }
+    };
     // ------------------------------------------------------------------------------------
     const abrirCamera = async () => {
         // Avalia se tem permissão
@@ -53,8 +53,8 @@ export function InicioScreen(props: InicioscreenProps) {
             const resposta = await requestPermission();
             if (!resposta.granted) {
                 return; // Permissão não foi dada
-            }
-        }
+            };
+        };
         const foto = await ImagePicker.launchCameraAsync({
             base64: true,
             allowsEditing: true,
@@ -64,9 +64,9 @@ export function InicioScreen(props: InicioscreenProps) {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
         });
         if (!foto.canceled)
-            setImagem('data:image/jpg;base64,' + foto.assets[0].base64)
+            setImagem('data:image/jpg;base64,' + foto.assets[0].base64);
         modal.current?.close();
-    }
+    };
     // ------------------------------------------------------------------------------------
     const abrirGaleria = async () => {
         // Avalia se tem permissão
@@ -75,8 +75,8 @@ export function InicioScreen(props: InicioscreenProps) {
             const resposta = await requestPermission();
             if (!resposta.granted) {
                 return; // Permissão não foi dada
-            }
-        }
+            };
+        };
         const foto = await ImagePicker.launchImageLibraryAsync({
             base64: true,
             allowsEditing: true,
@@ -86,10 +86,9 @@ export function InicioScreen(props: InicioscreenProps) {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
         });
         if (!foto.canceled)
-            setImagem('data:image/jpg;base64,' + foto.assets[0].base64)
-
+            setImagem('data:image/jpg;base64,' + foto.assets[0].base64);
         modal.current?.close();
-    }
+    };
     // ------------------------------------------------------------------------------------
     const saveData = async ({ nome }: { nome: string; }) => {
         try {
@@ -103,7 +102,7 @@ export function InicioScreen(props: InicioscreenProps) {
             props.navigation.navigate('sobre');
         } catch (error) {
             console.log('Erro ao salvar dados:', error);
-        }
+        };
     };
     // ====================================================================================
     return (
@@ -174,7 +173,7 @@ export function InicioScreen(props: InicioscreenProps) {
             </GestureHandlerRootView>
         </ImageBackground>
     );
-}
+};
 
 const styles = StyleSheet.create({
     background: {

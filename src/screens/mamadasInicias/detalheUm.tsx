@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image, SafeAreaView, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import React, { useEffect, useState } from 'react';
 import { RouteProp } from '@react-navigation/native';
@@ -12,7 +12,7 @@ import { db } from '../../config/firebase-config';
 export interface DetalheUmMamadasIniciaisScreenScreenProps {
     navigation: any;
     route: RouteProp<MamadasIniciaisParams, "DetalheUmMamadasIniciais">;
-}
+};
 
 export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisScreenScreenProps) {
 
@@ -99,15 +99,15 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
                 item_id: 0
             },
         ];
-        setJsonData(jsonData)
-    }
+        setJsonData(jsonData);
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return sound
@@ -121,20 +121,20 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
         try {
             if (sound) {
                 await sound.unloadAsync();
-            }
+            };
             const { sound: newSound } = await Audio.Sound.createAsync(audio);
             setSound(newSound);
             await newSound.playAsync();
         } catch (error) {
             console.error("Erro ao reproduzir o áudio:", error);
-        }
+        };
     };
 
     useEffect(() => {
         const stop = props.navigation.addListener('blur', () => {
             if (sound) {
                 sound.stopAsync();
-            }
+            };
         });
 
         return () => {
@@ -189,7 +189,7 @@ export function DetalheUmMamadasIniciaisScreen(props: DetalheUmMamadasIniciaisSc
                 />
             </SafeAreaView>
         </ImageBackground>
-    )
+    );
 };
 
 const styles = StyleSheet.create({

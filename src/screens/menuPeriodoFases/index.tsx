@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import bg from './../../imgs/background.png';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 import { AppSecundario } from '../../components/secundario';
 import { Audio } from 'expo-av';
 import { doc, getDoc } from 'firebase/firestore';
@@ -9,7 +9,7 @@ import { db } from '../../config/firebase-config';
 
 export interface PeriodoFasesScreenProps {
     navigation: any;
-}
+};
 
 export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
 
@@ -47,23 +47,22 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
                 ]
             },
         ];
-
         setJsonData(jsonData);
-        setText(todosOsDados.tituloPrincipal)
-    }
+        setText(todosOsDados.tituloPrincipal);
+    };
 
     useEffect(() => {
         (async () => {
             await buscarDados();
         })()
 
-    }, [])
+    }, []);
 
     useEffect(() => {
         return () => {
             if (sound) {
                 sound.unloadAsync();
-            }
+            };
         };
     }, [sound, jsonData]);
 
@@ -71,20 +70,20 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
         try {
             if (sound) {
                 await sound.unloadAsync();
-            }
+            };
             const { sound: newSound } = await Audio.Sound.createAsync(audio);
             setSound(newSound);
             await newSound.replayAsync();
         } catch (error) {
             console.error("Erro ao reproduzir o áudio:", error);
-        }
+        };
     };
 
     useEffect(() => {
         const stop = props.navigation.addListener('blur', () => {
             if (sound) {
                 sound.stopAsync();
-            }
+            };
         });
 
         return () => {
@@ -137,7 +136,7 @@ export function PeriodoFasesScreen(props: PeriodoFasesScreenProps) {
             </View>
         </ImageBackground>
     );
-}
+};
 
 const styles = StyleSheet.create({
     background: {
